@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="SPP_Railway:ear exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/SPP_Railway_ear_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="SPP_Railway/javaeeApplication/javaEEApplication" />
+      <element id="directory" name="web.war">
+        <element id="artifact" artifact-name="SPP_Railway:war exploded" />
+      </element>
+      <element id="directory" name="ejb.jar">
+        <element id="artifact" artifact-name="SPP_Railway:ejb exploded" />
+      </element>
+      <element id="directory" name="lib">
+        <element id="library" level="project" name="Struts 2-2.3.20.1" />
+      </element>
+    </root>
+  </artifact>
+</component>

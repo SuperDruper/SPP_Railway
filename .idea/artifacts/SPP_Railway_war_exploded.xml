@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="SPP_Railway:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/SPP_Railway_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="SPP_Railway/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="SPP_Railway" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
