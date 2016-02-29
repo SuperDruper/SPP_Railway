@@ -1,4 +1,7 @@
 .idea
+target
+*.ipr
+*.iml
 out
 *.class
 
