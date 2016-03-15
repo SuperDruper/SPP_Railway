@@ -22,7 +22,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="SPP_Railway" />
+        <module name="debugging-struts" />
       </profile>
     </annotationProcessing>
   </component>
