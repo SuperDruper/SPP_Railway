@@ -1,4 +1,4 @@
-package org.apache.struts.dao;
+package org.apache.struts.dao.hibernatedao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -8,6 +8,7 @@ import org.hibernate.cfg.Configuration;
  * Created by PC-Alyaksei on 14.03.2016.
  */
 public class HibernateUtils {
+
     private static HibernateUtils ourInstance = new HibernateUtils();
 
     public static HibernateUtils getInstance() {
@@ -29,4 +30,5 @@ public class HibernateUtils {
     public Session openSession() {
         return factory.openSession();
     }
+
 }

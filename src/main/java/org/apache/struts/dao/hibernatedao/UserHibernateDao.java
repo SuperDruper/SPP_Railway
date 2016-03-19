@@ -1,20 +1,28 @@
-package org.apache.struts.dao;
+package org.apache.struts.dao.hibernatedao;
 
+/**
+ * Created by PC-Alyaksei on 18.03.2016.
+ */
+
+import org.apache.struts.dao.daointerface.IUserDao;
 import org.apache.struts.model.User;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 
 /**
  * Created by PC-Alyaksei on 14.03.2016.
  */
-public class UserDao {
+public class UserHibernateDao extends GenericHibernateDao<User, Integer> implements IUserDao {
 
     private HibernateUtils factory = HibernateUtils.getInstance();
 
 
+    public UserHibernateDao() {
+        super(User.class);
+    }
+
+    /*
     public User getUserById(int id) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -32,7 +40,7 @@ public class UserDao {
         return user;
     }
 
-    public void save (User user){
+    public void persist(User user){
         Session session = factory.openSession();
         Transaction tx = null;
         try{
@@ -94,6 +102,11 @@ public class UserDao {
         }finally {
             session.close();
         }
-    }
+    }*/
 
+    @Override
+    public User getUserByLogin(String login) {
+        return (User) getCurrentSession().createCriteria(User.class)
+                .add(Restrictions.eq("login", login)).uniqueResult();
+    }
 }

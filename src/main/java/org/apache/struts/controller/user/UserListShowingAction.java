@@ -1,7 +1,7 @@
 package org.apache.struts.controller.user;
 
 import com.opensymphony.xwork2.ActionSupport;
-import org.apache.struts.dao.UserDao;
+import org.apache.struts.service.UserService;
 import org.apache.struts.model.User;
 
 import java.util.List;
@@ -11,12 +11,12 @@ import java.util.List;
  */
 public class UserListShowingAction extends ActionSupport {
 
-    public List<User> users;
+    private List<User> users;
 
 
     @Override
     public String execute() throws Exception {
-        users = new UserDao().list();
+        users = new UserService().findAll();
         return SUCCESS;
     }
 

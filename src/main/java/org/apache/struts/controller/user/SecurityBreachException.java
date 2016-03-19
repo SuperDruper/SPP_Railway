@@ -1,4 +1,4 @@
-package org.apache.struts.register.exceptions;
+package org.apache.struts.controller.user;
 
 public class SecurityBreachException extends Exception {
 

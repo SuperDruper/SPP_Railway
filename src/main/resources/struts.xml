@@ -31,56 +31,73 @@
 
 
         <global-exception-mappings>
-            <exception-mapping exception="org.apache.struts.register.exceptions.SecurityBreachException"
+            <exception-mapping exception="org.apache.struts.controller.user.SecurityBreachException"
                                result="securityerror"/>
             <exception-mapping exception="java.lang.Exception" result="error"/>
         </global-exception-mappings>
 
 
-        <action name="causesecurityexception" class="org.apache.struts.register.action.Register"
+        <action name="causesecurityexception" class="org.apache.struts.controller.user.RegisterAction"
                 method="throwSecurityException">
-            <result>/register.jsp</result>
+            <result>/user/register.jsp</result>
         </action>
 
-        <action name="causeexception" class="org.apache.struts.register.action.Register" method="throwException">
-            <result>/register.jsp</result>
+        <action name="causeexception" class="org.apache.struts.controller.user.RegisterAction" method="throwException">
+            <result>/user/register.jsp</result>
         </action>
 
-        <action name="causenullpointerexception" class="org.apache.struts.register.action.Register"
+        <action name="causenullpointerexception" class="org.apache.struts.controller.user.RegisterAction"
                 method="throwNullPointerException">
-            <result>/register.jsp</result>
+            <result>/user/register.jsp</result>
         </action>
 
-        <action name="actionspecificexception" class="org.apache.struts.register.action.Register"
-                method="throwSecurityException">
-            <exception-mapping exception="org.apache.struts.register.exceptions.SecurityBreachException"
-                               result="login"/>
-            <result>/register.jsp</result>
-            <result name="login">/login.jsp</result>
-        </action>
 
-        <!-- If no class attribute is specified the framework will assume success and 
-        render the result index.jsp -->
-        <!-- If no name value for the result node is specified the success value is the default -->
+
+
         <action name="index">
             <result>/index.jsp</result>
         </action>
 
-        <!-- If the URL is hello.action the call the execute method of class HelloWorldAction.
-        If the result returned by the execute method is success render the HelloWorld.jsp -->
-        <action name="hello" class="org.apache.struts.helloworld.action.HelloWorldAction" method="execute">
-            <result name="success">/HelloWorld.jsp</result>
+
+        <action name="register" class="org.apache.struts.controller.user.RegisterAction" method="execute">
+            <result name="success">/user/register.jsp</result>
         </action>
 
-        <action name="register" class="org.apache.struts.register.action.Register" method="execute">
-            <result name="success">/thankyou.jsp</result>
+        <action name="registerprocess" class="org.apache.struts.controller.user.RegisterAction" method="register">
+            <result name="success">/index.jsp</result>
+            <result name="error">/user/register.jsp</result>
         </action>
 
-        <action name="listUsers" class="org.apache.struts.controller.user.UserListShowingAction" method="execute">
-            <result name="success">/user/userList.jsp</result>
+        <action name="login" class="org.apache.struts.controller.user.LoginAction" method="execute">
+            <result name="success">/user/login.jsp</result>
+        </action>
+
+        <action name="loginprocess" class="org.apache.struts.controller.user.LoginAction" method="execute">
+            <result name="success">/user/login.jsp</result>
+            <result name="error">/user/register.jsp</result>
+        </action>
+
+        <action name="profile" class="org.apache.struts.controller.user.ProfileAction" method="execute">
+            <result name="success">/user/profile.jsp</result>
+        </action>
+
+        <action name="deleteprofile" class="org.apache.struts.controller.user.ProfileAction" method="execute">
+            <result name="success">/index.jsp</result>
+        </action>
+
+        <action name="listusers" class="org.apache.struts.controller.user.UserListShowingAction" method="execute">
+            <result name="success">/user/listusers.jsp</result>
         </action>
 
 
+
+        <action name="actionspecificexception" class="org.apache.struts.controller.user.RegisterAction"
+                method="throwSecurityException">
+            <exception-mapping exception="org.apache.struts.controller.user.SecurityBreachException"
+                               result="login"/>
+            <result>/user/register.jsp</result>
+            <result name="login">/user/login.jsp</result>
+        </action>
 
     </package>
 
