@@ -5,9 +5,15 @@ package org.apache.struts.dao.hibernatedao;
  */
 
 import org.apache.struts.dao.daointerface.IUserDao;
+import org.apache.struts.model.Race;
+import org.apache.struts.model.Ticket;
 import org.apache.struts.model.User;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.DistinctRootEntityResultTransformer;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -103,6 +109,20 @@ public class UserHibernateDao extends GenericHibernateDao<User, Integer> impleme
             session.close();
         }
     }*/
+
+    Collection<Ticket> getTicketsForUser(User user) {
+          return user.getTickets();
+    }
+
+    List<Ticket> getTicketsForUserWithID(Integer userID) {
+        Session session = getCurrentSession();
+
+        Criteria criteria = session.createCriteria(Ticket.class, "ticket");
+        criteria.createAlias("ticket.user", "user");
+        criteria.add(Restrictions.eq("user.id", userID));
+
+        return criteria.list();
+    }
 
     @Override
     public User getUserByLogin(String login) {

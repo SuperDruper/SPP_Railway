@@ -8,7 +8,7 @@
     <s:head/>
 </head>
 <body>
-    <h1>Welcome To Struts 2!</h1>
+    <h1>Welcome to our home page!</h1>
 
     <p><a href="<s:url action='listusers'/>">List of users</a></p>
     <p><a href="<s:url action='register'/>">Register</a></p>
