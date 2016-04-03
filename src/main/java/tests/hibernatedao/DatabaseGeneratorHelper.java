@@ -21,8 +21,10 @@ public class DatabaseGeneratorHelper {
         // 1 Step
         Train train = generateTestTrain();
         Race race = generateTestRace();
-        train.setRaces(Collections.singleton(race));
+        race.setTrain(train);
         Route route = race.getRoute();
+
+        train.setRaces(Collections.singleton(race));
 
         // 2 Step
         RaceStation raceStation = generateRaceStation();
@@ -173,12 +175,12 @@ public class DatabaseGeneratorHelper {
             return null;
     }
 
-    public Object updateForObjectWithClass(Class<?> entityClass) throws Exception {
-        for (Object object : listOfObjects) {
+    public Object updateForObjectWithClass(Object object) throws Exception {
             if(object instanceof Role) {
                 Role role = (Role)object;
                 role.setName("Test 2!");
 
+                return role;
             } else if(object instanceof Race) {
                 Race race = (Race)object;
 
@@ -217,8 +219,6 @@ public class DatabaseGeneratorHelper {
             } else {
                 throw new IOException("Uknown generic class as root set !");
             }
-
-        }
 
         throw new IOException("Array of objects is emppty !");
     }

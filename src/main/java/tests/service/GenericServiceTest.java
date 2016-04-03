@@ -63,25 +63,31 @@ public class GenericServiceTest <T, PK extends Serializable> extends Assert {
         T savedEntity = this.genericService.findByPK(entityPK);
 
         Assert.assertNotNull(savedEntity);
+
+        //Now we will dete this entity.
+        this.genericService.deleteByPK(entityPK);
     }
+
     @org.junit.Test
     public void testUpdate() throws Exception {
-        testPersist();
+        T entityToSave = (T) this.databaseGeneratorHelper.getDatabaseEntityForEntityClass(entityClass);
+        PK entityPK = (PK) this.databaseGeneratorHelper.getIdForObjectWithClass(entityClass);
+        this.genericService.persist(entityToSave);
 
         T originObject = genericService.findByPK((PK) databaseGeneratorHelper.getIdForObjectWithClass(entityClass));
         Assert.assertNotNull(originObject); //object is not nil to update
 
-        genericService.update((T) databaseGeneratorHelper.updateForObjectWithClass(entityClass));
+        genericService.update((T) databaseGeneratorHelper.updateForObjectWithClass(originObject));
         T changedObject = genericService.findByPK((PK) databaseGeneratorHelper.getIdForObjectWithClass(entityClass));
 
         Assert.assertEquals(originObject, changedObject);
+
+        //remove object
+        genericService.deleteByPK(entityPK);
     }
 
     @org.junit.Test
     public void testFindByPK() throws Exception {
-        Object object = this.genericService.findByPK(null);
-        Assert.assertNull(object);
-
         T objectToSave = (T) this.databaseGeneratorHelper.getDatabaseEntityForEntityClass(entityClass);
         PK objectID = (PK) this.databaseGeneratorHelper.getIdForObjectWithClass(entityClass);
         genericService.persist(objectToSave);
@@ -89,6 +95,7 @@ public class GenericServiceTest <T, PK extends Serializable> extends Assert {
         T savedObject = genericService.findByPK(objectID);
 
         Assert.assertEquals(savedObject, objectToSave);
+        genericService.deleteByPK(objectID);
     }
 
     @org.junit.Test
@@ -121,13 +128,17 @@ public class GenericServiceTest <T, PK extends Serializable> extends Assert {
 
     @org.junit.Test
     public void testFindAll() throws Exception {
-        testPersist();
-        T objectSaved = (T) databaseGeneratorHelper.getIdForObjectWithClass(entityClass);
+        T entityToSave = (T) this.databaseGeneratorHelper.getDatabaseEntityForEntityClass(entityClass);
+        PK entityPK = (PK) this.databaseGeneratorHelper.getIdForObjectWithClass(entityClass);
+        this.genericService.persist(entityToSave);
+
+        PK savedObjectId = (PK) databaseGeneratorHelper.getIdForObjectWithClass(entityClass);
 
         List<T> objectList = genericService.findAll();
         boolean isFoundObject = false;
         for (T object : objectList) {
-            if(object.equals(objectSaved)) {
+            PK objectFromListPK =  (PK) databaseGeneratorHelper.getIdForObjectWithClass(entityClass);
+            if(savedObjectId.equals(objectFromListPK)) {
                 isFoundObject = true;
                 break;
             }
@@ -142,6 +153,6 @@ public class GenericServiceTest <T, PK extends Serializable> extends Assert {
         this.genericService.deleteAll();
         List<T> objects = this.genericService.findAll();
 
-        Assert.assertNull(objects);
+        Assert.assertTrue(objects.isEmpty());
     }
 }
