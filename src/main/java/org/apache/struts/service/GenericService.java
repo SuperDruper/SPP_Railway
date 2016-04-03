@@ -2,8 +2,12 @@ package org.apache.struts.service;
 
 import org.apache.struts.dao.AbstractDaoFactory;
 import org.apache.struts.dao.IDao;
+import org.apache.struts.model.*;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -19,8 +23,6 @@ public class GenericService <T, PK extends Serializable> {
         this.entityClass = entityClass;
         this.dao = AbstractDaoFactory.getParamImplDao(entityClass);
     }
-
-
 
     // In case of extending GenericService, you should override
     // getDao method with returning dao interface, that is used to work with dao objects!!!

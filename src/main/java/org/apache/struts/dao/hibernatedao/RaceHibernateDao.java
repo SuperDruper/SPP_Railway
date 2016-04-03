@@ -48,8 +48,7 @@ public class RaceHibernateDao extends GenericHibernateDao<Race, Integer> impleme
         return super.findByPK(ID);
     }
 
-    //MARK  -  GETTERS
-
+    //  MARK  -  GETTERS
     public Route getRouteForRace(Race race) {
         return race.getRoute();
     }

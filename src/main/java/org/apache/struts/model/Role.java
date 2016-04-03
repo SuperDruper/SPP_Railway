@@ -8,7 +8,7 @@ import java.util.Collection;
  */
 @Entity
 public class Role {
-    private int id;
+    private Integer id;
     private String name;
     private Collection<User> users;
 
