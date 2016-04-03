@@ -1,6 +1,6 @@
 package tests.hibernatedao;
 
-import org.apache.struts.model.*;
+import code.model.*;
 
 import java.io.IOException;
 import java.sql.Timestamp;

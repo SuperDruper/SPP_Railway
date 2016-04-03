@@ -1,8 +1,8 @@
 package tests.service;
 
-import org.apache.struts.dao.IDao;
-import org.apache.struts.model.*;
-import org.apache.struts.service.GenericService;
+import code.dao.IDao;
+import code.model.*;
+import code.service.GenericService;
 import org.junit.Assert;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;

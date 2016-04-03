@@ -1,8 +1,8 @@
 package tests.hibernatedao;
 
-import org.apache.struts.dao.IDao;
-import org.apache.struts.dao.hibernatedao.*;
-import org.apache.struts.model.*;
+import code.dao.hibernatedao.*;
+import code.model.*;
+import code.dao.IDao;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +11,6 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
 public class HibernateDaoFactoryTest {

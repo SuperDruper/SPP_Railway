@@ -20,16 +20,16 @@
                 <property name="hibernate.hbm2ddl.auto">update</property>
 
 
-                <mapping class="org.apache.struts.model.Distance"/>
-                <mapping class="org.apache.struts.model.Race"/>
-                <mapping class="org.apache.struts.model.RaceStation"/>
-                <mapping class="org.apache.struts.model.Role"/>
-                <mapping class="org.apache.struts.model.Route"/>
-                <mapping class="org.apache.struts.model.Station"/>
-                <mapping class="org.apache.struts.model.Ticket"/>
-                <mapping class="org.apache.struts.model.Train"/>
-                <mapping class="org.apache.struts.model.TrainType"/>
-                <mapping class="org.apache.struts.model.User"/>
+                <mapping class="code.model.Distance"/>
+                <mapping class="code.model.Race"/>
+                <mapping class="code.model.RaceStation"/>
+                <mapping class="code.model.Role"/>
+                <mapping class="code.model.Route"/>
+                <mapping class="code.model.Station"/>
+                <mapping class="code.model.Ticket"/>
+                <mapping class="code.model.Train"/>
+                <mapping class="code.model.TrainType"/>
+                <mapping class="code.model.User"/>
 
 
         </session-factory>

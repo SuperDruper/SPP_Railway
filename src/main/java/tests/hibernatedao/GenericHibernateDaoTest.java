@@ -1,17 +1,13 @@
 package tests.hibernatedao;
 
-import org.apache.struts.dao.hibernatedao.*;
-import org.apache.struts.model.*;
-import org.apache.struts.service.GenericService;
+import code.dao.hibernatedao.GenericHibernateDao;
+import code.model.*;
 import org.hibernate.Session;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;

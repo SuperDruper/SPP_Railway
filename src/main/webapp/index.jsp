@@ -1,51 +1,42 @@
 <!DOCTYPE html>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<html>
+<html lang="en" ng-app="app">
 <head>
-    <meta charset="UTF-8">
-    <title>Debugging Struts 2 - Welcome</title>
-    <s:head/>
+  <meta charset="utf-8">
+  <title>My AngularJS Struts2 App</title>
+
+  <s:url var="ctxUrl" forceAddSchemeHostAndPort="true" includeContext="true" value="/" namespace="/" ></s:url>
+  <base href="<s:property value="ctxUrl"/>">
 </head>
+
 <body>
-    <h1>Welcome to our home page!</h1>
 
-    <p><a href="<s:url action='listusers'/>">List of users</a></p>
-    <p><a href="<s:url action='register'/>">Register</a></p>
-    <p><a href="<s:url action='login'/>">Login</a></p>
-    <p><a href="<s:url action='profile'/>">View profile</a></p>
+<div>
+  <a href="/user/list">Users</a> - <a href="/user/registration">Registration</a>
+</div>
 
-    <hr/>
+<div ng-controller="boostapp">
+  <div ng-view></div>
+</div>
 
-    <p><a href="<s:url action='hello'/>">Hello World</a></p>
-    <s:url action="hello" var="helloLink">
-        <s:param name="userName">Bruce Phillips</s:param>
-    </s:url>
-    <p><a href="${helloLink}">Hello Bruce Phillips</a></p>
+<script src="<s:url value="js/lib/angular/angular.min.js" />"></script>
+<script src="<s:url value="js/lib/angular/angular-route.min.js" />"></script>
 
-    <p>Get your own personal hello by filling out and submitting this form.</p>
+<script src="<s:url value="modules/app.js" />"></script>
+<script src="<s:url value="shared/service.js" />"></script>
 
-    <s:form action="hello">
-        <s:textfield name="userName" label="Your name"/>
-        <s:submit value="Submit"/>
-    </s:form>
+<script src="<s:url value="modules/example/example.controller.js" />"></script>
+<script src="<s:url value="modules/example/example.service.js" />"></script>
 
-    <p><a href="user/register.jsp">Please register</a> for our prize drawing.</p>
-    <p><a href='<s:url action="causeexception" />'>Cause Exception</a></p>
-    <p><a href='<s:url action="causenullpointerexception" />'>Cause Null Pointer Exception</a></p>
-    <p><a href='<s:url action="causesecurityexception" />'>Cause Global Security Exception</a></p>
-    <p><a href='<s:url action="actionspecificexception" />'>Cause ActionSpecific Security Exception</a></p>
+<script src="<s:url value="modules/user/signup/signup.controller.js" />"></script>
+<script src="<s:url value="modules/user/signup/user.service.js" />"></script>
 
-    <hr/>
+<script src="<s:url value="modules/user/list/list.controller.js" />"></script>
+<script src="<s:url value="modules/user/list/list.service.js" />"></script>
 
-    <h3>Debugging</h3>
+<script src="<s:url value="modules/home/home.controller.js" />"></script>
+<script src="<s:url value="modules/home/home.service.js" />"></script>
 
-    <p><a href="<s:url action="index" namespace="config-browser" />">Launch the configuration browser</a></p>
-    <s:url action="index" var="indexLink">
-        <s:param name="debug">browser</s:param>
-    </s:url>
-    <p><a href="${indexLink}">Reload this page with debugging</a></p>
-
-    <s:debug/>
 </body>
 </html>
