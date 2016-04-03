@@ -6,13 +6,11 @@ import code.service.GenericService;
 import org.junit.Assert;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import tests.hibernatedao.DatabaseGeneratorHelper;
+import tests.hibernatedao.Helper.DatabaseGeneratorHelper;
 
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
 public class GenericServiceTest <T, PK extends Serializable> extends Assert {
@@ -63,25 +61,29 @@ public class GenericServiceTest <T, PK extends Serializable> extends Assert {
         T savedEntity = this.genericService.findByPK(entityPK);
 
         Assert.assertNotNull(savedEntity);
+
+        this.databaseGeneratorHelper.deleteEntityForClass(entityClass);
     }
+
     @org.junit.Test
     public void testUpdate() throws Exception {
-        testPersist();
+        T entityToSave = (T) this.databaseGeneratorHelper.getDatabaseEntityForEntityClass(entityClass);
+        PK entityPK = (PK) this.databaseGeneratorHelper.getIdForObjectWithClass(entityClass);
+        this.genericService.persist(entityToSave);
 
         T originObject = genericService.findByPK((PK) databaseGeneratorHelper.getIdForObjectWithClass(entityClass));
         Assert.assertNotNull(originObject); //object is not nil to update
 
-        genericService.update((T) databaseGeneratorHelper.updateForObjectWithClass(entityClass));
+        databaseGeneratorHelper.updateEntityWithClass(entityClass);
+        genericService.update(((T)databaseGeneratorHelper.getDatabaseEntityForEntityClass(entityClass)));
         T changedObject = genericService.findByPK((PK) databaseGeneratorHelper.getIdForObjectWithClass(entityClass));
 
-        Assert.assertEquals(originObject, changedObject);
+        Assert.assertNotSame(originObject, changedObject);
+        databaseGeneratorHelper.deleteEntityForClass(entityClass);
     }
 
     @org.junit.Test
     public void testFindByPK() throws Exception {
-        Object object = this.genericService.findByPK(null);
-        Assert.assertNull(object);
-
         T objectToSave = (T) this.databaseGeneratorHelper.getDatabaseEntityForEntityClass(entityClass);
         PK objectID = (PK) this.databaseGeneratorHelper.getIdForObjectWithClass(entityClass);
         genericService.persist(objectToSave);
@@ -89,6 +91,7 @@ public class GenericServiceTest <T, PK extends Serializable> extends Assert {
         T savedObject = genericService.findByPK(objectID);
 
         Assert.assertEquals(savedObject, objectToSave);
+        genericService.deleteByPK(objectID);
     }
 
     @org.junit.Test
@@ -103,6 +106,8 @@ public class GenericServiceTest <T, PK extends Serializable> extends Assert {
         genericService.deleteByPK(objectID);
         T foundObject = genericService.findByPK(objectID);
         Assert.assertNull(foundObject);
+
+        databaseGeneratorHelper.deleteEntityForClass(entityClass);
     }
 
     @org.junit.Test
@@ -117,31 +122,45 @@ public class GenericServiceTest <T, PK extends Serializable> extends Assert {
         genericService.deleteByPK(objectID);
         T foundObject = genericService.findByPK(objectID);
         Assert.assertNull(foundObject);
+
+        databaseGeneratorHelper.deleteEntityForClass(entityClass);
     }
 
     @org.junit.Test
     public void testFindAll() throws Exception {
-        testPersist();
-        T objectSaved = (T) databaseGeneratorHelper.getIdForObjectWithClass(entityClass);
+        T entityToSave = (T) this.databaseGeneratorHelper.getDatabaseEntityForEntityClass(entityClass);
+        PK entityPK = (PK) this.databaseGeneratorHelper.getIdForObjectWithClass(entityClass);
+        this.genericService.persist(entityToSave);
+
+        PK savedObjectId = (PK) databaseGeneratorHelper.getIdForObjectWithClass(entityClass);
 
         List<T> objectList = genericService.findAll();
         boolean isFoundObject = false;
         for (T object : objectList) {
-            if(object.equals(objectSaved)) {
+            PK objectFromListPK =  (PK) databaseGeneratorHelper.getIdForObjectWithClass(entityClass);
+            if(savedObjectId.equals(objectFromListPK)) {
                 isFoundObject = true;
                 break;
             }
         }
 
         Assert.assertTrue(isFoundObject);
+
+        databaseGeneratorHelper.deleteEntityForClass(entityClass);
     }
 
     @org.junit.Test
     public void testDeleteAll() throws Exception {
-        //Do I need it ?? Or I can just move it into hibernateDAOTest class.
+        T entityToSave = (T) databaseGeneratorHelper.getDatabaseEntityForEntityClass(entityClass);
+        this.genericService.persist(entityToSave);
+
+        T savedEntity = genericService.findByPK((PK) databaseGeneratorHelper.getIdForObjectWithClass(entityClass));
+        Assert.assertEquals(entityToSave, savedEntity);
+
         this.genericService.deleteAll();
         List<T> objects = this.genericService.findAll();
 
-        Assert.assertNull(objects);
+        Assert.assertTrue(objects.isEmpty());
+        databaseGeneratorHelper.deleteEntityForClass(entityClass);
     }
 }

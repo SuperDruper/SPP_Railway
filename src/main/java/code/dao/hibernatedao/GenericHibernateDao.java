@@ -4,6 +4,7 @@ import code.dao.IDao;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import sun.rmi.runtime.Log;
 
 import java.io.Serializable;
 import java.util.List;
@@ -82,7 +83,8 @@ public class GenericHibernateDao<T, PK extends Serializable> implements IDao<T, 
 
     @Override
     public void deleteByPK(PK pk) {
-        Object persistentInstance = getCurrentSession().load(getEntityClass(), pk);
+        System.out.print("pk = " + pk);
+        Object persistentInstance = getCurrentSession().get(getEntityClass(), pk);
         if (persistentInstance != null) {
             getCurrentSession().delete(persistentInstance);
         }
