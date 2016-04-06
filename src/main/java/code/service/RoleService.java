@@ -30,7 +30,7 @@ public class RoleService extends GenericService<Role, Integer> {
 
 
     public Role getRoleByName(String name) {
-        return getDao().getUniqueByStringField("name", name);
+        return getModelByUniqueStringField("name", name);
     }
 
     public static Role getAdminRole() {
@@ -40,4 +40,7 @@ public class RoleService extends GenericService<Role, Integer> {
     public static Role getUserRole() {
         return USER_ROLE;
     }
+
+
+
 }

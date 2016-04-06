@@ -8,12 +8,13 @@
 
   <s:url var="ctxUrl" forceAddSchemeHostAndPort="true" includeContext="true" value="/" namespace="/" ></s:url>
   <base href="<s:property value="ctxUrl"/>">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 
 <body>
 
 <div>
-  <a href="/user/list">Users</a> - <a href="/user/registration">Registration</a>
+  <a href="/user/list">Users</a> - <a href="/user/register">Registration</a>
 </div>
 
 <div ng-controller="boostapp">
@@ -31,6 +32,9 @@
 
 <script src="<s:url value="modules/user/signup/signup.controller.js" />"></script>
 <script src="<s:url value="modules/user/signup/user.service.js" />"></script>
+
+<script src="<s:url value="modules/user/register/register.controller.js" />"></script>
+<script src="<s:url value="modules/user/register/register.service.js" />"></script>
 
 <script src="<s:url value="modules/user/list/list.controller.js" />"></script>
 <script src="<s:url value="modules/user/list/list.service.js" />"></script>

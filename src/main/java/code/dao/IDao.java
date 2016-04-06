@@ -32,7 +32,7 @@ public interface IDao <T, PK extends Serializable> {
 
     public void deleteAll();
 
-    public List<T> getListByStringField(String fieldName, String fieldValue);
+    public List<T> getModelListByStringField(String fieldName, String fieldValue);
 
-    public T getUniqueByStringField(String fieldName, String fieldValue);
+    public T getModelByUniqueStringField(String fieldName, String fieldValue);
 }

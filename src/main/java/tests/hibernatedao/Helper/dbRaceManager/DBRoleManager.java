@@ -1,6 +1,6 @@
 package tests.hibernatedao.Helper.dbRaceManager;
 
-import org.apache.struts.model.Role;
+import code.model.Role;
 import tests.hibernatedao.Helper.DatabaseGeneratorHelper;
 
 /**

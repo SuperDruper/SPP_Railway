@@ -102,13 +102,13 @@ public class GenericHibernateDao<T, PK extends Serializable> implements IDao<T, 
     }
 
     @Override
-    public List<T> getListByStringField(String fieldName, String fieldValue) {
+    public List<T> getModelListByStringField(String fieldName, String fieldValue) {
         return getCurrentSession().createCriteria(entityClass)
                 .add(Restrictions.eq(fieldName, fieldValue)).list();
     }
 
     @Override
-    public T getUniqueByStringField(String fieldName, String fieldValue) {
+    public T getModelByUniqueStringField(String fieldName, String fieldValue) {
         return (T) getCurrentSession().createCriteria(entityClass)
                 .add(Restrictions.eq(fieldName, fieldValue)).uniqueResult();
     }

@@ -1,10 +1,9 @@
 package tests.hibernatedao.Helper.dbRaceManager;
 
-import org.apache.struts.model.Race;
-import org.apache.struts.model.Route;
-import org.apache.struts.model.Train;
-import org.apache.struts.model.TrainType;
-import org.apache.struts.service.GenericService;
+import code.model.Race;
+import code.model.Route;
+import code.model.Train;
+import code.model.TrainType;
 import tests.hibernatedao.Helper.DatabaseGeneratorHelper;
 
 /**

@@ -1,7 +1,7 @@
 package tests.hibernatedao.Helper;
 
-import org.apache.struts.model.*;
-import org.apache.struts.service.GenericService;
+import code.model.*;
+import code.service.GenericService;
 import tests.hibernatedao.Helper.dbRaceManager.DBRaceManager;
 import tests.hibernatedao.Helper.dbRaceManager.DBRoleManager;
 

@@ -122,9 +122,4 @@ public class UserHibernateDao extends GenericHibernateDao<User, Integer> impleme
         return criteria.list();
     }
 
-    @Override
-    public User getUserByLogin(String login) {
-        return (User) getCurrentSession().createCriteria(User.class)
-                .add(Restrictions.eq("login", login)).uniqueResult();
-    }
 }

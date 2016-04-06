@@ -2,6 +2,7 @@ package code.service;
 
 import code.dao.AbstractDaoFactory;
 import code.dao.IDao;
+import org.hibernate.criterion.Restrictions;
 
 import java.io.Serializable;
 import java.util.List;
@@ -73,6 +74,20 @@ public class GenericService <T, PK extends Serializable> {
         getDao().openCurrentSessionWithTransaction();
         getDao().deleteAll();
         getDao().closeCurrentSessionWithTransaction();
+    }
+
+    public List<T> getModelListByStringField(String fieldName, String fieldValue) {
+        getDao().openCurrentSessionWithTransaction();
+        List<T> models = getDao().getModelListByStringField(fieldName, fieldValue);
+        getDao().closeCurrentSessionWithTransaction();
+        return models;
+    }
+
+    public T getModelByUniqueStringField(String fieldName, String fieldValue) {
+        getDao().openCurrentSessionWithTransaction();
+        T model = getDao().getModelByUniqueStringField(fieldName, fieldValue);
+        getDao().closeCurrentSessionWithTransaction();
+        return model;
     }
 
 }

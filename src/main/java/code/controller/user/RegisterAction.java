@@ -1,53 +1,69 @@
 package code.controller.user;
 
+import code.controller.PostAction;
 import code.model.User;
-import com.opensymphony.xwork2.ActionSupport;
 import code.model.Role;
 import code.service.RoleService;
 import code.service.UserService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by PC-Alyaksei on 18.03.2016.
  */
-public class RegisterAction extends ActionSupport {
+public class RegisterAction extends PostAction {
 
     private static final long serialVersionUID = 1L;
+    public static final int PASSWORD_CHAR_MIN_COUNT = 3;
 
     private User user;
+    private List<String> errorList;
 
 
     @Override
-    public String execute() throws Exception {
-        return SUCCESS;
-    }
+    public String create() {
+        Role role = RoleService.getUserRole();
+        user.setRole(role);
 
-    public String register() throws Exception {
-        try {
-            Role role = new RoleService().getRoleByName("User");
-            user.setRole(role);
+        if (validate(user)) {
             new UserService().persist(user);
-        } catch (Exception ex) {
-            System.out.println("********************");
-            ex.printStackTrace();
-            System.out.println("********************");
-            return ERROR;
         }
+
         return SUCCESS;
     }
 
+    private boolean validate(User user) {
+        errorList = new ArrayList<String>();
 
-    public void throwException() throws Exception {
-        throw new Exception("Exception thrown from throwException");
+        if (user.getLogin() == null || user.getLogin() == "") {
+            errorList.add(generateEmptyFieldMessage("login"));
+        }
+
+        if (new UserService().getUserByLogin(user.getLogin()) != null) {
+            errorList.add("User with such login is already exists!");
+        }
+
+        if (user.getEmail() == null || user.getEmail() == "") {
+            errorList.add(generateEmptyFieldMessage("email"));
+        }
+
+        if (user.getPassword() == null || user.getPassword().length() < PASSWORD_CHAR_MIN_COUNT) {
+            errorList.add("Password length must be more, than 7 chars!");
+        }
+
+        if (errorList.size() == 0) {
+            errorList = null;
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
-    public void throwNullPointerException() throws NullPointerException {
-        throw new NullPointerException("Null Pointer Exception thrown from "
-                + RegisterAction.class.toString());
-    }
 
-    public void throwSecurityException() throws SecurityBreachException {
-        throw new SecurityBreachException(
-                "Security breach exception thrown from throwSecurityException");
+    private String generateEmptyFieldMessage(String field) {
+        return "Field " + field + " shouldn't be empty!";
     }
 
 
@@ -57,6 +73,15 @@ public class RegisterAction extends ActionSupport {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+
+    public List<String> getErrorList() {
+        return errorList;
+    }
+
+    public void setErrorList(List<String> errorList) {
+        this.errorList = errorList;
     }
 }
 

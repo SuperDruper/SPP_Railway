@@ -23,7 +23,7 @@ public class UserService extends GenericService<User, Integer> {
 
 
     public User getUserByLogin(String login) {
-        return getDao().getUserByLogin(login);
+        return getModelByUniqueStringField("login", login);
     }
 
     // In case of extending GenericService, you should override

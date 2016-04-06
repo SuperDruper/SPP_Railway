@@ -8,9 +8,9 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
             templateUrl: 'modules/home/home.view.html',
             controller: 'HomeController'
         })
-        .when('/example', {
-            templateUrl: 'modules/example/example.view.html',
-            controller: 'ExampleController'
+        .when('/user/register', {
+            templateUrl: 'modules/user/register/register.view.html',
+            controller: 'RegisterController'
         })
         .when('/user/list', {
             templateUrl: 'modules/user/list/list.view.html',

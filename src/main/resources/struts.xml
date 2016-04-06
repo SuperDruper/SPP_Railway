@@ -19,11 +19,10 @@
 	
     <package name="api" extends="struts-default, json-default" namespace="/api">
 
-        <action name="/user/list/*" class="code.controller.user.UserListShowingAction" method="execute">
+        <!-- GET EXAMPLE -->
+        <action name="/user/list/*" class="code.controller.user.UserListShowingAction">
             <interceptor-ref name="defaultStack"/>
-            <interceptor-ref name="json">
-                <param name="enableSMD">true</param>
-            </interceptor-ref>
+            <interceptor-ref name="json" />
 
             <result type="json">
                 <param name="excludeProperties">
@@ -38,6 +37,24 @@
                      With User.Role.Users situation is the same.-->
                     ^users\[\d+\]\.tickets,
                     ^users\[\d+\]\.role\.users
+                </param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <!-- POST EXAMPLE -->
+        <action name="/user/register/*" class="code.controller.user.RegisterAction">
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="json">
+                <!--<param name="excludeProperties">
+                    ^user\.tickets,
+                    ^user\.role\.users
+                </param>-->
+            </interceptor-ref>
+
+            <result type="json">
+                <param name="excludeProperties" >
+                    ^user
                 </param>
                 <param name="noCache">true</param>
             </result>
