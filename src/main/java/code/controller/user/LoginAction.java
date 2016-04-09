@@ -1,50 +1,68 @@
 package code.controller.user;
 
+import code.controller.PostAction;
+import code.model.Role;
 import code.model.User;
+import code.service.RoleService;
 import com.opensymphony.xwork2.ActionSupport;
 import code.service.UserService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by PC-Alyaksei on 18.03.2016.
  */
-public class LoginAction extends ActionSupport {
+public class LoginAction extends PostAction {
 
     private static final long serialVersionUID = 1L;
 
-    private User user;
+    private String login;
+    private String password;
+    private List<String> errorList;
 
 
     @Override
-    public String execute() throws Exception {
+    public String create() {
+        if (login == null || password == null) {
+            errorList = new ArrayList<String>(){{
+                add("Login and password can't be null!");
+            }};
+        } else {
+            User user = new UserService().getUserByLogin(login);
 
-        // call Service class to store personBean's state in database
-        new UserService().persist(user);
+            if (user == null || !user.getPassword().equals(password)) {
+                errorList = new ArrayList<String>(){{
+                    add("Such pair of login and password does not exists!");
+                }};
+            }
+        }
 
         return SUCCESS;
     }
 
-
-    public void throwException() throws Exception {
-        throw new Exception("Exception thrown from throwException");
+    public String getLogin() {
+        return login;
     }
 
-    public void throwNullPointerException() throws NullPointerException {
-        throw new NullPointerException("Null Pointer Exception thrown from "
-                + LoginAction.class.toString());
+    public void setLogin(String login) {
+        this.login = login;
     }
 
-    public void throwSecurityException() throws SecurityBreachException {
-        throw new SecurityBreachException(
-                "Security breach exception thrown from throwSecurityException");
+    public String getPassword() {
+        return password;
     }
 
-
-    public User getUser() {
-        return user;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public List<String> getErrorList() {
+        return errorList;
+    }
+
+    public void setErrorList(List<String> errorList) {
+        this.errorList = errorList;
     }
 }
 

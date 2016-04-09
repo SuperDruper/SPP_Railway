@@ -16,21 +16,13 @@ app.controller('RegisterController', function ($scope, $window, RegisterService)
             password: $scope.password
         };
 
-        $scope.asyncRequestComplited = false;
-
-        var smth = RegisterService.register({user:user})
+        return RegisterService.register({user:user})
             .then(function(data) {
                 $scope.errors.push.apply($scope.errors, data.errorList);
-                $scope.asyncRequestComplited = true;
+
+                if($scope.errors.length == 0){
+                    $window.location.href = '/';
+                }
             });
-
-
-        $scope.$watch('asyncRequestComplited',function(newValue, oldValue, scope){
-            if(scope.asyncRequestComplited && $scope.errors.length == 0){
-                $window.location.href = '/';
-            }
-        });
-
-    return smth;
-}
+    }
 });

@@ -1,0 +1,11 @@
+<div>
+    <label for="">Login</label>
+    <ul ng-repeat="error in errors">
+        <li class="validationError">
+            {{error}}
+        </li>
+    </ul>
+    <input type="text" ng-model="login" placeholder="login">
+    <input type="password" ng-model="password" placeholder="password">
+    <button ng-click="doLogin()">Login</button>
+</div>

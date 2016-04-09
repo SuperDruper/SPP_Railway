@@ -15,18 +15,25 @@
     <constant name="struts.mapper.alwaysSelectFullNamespace" value="false" />
 
 
-	
-	
-    <package name="api" extends="struts-default, json-default" namespace="/api">
+    <package name="def" extends="struts-default, json-default">
+        <default-interceptor-ref name="defaultStack"></default-interceptor-ref>
+        <default-action-ref name="index"/>
+
+        <action name="index" class="code.controller.IndexAction">
+            <result name="success">/index.jsp</result>
+        </action>
+    </package>
+
+
+    <package name="api" extends="def" namespace="/api">
 
         <!-- GET EXAMPLE -->
-        <action name="/user/list/*" class="code.controller.user.UserListShowingAction">
-            <interceptor-ref name="defaultStack"/>
+        <action name="user/list" class="code.controller.user.UserListShowingAction">
             <interceptor-ref name="json" />
 
             <result type="json">
                 <param name="excludeProperties">
-                    <!-- VERY IMPORTANT!!!
+                    <!--
                      In action class above there is filed users. Users is list of class User
                      and in User there is Collection named tickets/ You should know that everything that is
                      in Action class serialized in JSON and will be returned in response.
@@ -43,14 +50,8 @@
         </action>
 
         <!-- POST EXAMPLE -->
-        <action name="/user/register/*" class="code.controller.user.RegisterAction">
-            <interceptor-ref name="defaultStack"/>
-            <interceptor-ref name="json">
-                <!--<param name="excludeProperties">
-                    ^user\.tickets,
-                    ^user\.role\.users
-                </param>-->
-            </interceptor-ref>
+        <action name="user/register" class="code.controller.user.RegisterAction">
+            <interceptor-ref name="json"></interceptor-ref>
 
             <result type="json">
                 <param name="excludeProperties" >
@@ -60,109 +61,19 @@
             </result>
         </action>
 
-    </package>
 
+        <action name="user/login" class="code.controller.user.LoginAction">
+            <interceptor-ref name="json">
+            </interceptor-ref>
 
-
-    <package name="index" extends="struts-default, json-default">
-        <action name="*" class="code.controller.IndexAction">
-            <result name="success">/index.jsp</result>
+            <result type="json">
+                <param name="excludeProperties" >
+                    ^login,
+                    ^password
+                </param>
+                <param name="noCache">true</param>
+            </result>
         </action>
     </package>
-
-
-    <package name="angularstruts" extends="api, index" />
-	
-    <!--
-        <package name="basicstruts2" extends="struts-default">
-
-        <interceptors>
-            <interceptor-stack name="appDefault">
-                <interceptor-ref name="defaultStack">
-                    <param name="exception.logEnabled">true</param>
-                    <param name="exception.logLevel">ERROR</param>
-                </interceptor-ref>
-            </interceptor-stack>
-        </interceptors>
-
-        <default-interceptor-ref name="appDefault"/>
-
-        <global-results>
-            <result name="error">/error.jsp</result>
-            <result name="securityerror">/securityerror.jsp</result>
-        </global-results>
-
-
-        <global-exception-mappings>
-            <exception-mapping exception="SecurityBreachException"
-                               result="securityerror"/>
-            <exception-mapping exception="java.lang.Exception" result="error"/>
-        </global-exception-mappings>
-
-
-        <action name="causesecurityexception" class="RegisterAction"
-                method="throwSecurityException">
-            <result>/user/register.jsp</result>
-        </action>
-
-        <action name="causeexception" class="RegisterAction" method="throwException">
-            <result>/user/register.jsp</result>
-        </action>
-
-        <action name="causenullpointerexception" class="RegisterAction"
-                method="throwNullPointerException">
-            <result>/user/register.jsp</result>
-        </action>
-
-
-
-
-        <action name="index">
-            <result>/index.jsp</result>
-        </action>
-
-
-        <action name="register" class="RegisterAction" method="execute">
-            <result name="success">/user/register.jsp</result>
-        </action>
-
-        <action name="registerprocess" class="RegisterAction" method="register">
-            <result name="success">/index.jsp</result>
-            <result name="error">/user/register.jsp</result>
-        </action>
-
-        <action name="login" class="LoginAction" method="execute">
-            <result name="success">/user/login.jsp</result>
-        </action>
-
-        <action name="loginprocess" class="LoginAction" method="execute">
-            <result name="success">/user/login.jsp</result>
-            <result name="error">/user/register.jsp</result>
-        </action>
-
-        <action name="profile" class="ProfileAction" method="execute">
-            <result name="success">/user/profile.jsp</result>
-        </action>
-
-        <action name="deleteprofile" class="ProfileAction" method="execute">
-            <result name="success">/index.jsp</result>
-        </action>
-
-        <action name="listusers" class="UserListShowingAction" method="execute">
-            <result name="success">/user/listusers.jsp</result>
-        </action>
-
-
-
-        <action name="actionspecificexception" class="RegisterAction"
-                method="throwSecurityException">
-            <exception-mapping exception="SecurityBreachException"
-                               result="login"/>
-            <result>/user/register.jsp</result>
-            <result name="login">/user/login.jsp</result>
-        </action>
-
-    </package>
-     -->
 
 </struts>

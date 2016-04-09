@@ -114,7 +114,8 @@ DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
   `rl_id` int(11) NOT NULL AUTO_INCREMENT,
   `rl_name` varchar(50) NOT NULL,
-  PRIMARY KEY (`rl_id`)
+  PRIMARY KEY (`rl_id`),
+  UNIQUE KEY `rl_name_UNIQUE` (`rl_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -275,12 +276,12 @@ CREATE TABLE `user` (
   `u_email` varchar(255) NOT NULL,
   `u_login` varchar(50) NOT NULL,
   `u_password` varchar(50) NOT NULL,
-  `rl_id` int(11) NOT NULL,
+  `rl_id` int(11) NOT NULL DEFAULT '2',
   PRIMARY KEY (`u_id`),
+  UNIQUE KEY `IX_login` (`u_login`),
   KEY `IXFK_user_role_02` (`rl_id`),
-  KEY `I_Login` (`u_login`),
   CONSTRAINT `FKpjd159q38mmxk49hmejpii2b0` FOREIGN KEY (`rl_id`) REFERENCES `role` (`rl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -289,7 +290,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`u_id`, `u_name`, `u_surname`, `u_email`, `u_login`, `u_password`, `rl_id`) VALUES (1,'Вася','Пупкин','VPypkin@gmail.com','pupkin','pupkin',2),(2,'Алексей','Варфоломеев','profprof1997@gmail.com','AccuType-911','AccuType-911',1),(3,'qwe','qwe','qwe','qwe','qwe',2);
+INSERT INTO `user` (`u_id`, `u_name`, `u_surname`, `u_email`, `u_login`, `u_password`, `rl_id`) VALUES (1,'Вася','Пупкин','VPypkin@gmail.com','pupkin','pupkin',2),(2,'Алексей','Варфоломеев','profprof1997@gmail.com','AccuType-911','AccuType-911',1),(3,'qwe','qwe','qwe','qwe','qwe',2),(4,'123','123','123','123','123',2),(5,'12','12','12','12','12',2),(8,'qw','qw','qw','qw','qw',2),(9,'q','q','q','q','q',2),(12,'321','321','321','321','321',2),(13,'6','6','6','6','6666666',2),(14,'8','8','8','8','1234567890',2),(15,'qwertyuiop','qwertyuiop','qwertyuiop','qwertyuiop','qwertyuiop',2),(16,'в','в','в','в','1234567890',2),(17,'danya','payk','payk@yandex.ru','danya','1234567890',2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -310,4 +311,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-15 19:48:10
+-- Dump completed on 2016-04-09 22:42:36

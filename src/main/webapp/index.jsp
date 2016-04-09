@@ -14,7 +14,9 @@
 <body>
 
 <div>
-  <a href="/user/list">Users</a> - <a href="/user/register">Registration</a>
+  <a href="/user/list">Users</a> -
+  <a href="/user/register">Registration</a> -
+  <a href="/user/login">Login</a>
 </div>
 
 <div ng-controller="boostapp">
@@ -30,8 +32,7 @@
 <script src="<s:url value="modules/example/example.controller.js" />"></script>
 <script src="<s:url value="modules/example/example.service.js" />"></script>
 
-<script src="<s:url value="modules/user/signup/signup.controller.js" />"></script>
-<script src="<s:url value="modules/user/signup/user.service.js" />"></script>
+<script src="<s:url value="modules/user/login/login.controller.js" />"></script>
 
 <script src="<s:url value="modules/user/register/register.controller.js" />"></script>
 <script src="<s:url value="modules/user/register/register.service.js" />"></script>

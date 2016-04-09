@@ -11,6 +11,9 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
         .when('/user/register', {
             templateUrl: 'modules/user/register/register.view.html',
             controller: 'RegisterController'
+        }).when('/user/login', {
+            templateUrl: 'modules/user/login/login.view.html',
+            controller: 'LoginController'
         })
         .when('/user/list', {
             templateUrl: 'modules/user/list/list.view.html',
