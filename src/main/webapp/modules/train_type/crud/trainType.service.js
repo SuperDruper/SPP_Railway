@@ -4,7 +4,7 @@
 app.factory('TrainTypeListService', ['Service', function(Service) {
     return {
         getTrainTypes: function() {
-            return Service.request('/api/train_type/list');
+            return Service.request('/api/train_type/crud');
         },
 
         updateRow: function(object) {
