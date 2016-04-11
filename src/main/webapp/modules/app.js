@@ -18,7 +18,15 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
         .when('/user/list', {
             templateUrl: 'modules/user/list/list.view.html',
             controller: 'UserListController'
-        }); //add new routes here
+        }) //add new routes here
+         .when('/train/register', {
+            templateUrl: 'modules/train/register/train.view.html',
+            controller: 'TrainController'
+        })
+        .when('/trainType/list', {
+            templateUrl: 'modules/train/register/trainList.view.html',
+            controller: 'TrainListController'
+        });
 }]);
 
 app.controller('boostapp', function ($scope) {

@@ -98,7 +98,9 @@ public class GenericHibernateDao<T, PK extends Serializable> implements IDao<T, 
     @Override
     public void deleteAll() {
         List<T> entityList = findAll();
-        entityList.forEach(this::delete);
+        for (T entity : entityList) {
+            delete(entity);
+        }
     }
 
     @Override

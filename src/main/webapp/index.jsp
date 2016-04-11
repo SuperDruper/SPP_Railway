@@ -19,9 +19,16 @@
   <a href="/user/login">Login</a>
 </div>
 
+<div>
+  <p>
+    <a href="/trainType/list">Train list</a> - <a href="/train/register">Train CRUD</a>
+  </p>
+</div>
+
 <div ng-controller="boostapp">
   <div ng-view></div>
 </div>
+
 
 <script src="<s:url value="js/lib/angular/angular.min.js" />"></script>
 <script src="<s:url value="js/lib/angular/angular-route.min.js" />"></script>
@@ -42,6 +49,12 @@
 
 <script src="<s:url value="modules/home/home.controller.js" />"></script>
 <script src="<s:url value="modules/home/home.service.js" />"></script>
+
+<script src="<s:url value="modules/train/register/train.controller.js" />"></script>
+<script src="<s:url value="modules/train/register/train.service.js" />"></script>
+
+<script src="<s:url value="modules/train/register/trainList.controller.js" />"></script>
+<script src="<s:url value="modules/train/register/trainList.service.js" />"></script>
 
 </body>
 </html>
