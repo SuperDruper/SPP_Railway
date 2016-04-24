@@ -19,13 +19,25 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
             templateUrl: 'modules/user/list/list.view.html',
             controller: 'UserListController'
         }) //add new routes here
-         .when('/train/register', {
-            templateUrl: 'modules/train/register/train.view.html',
+        .when('/train/crud', {
+            templateUrl: 'modules/train/crud/train.view.html',
             controller: 'TrainController'
         })
-        .when('/trainType/list', {
-            templateUrl: 'modules/train/register/trainList.view.html',
+        .when('/train_type/crud', {
+            templateUrl: 'modules/train_type/crud/trainType.view.html',
             controller: 'TrainListController'
+        })
+        .when('/role/crud', {
+            templateUrl: 'modules/role/crud/role.view.html',
+            controller: 'RoleController'
+        })
+        .when('/race/crud', {
+        templateUrl: 'modules/race/crud/race.view.html',
+        controller: 'RaceListController'
+        })
+        .when('/route/crud', {
+         templateUrl: 'modules/route/crud/route.view.html',
+         controller: 'RouteController'
         });
 }]);
 

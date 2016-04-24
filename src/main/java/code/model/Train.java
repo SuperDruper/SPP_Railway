@@ -53,7 +53,7 @@ public class Train {
         return result;
     }
 
-    @OneToMany(mappedBy = "train")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "train")
     public Collection<Race> getRaces() {
         return races;
     }

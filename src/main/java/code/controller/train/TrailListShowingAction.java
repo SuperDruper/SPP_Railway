@@ -12,11 +12,21 @@ import java.util.List;
  */
 public class TrailListShowingAction extends GetAction {
     private List<Train> trains;
+    private List<TrainType> trainTypes;
 
     @Override
     public String view() {
         trains = new GenericService<Train, Integer>(Train.class).findAll();
+        trainTypes = new GenericService<TrainType, Integer>(TrainType.class).findAll();
+
         return SUCCESS;
+    }
+
+    public List<TrainType> getTrainTypes() {
+        return trainTypes;
+    }
+    public void setTrainTypes(List<TrainType> trainTypes) {
+        this.trainTypes = trainTypes;
     }
 
     public List<Train> getTrains() { return trains; }
