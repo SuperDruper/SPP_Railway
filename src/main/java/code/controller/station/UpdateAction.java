@@ -1,26 +1,17 @@
-package code.controller.route;
+package code.controller.station;
 
 import code.controller.PostAction;
 import code.model.CrudAction;
 import code.model.Role;
-import code.model.Route;
+import code.model.Station;
 import code.service.GenericService;
 
 /**
- * Created by dzmitry.antonenka on 24.04.2016.
+ * Created by dzmitry.antonenka on 26.04.2016.
  */
 public class UpdateAction extends PostAction {
     private CrudAction action;
-
-    public Route getRoute() {
-        return route;
-    }
-
-    public void setRoute(Route route) {
-        this.route = route;
-    }
-
-    private Route route;
+    private Station station;
 
     @Override
     public String create() {
@@ -41,19 +32,25 @@ public class UpdateAction extends PostAction {
         return SUCCESS;
     }
     void saveActionExecute() {
-
-        new GenericService<Route, Integer>(Route.class).persist(route);
+        new GenericService<Station, Integer>(Station.class).persist(station);
     }
 
     void updateActionExecute()
     {
-        new GenericService<Route, Integer>(Route.class).update(route);
+        new GenericService<Station, Integer>(Station.class).update(station);
     }
 
     void deleteActionExecute() {
-        new GenericService<Route, Integer>(Route.class).deleteByPK(route.getId());
+        new GenericService<Station, Integer>(Station.class).delete(station);
     }
+
 
     public void setAction(CrudAction action) { this.action = action; }
     public CrudAction getAction() { return this.action; }
+    public Station getStation() {
+        return station;
+    }
+    public void setStation(Station station) {
+        this.station = station;
+    }
 }

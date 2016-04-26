@@ -161,21 +161,10 @@
 
             <result type="json">
                 <param name="excludeProperties">
-                    
-                    <!--^races\[\d+\]\.route,-->
-                    <!--^races\[\d+\]\.route\.races,-->
-                    <!--^races\[\d+\]\.train,-->
-                    <!--^races\[\d+\]\.train\.races,-->
-                    <!--^races\[\d+\]\.train\.trainType,-->
-                    <!--^races\[\d+\]\.raceStations,-->
-                    <!--^races\[\d+\]\.raceStations\.race,-->
-                    <!--^races\[\d+\]\.raceStations\.station,-->
-                    <!--^races\[\d+\]\.tickets,-->
-                    <!--^races\[\d+\]\.tickets\.race,-->
-                    <!--^races\[\d+\]\.tickets\.user,-->
-                    <!--^routes\[\d+\]\.races,-->
-                    <!--^trains\[\d+\]\.races,-->
-                    <!--^trains\[\d+\]\.trainType-->
+                    ^.*?raceStations,
+                    ^.+?races(?![_\w\d]),
+                    ^.+?tickets(?![_\w\d]),
+                    ^.+?trains(?![_\w\d])
                 </param>
                 <param name="noCache">true</param>
             </result>
@@ -217,17 +206,10 @@
 
             <result type="json">
                 <param name="excludeProperties">
-                    ^races\[\d+\]\.route\.races,
-                    ^races\[\d+\]\.train\.races,
-                    ^races\[\d+\]\.train\.trainType,
-                    ^races\[\d+\]\.raceStations,
-                    ^races\[\d+\]\.tickets,
-
-                    ^routes\[\d+\]\.races
-                    <!--^routes\[\d+\]\.races\.raceStations,-->
-                    <!--^routes\[\d+\]\.races\.tickets,-->
-                    <!--^routes\[\d+\]\.races\.route,-->
-                    <!--^routes\[\d+\]\.races\.train-->
+                    ^.*?raceStations,
+                    ^.+?races(?![_\w\d]),
+                    ^.+?tickets(?![_\w\d]),
+                    ^.+?trains(?![_\w\d])
                 </param>
                 <param name="noCache">true</param>
             </result>
@@ -244,6 +226,94 @@
             <result type="json">
                 <param name="excludeProperties" >
                     ^roles\[\d+\]\.users
+                </param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+
+        <!--GET-->
+        <action name="station/crud" class="code.controller.station.StationListShowingAction">
+            <interceptor-ref name="json" />
+
+            <result type="json">
+                <param name="excludeProperties">
+                    ^.*?raceStations
+                </param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+        <!--POST-->
+        <action name="station/update" class="code.controller.station.UpdateAction">
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="json">
+                <param name="excludeProperties">
+
+                </param>
+            </interceptor-ref>
+
+            <result type="json">
+                <param name="excludeProperties" >
+
+                </param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <!--GET-->
+        <action name="station_distance/crud" class="code.controller.station_distance.StationDistanceListShowingAction">
+            <interceptor-ref name="json" />
+
+            <result type="json">
+                <param name="excludeProperties">
+
+                </param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+        <!--POST-->
+        <action name="station_distance/update" class="code.controller.station_distance.UpdateAction">
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="json">
+                <param name="excludeProperties">
+
+                </param>
+            </interceptor-ref>
+
+            <result type="json">
+                <param name="excludeProperties" >
+
+                </param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <!--GET-->
+        <action name="race_station/crud" class="code.controller.race_station.RaceStationListShowingAction">
+            <interceptor-ref name="json" />
+
+            <result type="json">
+                <param name="excludeProperties">
+                    ^.+?raceStations(?![_\w\d]),
+                    ^.+?races(?![_\w\d]),
+                    ^.+?tickets(?![_\w\d]),
+                    ^.+?trains(?![_\w\d])
+                </param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+        <!--POST-->
+        <action name="race_station/update" class="code.controller.race_station.UpdateAction">
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="json">
+                <param name="excludeProperties">
+
+                </param>
+            </interceptor-ref>
+
+            <result type="json">
+                <param name="excludeProperties" >
+
                 </param>
                 <param name="noCache">true</param>
             </result>

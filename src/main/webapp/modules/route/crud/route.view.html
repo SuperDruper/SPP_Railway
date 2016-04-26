@@ -2,8 +2,6 @@
     <h3>ROUTE CRUD</h3>
 
     <div class="form-group">
-        <label for="">Route ID</label>
-        <input class="form-control" type="number" ng-model="routeIdToCreate" placeholder="Identifier">  <br/>
         <label for="">Route Name</label>
         <input type="text" ng-model="routeNameToCreate" class="form-control" placeholder="Route name">  <br/>
         <br/>
@@ -12,25 +10,10 @@
 
     <table class="table table-bordered table-striped">
         <tr>
-            <td>Id</td>
             <td>Name</td>
         </tr>
         <tr ng-repeat="route in routes | orderBy:'id'">
-            <td>{{route.id}}</td>
             <td><input type="text" name="Name" ng-model="route.name" required></td>
-            <td>
-                <!--<select ng-model="defaultSelectedRace"-->
-                        <!--ng-init="defaultSelectedRace = route.race.id"-->
-                        <!--ng-change="updateRaceForTrain(race, defaultSelectedRace)">-->
-                    <!--&lt;!&ndash;<option value="">--- Select an option ---</option>&ndash;&gt;-->
-                    <!--<option ng-selected= "{{race.id == defaultSelectedRace}}"-->
-                            <!--ng-repeat="race in races"-->
-                            <!--value="{{race.id}}">-->
-                        <!--{{race.id}}-->
-                    <!--</option>-->
-                <!--</select>-->
-            </td>
-
             <td>
                 <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(route.id)"/>
             </td>

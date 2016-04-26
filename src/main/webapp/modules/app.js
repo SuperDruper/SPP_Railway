@@ -38,6 +38,18 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
         .when('/route/crud', {
          templateUrl: 'modules/route/crud/route.view.html',
          controller: 'RouteController'
+        })
+        .when('/station/crud', {
+            templateUrl: 'modules/station/crud/station.view.html',
+            controller: 'StationController'
+        })
+        .when('/station_distance/crud', {
+            templateUrl: 'modules/station_distance/crud/station_distance.view.html',
+            controller: 'StationDistanceController'
+        })
+        .when('/race_station/crud', {
+            templateUrl: 'modules/race_station/crud/race_station.view.html',
+            controller: 'RaceStationController'
         });
 }]);
 

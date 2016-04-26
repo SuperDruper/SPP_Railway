@@ -13,11 +13,28 @@ import java.util.List;
  * Created by dzmitry.antonenka on 23.04.2016.
  */
 public class RaceListShowingAction  extends GetAction {
-    class CucumberRace
-    {
-        private int id;
-        private Route route;
-        private Train train;
+    public List<Race> getRaces() {
+        return races;
+    }
+
+    public void setRaces(List<Race> races) {
+        this.races = races;
+    }
+
+    public List<Route> getRoutes() {
+        return routes;
+    }
+
+    public void setRoutes(List<Route> routes) {
+        this.routes = routes;
+    }
+
+    public List<Train> getTrains() {
+        return trains;
+    }
+
+    public void setTrains(List<Train> trains) {
+        this.trains = trains;
     }
 
     private List<Race> races;
@@ -35,29 +52,5 @@ public class RaceListShowingAction  extends GetAction {
         return SUCCESS;
     }
 
-    /*
-    private int id;
-    private Route route;
-    private Train train;
-    private Collection<RaceStation> raceStations;
-    private Collection<Ticket> tickets;
-    * */
-    public List<Race> getRoles() {
-        return races;
-    }
-    public void setRoles(List<Race> roles) {
-        this.races = roles;
-    }
-    public List<Route> getRoutes() {
-        return routes;
-    }
-    public void setRoutes(List<Route> routes) {
-        this.routes = routes;
-    }
-    public List<Train> getTrains() {
-        return trains;
-    }
-    public void setTrains(List<Train> trains) {
-        this.trains = trains;
-    }
+
 }

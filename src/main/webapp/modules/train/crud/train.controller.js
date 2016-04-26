@@ -69,7 +69,7 @@ app.controller('TrainController', function ($scope, $window, TrainService) {
             };
 
             TrainService.updateRow({ train: object, action: action });
-        }v
+        }
     };
     $scope.register = function() {
         $scope.errors = [];

@@ -41,6 +41,12 @@
 
 <div>
   <p>
+    <a href="/race_station/crud">RaceStation CRUD</a><br />
+  </p>
+</div>
+
+<div>
+  <p>
     <a href="/station_distance/crud">station_distance CRUD</a><br />
   </p>
 </div>
@@ -98,6 +104,14 @@
 <script src="<s:url value="modules/route/crud/route.controller.js" />"></script>
 <script src="<s:url value="modules/route/crud/route.service.js" />"></script>
 
+<script src="<s:url value="modules/station/crud/station.controller.js" />"></script>
+<script src="<s:url value="modules/station/crud/station.service.js" />"></script>
+
+<script src="<s:url value="modules/station_distance/crud/station_distance.controller.js" />"></script>
+<script src="<s:url value="modules/station_distance/crud/station_distance.service.js" />"></script>
+
+<script src="<s:url value="modules/race_station/crud/race_station.controller.js" />"></script>
+<script src="<s:url value="modules/race_station/crud/race_station.service.js" />"></script>
 
 </body>
 </html>
