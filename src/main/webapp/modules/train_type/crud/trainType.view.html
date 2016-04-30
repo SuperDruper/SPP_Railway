@@ -1,21 +1,33 @@
-<table class="table table-bordered table-striped">
-    <tr>
-        <td>Id</td>
-        <td>Type</td>
-        <td>Coefficient</td>
-        <td>Places amount</td>
-        <td>Actions</td>
-    </tr>
-    <tr ng-repeat="trainType in trainTypes">
-        <td>{{trainType.id}}</td>
-        <td><input type="text" name="name" ng-model="trainType.name" required></td>
-        <td><input type="number" name="coefficient" step="0.01" ng-model="trainType.coefficient" required></td>
-        <td><input type="number" name="placesAmount" ng-model="trainType.placesAmount" required></td>
-        <td>
-            <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(trainType.id)"/>
-        </td>
-        <td>
-            <input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(trainType.id)"/>
-        </td>
-    </tr>
-</table>
+<div>
+    <div class="form-group">
+        <label for="">Train ID</label>
+        <input class="form-control" type="number" ng-model="trainId" placeholder="Identifier">  <br/>
+        <label for="">Train carriage count</label>
+        <input type="number" ng-model="trainCarriageAmount" class="form-control" placeholder="Carriage amount">  <br/>
+        <label for="">Train type ID</label>
+        <input type="number" ng-model="trainType" class="form-control" placeholder="Train type id"> <br/><br/>
+        <button type="submit" class="btn btn-default" ng-click="register()">Create</button>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <tr>
+            <td>Id</td>
+            <td>Type</td>
+            <td>Coefficient</td>
+            <td>Places amount</td>
+            <td>Actions</td>
+        </tr>
+        <tr ng-repeat="trainType in trainTypes">
+            <td>{{trainType.id}}</td>
+            <td><input type="text" name="name" ng-model="trainType.name" required></td>
+            <td><input type="number" name="coefficient" step="0.01" ng-model="trainType.coefficient" required></td>
+            <td><input type="number" name="placesAmount" ng-model="trainType.placesAmount" required></td>
+            <td>
+                <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(trainType.id)"/>
+            </td>
+            <td>
+                <input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(trainType.id)"/>
+            </td>
+        </tr>
+    </table>
+</div>

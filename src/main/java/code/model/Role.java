@@ -8,12 +8,12 @@ import java.util.Collection;
  */
 @Entity
 public class Role {
-    private Integer id;
+    private int id;
     private String name;
     private Collection<User> users;
 
     @Id
-    @Column(name = "rl_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "rl_id", nullable = true, insertable = true, updatable = true)
     public int getId() {
         return id;
     }

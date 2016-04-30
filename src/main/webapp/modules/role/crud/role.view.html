@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<div>
+    <div class="form-group">
+        <label for="">Role name</label>
+        <input type="text" ng-model="roleName" class="form-control" placeholder="Role name">  <br/>
+        <button type="submit" class="btn btn-default" ng-click="register()">Create</button>
+    </div>
 
-</body>
-</html>
+    <div>
+        <table class="table table-bordered table-striped">
+            <tr>
+                <td>Name</td>
+                <td>Actions -></td>
+            </tr>
+            <tr ng-repeat="role in roles">
+                <td><input type="text" name="name" ng-model="role.name" required></td>
+                <td>
+                    <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(role.id)"/>
+                </td>
+                <td>
+                    <input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(role.id)"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+

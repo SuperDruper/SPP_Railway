@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<div>
+    <h3>ROUTE CRUD</h3>
 
-</body>
-</html>
+    <div class="form-group">
+        <label for="">Route Name</label>
+        <input type="text" ng-model="routeNameToCreate" class="form-control" placeholder="Route name">  <br/>
+        <br/>
+        <button type="submit" class="btn btn-default" ng-click="register()">Create</button>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <tr>
+            <td>Name</td>
+        </tr>
+        <tr ng-repeat="route in routes | orderBy:'id'">
+            <td><input type="text" name="Name" ng-model="route.name" required></td>
+            <td>
+                <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(route.id)"/>
+            </td>
+            <td>
+                <input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(route.id)"/>
+            </td>
+        </tr>
+    </table>
+</div>

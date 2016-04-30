@@ -9,6 +9,7 @@
   <s:url var="ctxUrl" forceAddSchemeHostAndPort="true" includeContext="true" value="/" namespace="/" />
   <base href="<s:property value="ctxUrl"/>">
   <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -23,9 +24,17 @@
 <div ng-show="userRole == 'admin'">
   <p>
     <a href="/user/list">Users</a><br>
-    <a href="/trainType/list">Train list</a> - <a href="/train/register">Train CRUD</a>
+    <a href="/train/crud">Train CRUD</a><br />
+    <a href="/role/crud">Role CRUD</a><br />
+    <a href="/race/crud">Race CRUD</a><br />
+    <a href="/race_station/crud">RaceStation CRUD</a><br />
+    <a href="/station_distance/crud">station_distance CRUD</a><br />
+    <a href="/station/crud">station CRUD</a><br />
+    <a href="/route/crud">route CRUD</a><br />
+    <a href="/train_type/crud">TrainType CRUD</a>
   </p>
 </div>
+
 
 <div ng-controller="boostapp">
   <div ng-view></div>
@@ -55,6 +64,12 @@
 
 <script src="<s:url value="modules/home/home.controller.js" />"></script>
 <script src="<s:url value="modules/home/home.service.js" />"></script>
+
+<script src="<s:url value="modules/train/register/train.controller.js" />"></script>
+<script src="<s:url value="modules/train/register/train.service.js" />"></script>
+
+<script src="<s:url value="modules/train/register/trainList.controller.js" />"></script>
+<script src="<s:url value="modules/train/register/trainList.service.js" />"></script>
 
 </body>
 </html>

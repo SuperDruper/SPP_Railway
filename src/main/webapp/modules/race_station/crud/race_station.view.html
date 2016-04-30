@@ -1,10 +1,79 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<!--private int id;-->
+<!--private Timestamp depature;-->
+<!--private Timestamp arriving;-->
+<!--private Race race;-->
+<!--private Station station;-->
 
-</body>
-</html>
+
+<div>
+    <div class="form-group">
+        <label for="">RaceStation ID(name)</label>
+        <input class="form-control" type="number" ng-model="raceStationIdToCreate" placeholder="Identifier">  <br/>
+
+        <label for="">Departure</label>
+        <input class="form-control" type="time" step="1" ng-model="departureToCreate" placeholder="Departure">  <br/>
+
+        <label for="">Arriving</label>
+        <input class="form-control" type="time" step="1" ng-model="arrivingToCreate" placeholder="Arriving">  <br/>
+
+        <label for="">Race</label>
+        <select name="race" id="race" ng-model="raceIdToCreate" ng-init="races[0]">
+            <option ng-repeat="race in races" value="{{race.id}}">{{race.id}}</option>
+        </select> <br />
+
+        <label for="">Station</label>
+        <select name="station" id="station" ng-model="stationIdToCreate" ng-init="stations[0]">
+            <option ng-repeat="station in stations" value="{{station.id}}">{{station.name}}</option>
+        </select>
+
+        <button type="submit" class="btn btn-default" ng-click="register()">Create</button>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <tr>
+            <td>RaceStation ID(name)</td>
+            <td>Departure</td>
+            <td>Arriving</td>
+            <td>Race</td>
+            <td>Station</td>
+        </tr>
+        <tr ng-repeat="raceStation in raceStations">
+            <td><input type="text" name="id" ng-model="raceStation.id" required></td>
+            <td><input type="time" name="id" ng-model="raceStation.depature" step="1" required></td>
+            <td><input type="time" name="id" ng-model="raceStation.arriving" step="1" required></td>
+
+            <td>
+                <select ng-model="defaultSelectedRace"
+                        ng-init="defaultSelectedRace = raceStation.race.id"
+                        ng-change="updateRaceForRaceStation(race, defaultSelectedRace)">
+                    <!--<option value="">--- Select an option ---</option>-->
+                    <option ng-selected= "{{race.id == defaultSelectedRace}}"
+                            ng-repeat="race in races"
+                            value="{{race.id}}">
+                        {{race.id}}
+                    </option>
+                </select>
+                <!--<input type="text" name="id" step="0.01" ng-model="race.route.name" required>-->
+            </td>
+            <td>
+                <select ng-model="defaultSelectedStation"
+                        ng-init="defaultSelectedStation = raceStation.station.id"
+                        ng-change="updateTrainForRaceStation(race, defaultSelectedStation)">
+                    <!--<option value="">--- Select an option ---</option>-->
+                    <option ng-selected= "{{station.id == defaultSelectedStation}}"
+                            ng-repeat="station in stations"
+                            value="{{station.id}}">
+                        {{station.name}}
+                    </option>
+                </select>
+                <!--<input type="number" name="placesAmount" ng-model="race.train.id" required>-->
+            </td>
+            <td>
+                <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(raceStation.id)"/>
+            </td>
+            <td>
+                <input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(raceStation.id)"/>
+            </td>
+        </tr>
+    </table>
+</div>

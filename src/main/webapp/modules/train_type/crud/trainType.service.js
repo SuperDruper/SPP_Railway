@@ -7,6 +7,9 @@ app.factory('TrainTypeListService', ['Service', function(Service) {
             return Service.request('/api/train_type/crud');
         },
 
+        register: function(object) {
+            return Service.request('/api/train_type/update', 'POST', object);
+        },
         updateRow: function(object) {
             return Service.request('/api/train_type/update', 'POST', object);
         },

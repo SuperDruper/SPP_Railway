@@ -1,13 +1,17 @@
 app.factory('TrainService', ['Service', function(Service) {
     return {
-        register: function(train, action) {
-            return Service.request('/api/train/register', 'POST', train);
+        getTrains: function() {
+            return Service.request('/api/train/crud');
         },
-        update: function(train, action) {
-            return Service.request('/api/train/register', 'POST', train, action);
+
+        register: function(object) {
+            return Service.request('/api/train/update', 'POST', object);
         },
-        deleteRequest: function(train, action) {
-            return Service.request('/api/train/register', 'POST', train, action);
+        updateRow: function(object) {
+            return Service.request('/api/train/update', 'POST', object);
+        },
+        removeRow: function(object) {
+            return Service.request('/api/train/update', 'POST', object);
         }
     }
 }]);

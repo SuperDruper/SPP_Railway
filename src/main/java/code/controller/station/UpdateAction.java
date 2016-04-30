@@ -1,17 +1,17 @@
-package code.controller.trainType;
+package code.controller.station;
 
 import code.controller.PostAction;
 import code.model.CrudAction;
-import code.model.Train;
-import code.model.TrainType;
+import code.model.Role;
+import code.model.Station;
 import code.service.GenericService;
 
 /**
- * Created by dzmitry.antonenka on 10.04.2016.
+ * Created by dzmitry.antonenka on 26.04.2016.
  */
 public class UpdateAction extends PostAction {
     private CrudAction action;
-    private TrainType trainType;
+    private Station station;
 
     @Override
     public String create() {
@@ -31,19 +31,26 @@ public class UpdateAction extends PostAction {
 
         return SUCCESS;
     }
+    void saveActionExecute() {
+        new GenericService<Station, Integer>(Station.class).persist(station);
+    }
 
-    void saveActionExecute() { new GenericService<TrainType, Integer>(TrainType.class).persist(trainType); }
     void updateActionExecute()
     {
-        new GenericService<TrainType, Integer>(TrainType.class).update(trainType);
-    }
-    void deleteActionExecute() {
-        new GenericService<TrainType, Integer>(TrainType.class).delete(trainType);
+        new GenericService<Station, Integer>(Station.class).update(station);
     }
 
-    public TrainType getTrainType() { return trainType; }
-    public void setTrainType(TrainType trainType) { this.trainType = trainType; }
+    void deleteActionExecute() {
+        new GenericService<Station, Integer>(Station.class).delete(station);
+    }
+
 
     public void setAction(CrudAction action) { this.action = action; }
     public CrudAction getAction() { return this.action; }
+    public Station getStation() {
+        return station;
+    }
+    public void setStation(Station station) {
+        this.station = station;
+    }
 }
