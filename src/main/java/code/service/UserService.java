@@ -2,6 +2,7 @@ package code.service;
 
 import code.dao.AbstractDaoFactory;
 import code.dao.daointerface.IUserDao;
+import code.model.Role;
 import code.model.User;
 
 /**
@@ -37,4 +38,12 @@ public class UserService extends GenericService<User, Integer> {
         return dao;
     }
 
+
+    public Role getRoleByUserId(int id) {
+        getDao().openCurrentSessionWithTransaction();
+        User user = getDao().findByPK(id);
+        Role role = user.getRole();
+        getDao().closeCurrentSessionWithTransaction();
+        return role;
+    }
 }

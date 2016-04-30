@@ -4,7 +4,7 @@ app.controller('RegisterController', function ($scope, $window, RegisterService)
         $scope.errors = [];
 
         if ($scope.password != $scope.repeatPassword) {
-            $scope.errors = ['Repeated password is not equals!'];
+            $scope.errors = ['Repeated password is not equal to password!'];
             return;
         }
 

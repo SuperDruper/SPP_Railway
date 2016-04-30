@@ -7,17 +7,29 @@
 
     <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
     <constant name="struts.devMode" value="true"/>
-    <constant name="struts.convention.default.parent.package" value="angularstruts"/>
-
     <constant name="struts.mapper.class" value="org.apache.struts2.dispatcher.mapper.Restful2ActionMapper" />
 
     <constant name="struts.enable.SlashesInActionNames" value="true" />
     <constant name="struts.mapper.alwaysSelectFullNamespace" value="false" />
 
 
+
     <package name="def" extends="struts-default, json-default">
-        <default-interceptor-ref name="defaultStack"></default-interceptor-ref>
+        <interceptors>
+            <interceptor name="authorize" class="code.interceptors.AuthorizeInterceptor" />
+
+            <interceptor-stack name="myDefaultStack">
+                <interceptor-ref name="defaultStack">
+                    <param name="exception.logEnabled">true</param>
+                    <param name="exception.logLevel">ERROR</param>
+                </interceptor-ref>
+                <interceptor-ref name="authorize" />
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="myDefaultStack" />
         <default-action-ref name="index"/>
+
 
         <action name="index" class="code.controller.IndexAction">
             <result name="success">/index.jsp</result>
@@ -25,23 +37,24 @@
     </package>
 
 
+
     <package name="api" extends="def" namespace="/api">
+
+        <interceptors>
+            <interceptor-stack name="myJsonDefaultStack">
+                <interceptor-ref name="myDefaultStack" />
+                <interceptor-ref name="json" />
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="myJsonDefaultStack" />
+
+
 
         <!-- GET EXAMPLE -->
         <action name="user/list" class="code.controller.user.UserListShowingAction">
-            <interceptor-ref name="json" />
-
             <result type="json">
                 <param name="excludeProperties">
-                    <!--
-                     In action class above there is filed users. Users is list of class User
-                     and in User there is Collection named tickets/ You should know that everything that is
-                     in Action class serialized in JSON and will be returned in response.
-                     But we don't want return and users and tickets list of every user (we don't want to do it
-                     in general, and moreover because it throws exception, because Hibernate try
-                     to perform lazy loading, and it can't do it, because Session object is already closed).
-                     So that is why using this regexp we exclude tickets from serialization.
-                     With User.Role.Users situation is the same.-->
                     ^users\[\d+\]\.tickets,
                     ^users\[\d+\]\.role\.users
                 </param>
@@ -51,8 +64,6 @@
 
         <!-- POST EXAMPLE -->
         <action name="user/register" class="code.controller.user.RegisterAction">
-            <interceptor-ref name="json"></interceptor-ref>
-
             <result type="json">
                 <param name="excludeProperties" >
                     ^user
@@ -61,11 +72,27 @@
             </result>
         </action>
 
+        <action name="user/getprofile" class="code.controller.user.GetProfileAction">
+            <result type="json">
+                <param name="excludeProperties">
+                    ^user\.tickets,
+                    ^user\.role\.users
+                </param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <action name="user/editprofile" class="code.controller.user.UpdateProfileAction">
+            <result type="json">
+                <param name="excludeProperties">
+                    ^user
+                </param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
 
         <action name="user/login" class="code.controller.user.LoginAction">
-            <interceptor-ref name="json">
-            </interceptor-ref>
-
             <result type="json">
                 <param name="excludeProperties" >
                     ^login,
@@ -74,6 +101,13 @@
                 <param name="noCache">true</param>
             </result>
         </action>
+
+        <action name="user/logout" class="code.controller.user.LogoutAction">
+            <result type="json">
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
     </package>
 
 </struts>

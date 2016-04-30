@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <title>My AngularJS Struts2 App</title>
 
-  <s:url var="ctxUrl" forceAddSchemeHostAndPort="true" includeContext="true" value="/" namespace="/" ></s:url>
+  <s:url var="ctxUrl" forceAddSchemeHostAndPort="true" includeContext="true" value="/" namespace="/" />
   <base href="<s:property value="ctxUrl"/>">
   <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
@@ -14,13 +14,15 @@
 <body>
 
 <div>
-  <a href="/user/list">Users</a> -
-  <a href="/user/register">Registration</a> -
-  <a href="/user/login">Login</a>
+  <a href="/user/register" ng-hide="userRole">Registration</a><a href="/user/profile" ng-show="userRole">Profile</a> -
+  <a href="/user/login" ng-hide="userRole">Login</a><a href="#" ng-click="logout()" ng-show="userRole">Logout</a>
 </div>
 
-<div>
+<br>
+
+<div ng-show="userRole == 'admin'">
   <p>
+    <a href="/user/list">Users</a><br>
     <a href="/trainType/list">Train list</a> - <a href="/train/register">Train CRUD</a>
   </p>
 </div>
@@ -35,6 +37,7 @@
 
 <script src="<s:url value="modules/app.js" />"></script>
 <script src="<s:url value="shared/service.js" />"></script>
+<script src="<s:url value="shared/user_role_name.service.js" />"></script>
 
 <script src="<s:url value="modules/example/example.controller.js" />"></script>
 <script src="<s:url value="modules/example/example.service.js" />"></script>
@@ -47,14 +50,11 @@
 <script src="<s:url value="modules/user/list/list.controller.js" />"></script>
 <script src="<s:url value="modules/user/list/list.service.js" />"></script>
 
+<script src="<s:url value="modules/user/profile/profile.controller.js" />"></script>
+<script src="<s:url value="modules/user/profile/profile.service.js" />"></script>
+
 <script src="<s:url value="modules/home/home.controller.js" />"></script>
 <script src="<s:url value="modules/home/home.service.js" />"></script>
-
-<script src="<s:url value="modules/train/register/train.controller.js" />"></script>
-<script src="<s:url value="modules/train/register/train.service.js" />"></script>
-
-<script src="<s:url value="modules/train/register/trainList.controller.js" />"></script>
-<script src="<s:url value="modules/train/register/trainList.service.js" />"></script>
 
 </body>
 </html>

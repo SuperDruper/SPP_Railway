@@ -18,8 +18,12 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
         .when('/user/list', {
             templateUrl: 'modules/user/list/list.view.html',
             controller: 'UserListController'
-        }) //add new routes here
-         .when('/train/register', {
+        })
+        .when('/user/profile', {
+            templateUrl: 'modules/user/profile/profile.view.html',
+            controller: 'ProfileController'
+        })
+        .when('/train/register', {
             templateUrl: 'modules/train/register/train.view.html',
             controller: 'TrainController'
         })
@@ -29,6 +33,16 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
         });
 }]);
 
-app.controller('boostapp', function ($scope) {
-    //global app controller
+app.controller('boostapp', function ($rootScope, $window, UserRoleNameService, Service) {
+
+    UserRoleNameService.uploadRoleName().then(function (data) {
+        $rootScope.userRole = UserRoleNameService.roleName;
+    });
+
+    $rootScope.logout = function() {
+        $rootScope.userRole = '';
+        Service.request('/api/user/logout', 'GET');
+        $window.location.href = '/';
+    };
+
 });
