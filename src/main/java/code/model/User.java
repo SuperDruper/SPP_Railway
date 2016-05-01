@@ -1,6 +1,13 @@
 package code.model;
 
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 
 /**
@@ -8,14 +15,38 @@ import java.util.Collection;
  */
 @Entity
 public class User {
+
+    @Min(value = 0, message = "Id field can't be negative!")
     private int id;
+
+    @Size(min = 1, max = 50, message = "Name must be between {min} and {max} characters long!")
     private String name;
+
+    @Size(min = 1, max = 50, message = "Surname must be between {min} and {max} characters long!")
     private String surname;
+
+    @Email(message = "Email format is incorrect!")
+    @Size(max = 255, message = "Email must be between {min} and {max} characters long!")
+    //@NotNull(message = "Email can't be null!")
     private String email;
+
+    @Size(min = 1, max = 50, message = "Login must be between {min} and {max} characters long!")
+    //@NotNull(message = "Login can't be null!")
     private String login;
+
+    @Size(min = 8, max = 50, message = "Password must be between {min} and {max} characters long!")
+    @Pattern(regexp = "[a-zA-Z\\d_\\-\\.]+",
+            message = "Password may contain only latin characters, digits, points, hyphen or underscore!")
+    //@NotNull(message = "Password can't be null!")
     private String password;
+
     private Collection<Ticket> tickets;
+
+    @NotNull(message = "Role can't be null!")
+    @Valid
     private Role role;
+
+
 
     @Id
     @Column(name = "u_id", nullable = false, insertable = true, updatable = true)

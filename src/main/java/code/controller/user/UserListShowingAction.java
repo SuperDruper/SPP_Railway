@@ -1,16 +1,16 @@
 package code.controller.user;
 
 import code.controller.GetAction;
-import code.service.GenericService;
-import com.opensymphony.xwork2.ActionSupport;
-import code.service.UserService;
+import code.controller.shared.Authorize;
 import code.model.User;
+import code.service.UserService;
 
 import java.util.List;
 
 /**
  * Created by PC-Alyaksei on 14.03.2016.
  */
+@Authorize("admin")
 public class UserListShowingAction extends GetAction {
 
     private List<User> users;
@@ -20,7 +20,7 @@ public class UserListShowingAction extends GetAction {
     // it response i can't find method  view in this class, so it was created!
     @Override
     public String view() {
-        users = new GenericService<User, Integer>(User.class).findAll();
+        users = new UserService().findAll();
         return SUCCESS;
     }
 

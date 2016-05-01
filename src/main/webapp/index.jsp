@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <title>My AngularJS Struts2 App</title>
 
-  <s:url var="ctxUrl" forceAddSchemeHostAndPort="true" includeContext="true" value="/" namespace="/" ></s:url>
+  <s:url var="ctxUrl" forceAddSchemeHostAndPort="true" includeContext="true" value="/" namespace="/" />
   <base href="<s:property value="ctxUrl"/>">
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.min.css">
@@ -28,51 +28,23 @@
 <body>
 
 <div>
-  <a href="/user/list">Users</a> -
-  <a href="/user/register">Registration</a> -
-  <a href="/user/login">Login</a>
+  <a href="/user/register" ng-hide="userRole">Registration</a><a href="/user/profile" ng-show="userRole">Profile</a> -
+  <a href="/user/login" ng-hide="userRole">Login</a><a href="#" ng-click="logout()" ng-show="userRole">Logout</a>
 </div>
 
-<div>
+<br>
+
+<div ng-show="userRole == 'admin'">
   <p>
+    <a href="/user/list">Users</a><br>
     <a href="/train/crud">Train CRUD</a><br />
-    <a href="/train_type/crud">TrainType CRUD</a>
-  </p>
-</div>
-
-<div>
-  <p>
     <a href="/role/crud">Role CRUD</a><br />
-  </p>
-</div>
-
-<div>
-  <p>
     <a href="/race/crud">Race CRUD</a><br />
-  </p>
-</div>
-
-<div>
-  <p>
     <a href="/race_station/crud">RaceStation CRUD</a><br />
-  </p>
-</div>
-
-<div>
-  <p>
     <a href="/station_distance/crud">station_distance CRUD</a><br />
-  </p>
-</div>
-
-<div>
-  <p>
     <a href="/station/crud">station CRUD</a><br />
-  </p>
-</div>
-
-<div>
-  <p>
     <a href="/route/crud">route CRUD</a><br />
+    <a href="/train_type/crud">TrainType CRUD</a>
   </p>
 </div>
 
@@ -87,6 +59,7 @@
 
 <script src="<s:url value="modules/app.js" />"></script>
 <script src="<s:url value="shared/service.js" />"></script>
+<script src="<s:url value="shared/user_role_name.service.js" />"></script>
 
 <script src="<s:url value="modules/example/example.controller.js" />"></script>
 <script src="<s:url value="modules/example/example.service.js" />"></script>
@@ -98,6 +71,9 @@
 
 <script src="<s:url value="modules/user/list/list.controller.js" />"></script>
 <script src="<s:url value="modules/user/list/list.service.js" />"></script>
+
+<script src="<s:url value="modules/user/profile/profile.controller.js" />"></script>
+<script src="<s:url value="modules/user/profile/profile.service.js" />"></script>
 
 <script src="<s:url value="modules/home/home.controller.js" />"></script>
 <script src="<s:url value="modules/home/home.service.js" />"></script>

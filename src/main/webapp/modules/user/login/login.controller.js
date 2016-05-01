@@ -1,4 +1,4 @@
-app.controller('LoginController', function ($scope, $window, Service) {
+app.controller('LoginController', function ($scope, $window, $rootScope, Service, UserRoleNameService) {
 
     $scope.doLogin = function() {
         $scope.errors = [];
@@ -12,7 +12,8 @@ app.controller('LoginController', function ($scope, $window, Service) {
             .then(function(data) {
                 $scope.errors.push.apply($scope.errors, data.errorList);
 
-                if($scope.errors.length == 0){
+                if($scope.errors.length == 0) {
+                    $rootScope.userRole = data.userRoleName;
                     $window.location.href = '/';
                 }
             });

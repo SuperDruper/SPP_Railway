@@ -7,19 +7,30 @@
 
     <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
     <constant name="struts.devMode" value="true"/>
-    <!--<constant name="struts.convention.default.parent.package" value="angularstruts"/>-->
-
+    
     <constant name="struts.mapper.class" value="org.apache.struts2.dispatcher.mapper.Restful2ActionMapper" />
 
     <constant name="struts.enable.SlashesInActionNames" value="true" />
     <constant name="struts.mapper.alwaysSelectFullNamespace" value="false" />
 
 
+    
     <package name="def" extends="struts-default, json-default">
-        <default-interceptor-ref name="defaultStack">
+        <interceptors>
+            <interceptor name="authorize" class="code.interceptors.AuthorizeInterceptor" />
 
-        </default-interceptor-ref>
+            <interceptor-stack name="myDefaultStack">
+                <interceptor-ref name="defaultStack">
+                    <param name="exception.logEnabled">true</param>
+                    <param name="exception.logLevel">ERROR</param>
+                </interceptor-ref>
+                <interceptor-ref name="authorize" />
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="myDefaultStack" />
         <default-action-ref name="index"/>
+
 
         <action name="index" class="code.controller.IndexAction">
             <result name="success">/index.jsp</result>
@@ -27,12 +38,21 @@
     </package>
 
 
+
     <package name="api" extends="def" namespace="/api">
+
+        <interceptors>
+            <interceptor-stack name="myJsonDefaultStack">
+                <interceptor-ref name="myDefaultStack" />
+                <interceptor-ref name="json" />
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="myJsonDefaultStack" />
+        
 
         <!-- GET EXAMPLE -->
         <action name="user/list" class="code.controller.user.UserListShowingAction">
-            <interceptor-ref name="json" />
-
             <result type="json">
                 <param name="excludeProperties">
                     ^users\[\d+\]\.tickets,
@@ -44,8 +64,6 @@
 
         <!-- POST EXAMPLE -->
         <action name="user/register" class="code.controller.user.RegisterAction">
-            <interceptor-ref name="json"></interceptor-ref>
-
             <result type="json">
                 <param name="excludeProperties" >
                     ^user
@@ -54,10 +72,27 @@
             </result>
         </action>
 
+        <action name="user/getprofile" class="code.controller.user.GetProfileAction">
+            <result type="json">
+                <param name="excludeProperties">
+                    ^user\.tickets,
+                    ^user\.role\.users
+                </param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <action name="user/editprofile" class="code.controller.user.UpdateProfileAction">
+            <result type="json">
+                <param name="excludeProperties">
+                    ^user
+                </param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
 
         <action name="user/login" class="code.controller.user.LoginAction">
-            <interceptor-ref name="json"/>
-
             <result type="json">
                 <param name="excludeProperties" >
                     ^login,
@@ -67,11 +102,17 @@
             </result>
         </action>
 
+        <action name="user/logout" class="code.controller.user.LogoutAction">
+            <result type="json">
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+
         <!--POST-->
         <action name="train_type/update" class="code.controller.trainType.UpdateAction">
-            <interceptor-ref name="defaultStack"/>
-            <interceptor-ref name="json">
-                <param name="excludeProperties">
+            <interceptor-ref name="myJsonDefaultStack">
+                <param name="json.excludeProperties">
                     ^trainTypes\[\d+\]\.trains
                 </param>
             </interceptor-ref>
@@ -85,8 +126,6 @@
         </action>
         <!--GET-->
         <action name="train_type/crud" class="code.controller.trainType.TrainTypeListShowingAction">
-            <interceptor-ref name="json" />
-
             <result type="json">
                 <param name="excludeProperties">
                     ^trainTypes\[\d+\]\.trains
@@ -97,10 +136,7 @@
 
         <!--GET-->
         <action name="train/crud" class="code.controller.train.TrailListShowingAction">
-            <interceptor-ref name="json" />
-
             <result type="json">
-
                 <param name="excludeProperties" >
                     ^trains\[\d+\]\.races,
                     ^trains\[\d+\]\.trainType\.trains,
@@ -112,13 +148,6 @@
         </action>
         <!--POST-->
         <action name="train/update" class="code.controller.train.UpdateAction">
-            <interceptor-ref name="defaultStack"/>
-            <interceptor-ref name="json">
-                <param name="excludeProperties">
-                    <!--^trainTypes\[\d+\]\.trains-->
-                </param>
-            </interceptor-ref>
-
             <result type="json">
                 <param name="excludeProperties" >
 
@@ -129,8 +158,6 @@
 
         <!--GET-->
         <action name="role/crud" class="code.controller.role.RoleListShowingAction">
-            <interceptor-ref name="json" />
-
             <result type="json">
                 <param name="excludeProperties">
                     ^roles\[\d+\]\.users
@@ -140,13 +167,6 @@
         </action>
         <!--POST-->
         <action name="role/update" class="code.controller.role.UpdateAction">
-            <interceptor-ref name="defaultStack"/>
-            <interceptor-ref name="json">
-                <param name="excludeProperties">
-                    <!--^trainTypes\[\d+\]\.trains-->
-                </param>
-            </interceptor-ref>
-
             <result type="json">
                 <param name="excludeProperties" >
                     ^roles\[\d+\]\.users
@@ -157,8 +177,6 @@
 
         <!--GET-->
         <action name="race/crud" class="code.controller.race.RaceListShowingAction">
-            <interceptor-ref name="json" />
-
             <result type="json">
                 <param name="excludeProperties">
                     ^.*?raceStations,
@@ -171,13 +189,6 @@
         </action>
         <!--POST-->
         <action name="race/update" class="code.controller.race.UpdateAction">
-            <interceptor-ref name="defaultStack"/>
-            <interceptor-ref name="json">
-                <param name="excludeProperties">
-                    <!--^trainTypes\[\d+\]\.trains-->
-                </param>
-            </interceptor-ref>
-
             <result type="json">
                 <param name="excludeProperties" >
                     ^races\[\d+\]\.*,
@@ -202,8 +213,6 @@
 
         <!--GET-->
         <action name="route/crud" class="code.controller.route.RouteListShowingAction">
-            <interceptor-ref name="json" />
-
             <result type="json">
                 <param name="excludeProperties">
                     ^.*?raceStations,
@@ -216,13 +225,6 @@
         </action>
         <!--POST-->
         <action name="route/update" class="code.controller.route.UpdateAction">
-            <interceptor-ref name="defaultStack"/>
-            <interceptor-ref name="json">
-                <param name="excludeProperties">
-                    <!--^trainTypes\[\d+\]\.trains-->
-                </param>
-            </interceptor-ref>
-
             <result type="json">
                 <param name="excludeProperties" >
                     ^roles\[\d+\]\.users
@@ -234,8 +236,6 @@
 
         <!--GET-->
         <action name="station/crud" class="code.controller.station.StationListShowingAction">
-            <interceptor-ref name="json" />
-
             <result type="json">
                 <param name="excludeProperties">
                     ^.*?raceStations
@@ -245,13 +245,6 @@
         </action>
         <!--POST-->
         <action name="station/update" class="code.controller.station.UpdateAction">
-            <interceptor-ref name="defaultStack"/>
-            <interceptor-ref name="json">
-                <param name="excludeProperties">
-
-                </param>
-            </interceptor-ref>
-
             <result type="json">
                 <param name="excludeProperties" >
 
@@ -262,8 +255,6 @@
 
         <!--GET-->
         <action name="station_distance/crud" class="code.controller.station_distance.StationDistanceListShowingAction">
-            <interceptor-ref name="json" />
-
             <result type="json">
                 <param name="excludeProperties">
 
@@ -273,13 +264,6 @@
         </action>
         <!--POST-->
         <action name="station_distance/update" class="code.controller.station_distance.UpdateAction">
-            <interceptor-ref name="defaultStack"/>
-            <interceptor-ref name="json">
-                <param name="excludeProperties">
-
-                </param>
-            </interceptor-ref>
-
             <result type="json">
                 <param name="excludeProperties" >
 
@@ -290,8 +274,6 @@
 
         <!--GET-->
         <action name="race_station/crud" class="code.controller.race_station.RaceStationListShowingAction">
-            <interceptor-ref name="json" />
-
             <result type="json">
                 <param name="excludeProperties">
                     ^.+?raceStations(?![_\w\d]),
@@ -304,13 +286,6 @@
         </action>
         <!--POST-->
         <action name="race_station/update" class="code.controller.race_station.UpdateAction">
-            <interceptor-ref name="defaultStack"/>
-            <interceptor-ref name="json">
-                <param name="excludeProperties">
-
-                </param>
-            </interceptor-ref>
-
             <result type="json">
                 <param name="excludeProperties" >
 
@@ -321,5 +296,4 @@
 
     </package>
 
-    <!--<package name="angularstruts" extends="def, api" />-->
 </struts>

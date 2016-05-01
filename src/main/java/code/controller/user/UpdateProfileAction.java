@@ -1,63 +1,55 @@
 package code.controller.user;
 
 import code.controller.PostAction;
-import code.model.Role;
+import code.controller.shared.Authorize;
 import code.model.User;
-import code.service.RoleService;
 import code.service.UserService;
 import code.validator.ValidationUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.List;
 import java.util.Set;
 
 /**
- * Created by PC-Alyaksei on 18.03.2016.
+ * Created by PC-Alyaksei on 01.05.2016.
  */
-public class RegisterAction extends PostAction {
-
-    private static final long serialVersionUID = 1L;
+@Authorize
+public class UpdateProfileAction extends PostAction {
 
     private User user;
     private List<String> errorList;
 
 
     @Override
-    public String create() {
-        Role role = RoleService.getUserRole();
-        user.setRole(role);
+    public String create() throws Exception {
+        User sessionUser = getUserFromSession();
 
-        if (validate(user)) {
-            new UserService().persist(user);
+        user.setId(sessionUser.getId());
+        user.setRole(sessionUser.getRole());
+
+        validateUser(sessionUser.getLogin());
+
+        if (errorList.size() == 0) {
+            new UserService().update(user);
         }
 
         return SUCCESS;
     }
 
-    private boolean validate(User user) {
-        Validator validator = ValidationUtils.getValidationFactory().getValidator();
+
+    public void validateUser(String oldLogin) {
+        ValidatorFactory factory = ValidationUtils.getValidationFactory();
+        Validator validator = factory.getValidator();
         Set<ConstraintViolation<User>> set = validator.validate(user);
         errorList = ValidationUtils.fromConstraintViolationSetToMessageList(set);
 
-        if (new UserService().getUserByLogin(user.getLogin()) != null) {
+        if (!user.getLogin().equals(oldLogin) &&
+                new UserService().getUserByLogin(user.getLogin()) != null) {
             errorList.add("User with such login is already exists!");
         }
-
-        if (errorList.size() == 0) {
-            errorList = null;
-            return true;
-        }
-        else {
-            return false;
-        }
     }
-
-
-    private String generateEmptyFieldMessage(String field) {
-        return "Field " + field + " shouldn't be empty!";
-    }
-
 
     public User getUser() {
         return user;
@@ -67,7 +59,6 @@ public class RegisterAction extends PostAction {
         this.user = user;
     }
 
-
     public List<String> getErrorList() {
         return errorList;
     }
@@ -76,4 +67,3 @@ public class RegisterAction extends PostAction {
         this.errorList = errorList;
     }
 }
-

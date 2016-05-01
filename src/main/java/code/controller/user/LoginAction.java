@@ -1,10 +1,7 @@
 package code.controller.user;
 
 import code.controller.PostAction;
-import code.model.Role;
 import code.model.User;
-import code.service.RoleService;
-import com.opensymphony.xwork2.ActionSupport;
 import code.service.UserService;
 
 import java.util.ArrayList;
@@ -19,6 +16,7 @@ public class LoginAction extends PostAction {
 
     private String login;
     private String password;
+    private String userRoleName;
     private List<String> errorList;
 
 
@@ -35,6 +33,10 @@ public class LoginAction extends PostAction {
                 errorList = new ArrayList<String>(){{
                     add("Such pair of login and password does not exists!");
                 }};
+            }
+            else {
+                setUserIdToSession(user.getId());
+                userRoleName = user.getRole().getName();
             }
         }
 
@@ -55,6 +57,14 @@ public class LoginAction extends PostAction {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUserRoleName() {
+        return userRoleName;
+    }
+
+    public void setUserRoleName(String userRoleName) {
+        this.userRoleName = userRoleName;
     }
 
     public List<String> getErrorList() {

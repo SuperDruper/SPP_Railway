@@ -5,14 +5,19 @@
             {{error}}
         </li>
     </ul>
-
     <div class="form-group">
-        <input type="text" ng-model="login" class="form-control" placeholder="login"> <br />
-        <input type="text" ng-model="name" class="form-control" placeholder="name"> <br />
-        <input type="text" ng-model="surname" class="form-control" placeholder="surname"> <br />
-        <input type="text" ng-model="email" class="form-control" placeholder="email"> <br />
-        <input type="password" ng-model="password" class="form-control" placeholder="password"> <br />
-        <input type="password" ng-model="repeatPassword" class="form-control" placeholder="password"> <br />
+        <label for="">Login</label>
+        <input type="text" ng-model="login" class="form-control" placeholder="Login">  <br/><br/>
+        <label for="">Password</label>
+        <input type="password" ng-model="password" class="form-control" placeholder="Password">  <br/><br/>
+        <label for="">Repeat password</label>
+        <input type="password" ng-model="repeatPassword" class="form-control" placeholder="Password">  <br/><br/>
+        <label for="">Name</label>
+        <input type="text" ng-model="name" class="form-control" placeholder="Name"> <br/><br/>
+        <label for="">Surname</label>
+        <input type="text" ng-model="surname" class="form-control" placeholder="Surname"> <br/><br/>
+        <label for="">Email</label>
+        <input type="text" ng-model="email" class="form-control" placeholder="Email"> <br/><br/>
         <button type="submit" class="btn btn-default" ng-click="register()">Register</button>
     </div>
 </div>
