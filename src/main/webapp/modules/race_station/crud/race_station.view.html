@@ -3,7 +3,11 @@
 <!--private Timestamp arriving;-->
 <!--private Race race;-->
 <!--private Station station;-->
-
+<head>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
 
 <div>
     <div class="form-group">
@@ -11,10 +15,24 @@
         <input class="form-control" type="number" ng-model="raceStationIdToCreate" placeholder="Identifier">  <br/>
 
         <label for="">Departure</label>
-        <input class="form-control" type="time" step="1" ng-model="departureToCreate" placeholder="Departure">  <br/>
+        <div class="col-md-6">
+            <p class="input-group">
+                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dateToCreate" is-open="dateToCreate.opened" datepicker-options="dateOptions" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event,dateToCreate)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+        </div>
 
         <label for="">Arriving</label>
-        <input class="form-control" type="time" step="1" ng-model="arrivingToCreate" placeholder="Arriving">  <br/>
+        <div class="col-md-6">
+            <p class="input-group">
+                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dateToCreate2.date" is-open="dateToCreate2.opened" datepicker-options="dateOptions" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event,dateToCreate2)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+        </div>
 
         <label for="">Race</label>
         <select name="race" id="race" ng-model="raceIdToCreate" ng-init="races[0]">
@@ -38,9 +56,27 @@
             <td>Station</td>
         </tr>
         <tr ng-repeat="raceStation in raceStations">
-            <td><input type="text" name="id" ng-model="raceStation.id" required></td>
-            <td><input type="time" name="id" ng-model="raceStation.depature" step="1" required></td>
-            <td><input type="time" name="id" ng-model="raceStation.arriving" step="1" required></td>
+            <td><input data-provide="datepicker" type="text" name="id" ng-model="raceStation.id" required></td>
+            <td>
+                <div class="col-md-6">
+                    <p class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="raceStation.depature" is-open="raceStation.opened" datepicker-options="dateOptions" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event,raceStation.depature)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+                    </p>
+                </div>
+            </td>
+            <td>
+                <div class="col-md-6">
+                    <p class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="raceStation.arriving" is-open="raceStation.opened" datepicker-options="dateOptions" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event,raceStation.arriving)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+                    </p>
+                </div>
+            </td>
 
             <td>
                 <select ng-model="defaultSelectedRace"
