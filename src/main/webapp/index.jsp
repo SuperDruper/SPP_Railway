@@ -65,11 +65,29 @@
 <script src="<s:url value="modules/home/home.controller.js" />"></script>
 <script src="<s:url value="modules/home/home.service.js" />"></script>
 
-<script src="<s:url value="modules/train/register/train.controller.js" />"></script>
-<script src="<s:url value="modules/train/register/train.service.js" />"></script>
+<script src="<s:url value="modules/train/crud/train.controller.js" />"></script>
+<script src="<s:url value="modules/train/crud/train.service.js" />"></script>
 
-<script src="<s:url value="modules/train/register/trainList.controller.js" />"></script>
-<script src="<s:url value="modules/train/register/trainList.service.js" />"></script>
+<script src="<s:url value="modules/train_type/crud/trainType.controller.js" />"></script>
+<script src="<s:url value="modules/train_type/crud/trainType.service.js" />"></script>
+
+<script src="<s:url value="modules/role/crud/role.controller.js" />"></script>
+<script src="<s:url value="modules/role/crud/role.service.js" />"></script>
+
+<script src="<s:url value="modules/race/crud/race.controller.js" />"></script>
+<script src="<s:url value="modules/race/crud/race.service.js" />"></script>
+
+<script src="<s:url value="modules/route/crud/route.controller.js" />"></script>
+<script src="<s:url value="modules/route/crud/route.service.js" />"></script>
+
+<script src="<s:url value="modules/station/crud/station.controller.js" />"></script>
+<script src="<s:url value="modules/station/crud/station.service.js" />"></script>
+
+<script src="<s:url value="modules/station_distance/crud/station_distance.controller.js" />"></script>
+<script src="<s:url value="modules/station_distance/crud/station_distance.service.js" />"></script>
+
+<script src="<s:url value="modules/race_station/crud/race_station.controller.js" />"></script>
+<script src="<s:url value="modules/race_station/crud/race_station.service.js" />"></script>
 
 </body>
 </html>

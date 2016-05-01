@@ -1,8 +1,7 @@
 package code.controller.user;
 
 import code.controller.GetAction;
-import com.opensymphony.xwork2.ActionSupport;
-import code.service.UserService;
+import code.controller.shared.Authorize;
 import code.model.User;
 import code.service.UserService;
 
