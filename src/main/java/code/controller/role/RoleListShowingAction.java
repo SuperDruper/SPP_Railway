@@ -1,6 +1,7 @@
 package code.controller.role;
 
 import code.controller.GetAction;
+import code.controller.shared.Authorize;
 import code.model.Role;
 import code.model.Train;
 import code.service.GenericService;
@@ -10,6 +11,7 @@ import java.util.List;
 /**
  * Created by dzmitry.antonenka on 11.04.2016.
  */
+@Authorize("admin")
 public class RoleListShowingAction extends GetAction {
     private List<Role> roles;
 

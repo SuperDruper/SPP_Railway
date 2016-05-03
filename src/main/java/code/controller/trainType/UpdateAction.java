@@ -1,6 +1,7 @@
 package code.controller.trainType;
 
 import code.controller.PostAction;
+import code.controller.shared.Authorize;
 import code.model.CrudAction;
 import code.model.Train;
 import code.model.TrainType;
@@ -9,6 +10,7 @@ import code.service.GenericService;
 /**
  * Created by dzmitry.antonenka on 10.04.2016.
  */
+@Authorize("admin")
 public class UpdateAction extends PostAction {
     private CrudAction action;
     private TrainType trainType;

@@ -13,9 +13,7 @@
         <input type="text" ng-model="email" placeholder="Email"> <br/><br/>
         <label for="">Role name</label>
         <input type="text" ng-model="roleName" placeholder="Role name"> <br/><br/>
-        <button ng-click="register()">Create</button>
-        <button ng-click="update()">Update</button>
-        <button ng-click="deleteRequest()">Delete</button>
+        <input type="button" value="Create" class="btn btn-primary" ng-click="register()"/>
 
 
         <div>
@@ -27,7 +25,7 @@
             </ul>
         </div>
 
-        <table>
+        <table class="table table-bordered table-striped">
             <tr>
                 <td>Login</td>
                 <td>Password</td>
@@ -45,7 +43,21 @@
                 <td><input type="text" name="name" ng-model="user.name"></td>
                 <td><input type="text" name="surname" ng-model="user.surname"></td>
                 <td><input type="text" name="email" ng-model="user.email" required></td>
-                <td><input type="text" name="role" ng-model="user.role.name" required></td>
+
+                <td>
+                    <select ng-model="defaultSelectedRole"
+                            ng-init="defaultSelectedRole = user.role.id"
+                            ng-change="updateRoleForUser(user, defaultSelectedRole)">
+
+                        <option ng-selected= "{{role.id == defaultSelectedRole}}"
+                                ng-repeat="role in roles"
+                                value="{{role.id}}">
+                            {{role.name}}
+                        </option>
+                    </select>
+                </td>
+
+
                 <td>
                     <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(user.id)"/>
                 </td>

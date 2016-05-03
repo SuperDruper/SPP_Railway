@@ -26,15 +26,15 @@ public class GenericHibernateDaoTest<T, PK extends Serializable> extends Assert 
     }
 
     @Parameterized.Parameters
-    public static List<Object> listOfGenericObjects() {
-        return Arrays.asList(new Object[]{
-                Role.class,
-                Race.class,
-                RaceStation.class,
-                Route.class,
-                Ticket.class,
-                Train.class,
-                User.class,
+    public static List<Object[]> listOfGenericObjects() {
+        return Arrays.asList(new Object[][]{
+                {Role.class},
+                {Race.class},
+                {RaceStation.class},
+        {Route.class},
+        {Ticket.class},
+        {Train.class},
+        {User.class},
         });
     }
 
@@ -116,93 +116,87 @@ public class GenericHibernateDaoTest<T, PK extends Serializable> extends Assert 
     public void testOpenCurrentSession() throws Exception {
         Session session = this.genericHibernateDao.openCurrentSession();
         Assert.assertNotNull(session);
+        this.genericHibernateDao.closeCurrentSession();
+    }
+
+    @Test
+    public void testCloseCurrentSession() throws Exception {
+        Session session = this.genericHibernateDao.openCurrentSession();
+        Assert.assertNotNull(session);
+
+        this.genericHibernateDao.closeCurrentSession();
+        Assert.assertNull(this.genericHibernateDao.getCurrentSession());
     }
 
     @Test
     public void testOpenCurrentSessionWithTransaction() throws Exception {
         Session session = this.genericHibernateDao.openCurrentSessionWithTransaction();
         Assert.assertNotNull(session);
-    }
-
-    @Test
-    public void testCloseCurrentSession() throws Exception {
-        //Can throw exception
-        this.genericHibernateDao.closeCurrentSession();
+        this.genericHibernateDao.closeCurrentSessionWithTransaction();
     }
 
     @Test
     public void testCloseCurrentSessionWithTransaction() throws Exception {
-        //Can throw exception
+        Session session = this.genericHibernateDao.openCurrentSessionWithTransaction();
+        Assert.assertNotNull(session);
+
         this.genericHibernateDao.closeCurrentSessionWithTransaction();
+        Assert.assertNull(this.genericHibernateDao.getCurrentSession());
     }
 
     @Test
     public void testPersist() throws Exception {
 
+        try {
+            this.genericHibernateDao.persist(null);
+        } catch (Exception exc) {
+            Assert.assertEquals(exc.getClass(), NullPointerException.class);
+        }
+
     }
 
     @Test
     public void testUpdate() throws Exception {
-
+        try {
+            this.genericHibernateDao.persist(null);
+        } catch (Exception exc) {
+            Assert.assertEquals(exc.getClass(), NullPointerException.class);
+        }
     }
 
     @Test
     public void testFindByPK() throws Exception {
-
+        try {
+            this.genericHibernateDao.persist(null);
+        } catch (Exception exc) {
+            Assert.assertEquals(exc.getClass(), NullPointerException.class);
+        }
     }
 
     @Test
     public void testDelete() throws Exception {
-
+        try {
+            this.genericHibernateDao.persist(null);
+        } catch (Exception exc) {
+            Assert.assertEquals(exc.getClass(), NullPointerException.class);
+        }
     }
 
     @Test
     public void testDeleteByPK() throws Exception {
-
+        try {
+            this.genericHibernateDao.persist(null);
+        } catch (Exception exc) {
+            Assert.assertEquals(exc.getClass(), NullPointerException.class);
+        }
     }
 
     @Test
     public void testFindAll() throws Exception {
-
-    }
-
-    @Test
-    public void testDeleteAll() throws Exception {
-
-    }
-
-    @Test
-    public void testGetListByStringField() throws Exception {
-
-    }
-
-    @Test
-    public void testGetUniqueByStringField() throws Exception {
-
-    }
-
-    @Test
-    public void testGetCurrentSession() throws Exception {
-
-    }
-
-    @Test
-    public void testSetCurrentSession() throws Exception {
-
-    }
-
-    @Test
-    public void testGetCurrentTransaction() throws Exception {
-
-    }
-
-    @Test
-    public void testSetCurrentTransaction() throws Exception {
-
-    }
-
-    @Test
-    public void testGetEntityClass() throws Exception {
-
+        try {
+            this.genericHibernateDao.persist(null);
+        } catch (Exception exc) {
+            Assert.assertEquals(exc.getClass(), NullPointerException.class);
+        }
     }
 }

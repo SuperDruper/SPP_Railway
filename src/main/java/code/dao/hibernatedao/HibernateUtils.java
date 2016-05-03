@@ -18,6 +18,9 @@ public class HibernateUtils {
 
     private SessionFactory factory;
 
+    public SessionFactory getFactory() { return factory; }
+
+
     private HibernateUtils() {
         try{
             factory = new Configuration().configure().buildSessionFactory();
@@ -31,4 +34,8 @@ public class HibernateUtils {
         return factory.openSession();
     }
 
+    public void closeSession() {
+         factory.close();
+    }
+    public boolean isSessionClosed() { return factory.isClosed(); }
 }

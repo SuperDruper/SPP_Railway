@@ -3,6 +3,7 @@ package code.controller.user;
 import code.controller.PostAction;
 import code.controller.shared.Authorize;
 import code.controller.shared.CRUDAction;
+import code.model.CrudAction;
 import code.model.User;
 import code.service.UserService;
 
@@ -13,19 +14,18 @@ import java.util.List;
  */
 @Authorize("admin")
 public class UpdateAction extends PostAction {
-
-    private CRUDAction action;
+    private CrudAction action;
     private User user;
     private List<String> errorList;
 
 
     @Override
     public String create() {
-        switch (action) {
-            case UPDATE:
+        switch (action.getId()) {
+            case 1:
                 new UserService().update(user);
                 break;
-            case DELETE:
+            case 2:
                 new UserService().deleteByPK(user.getId());
                 break;
             default:
@@ -36,11 +36,11 @@ public class UpdateAction extends PostAction {
     }
 
 
-    public CRUDAction getAction() {
+    public CrudAction getAction() {
         return action;
     }
 
-    public void setAction(CRUDAction action) {
+    public void setAction(CrudAction action) {
         this.action = action;
     }
 

@@ -56,7 +56,18 @@
             <result type="json">
                 <param name="excludeProperties">
                     ^users\[\d+\]\.tickets,
-                    ^users\[\d+\]\.role\.users
+                    ^users\[\d+\]\.role\.users,
+                    ^roles\[\d+\]\.users
+                </param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <!--pOST-->
+        <action name="user/update" class="code.controller.user.UpdateAction">
+            <result type="json">
+                <param name="excludeProperties" >
+
                 </param>
                 <param name="noCache">true</param>
             </result>
