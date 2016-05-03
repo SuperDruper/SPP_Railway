@@ -4,6 +4,8 @@ import code.dao.daointerface.ITicketDao;
 import code.dao.AbstractDaoFactory;
 import code.model.Ticket;
 
+import java.util.List;
+
 /**
  * Created by dzmitry.antonenka on 20.03.2016.
  */
@@ -22,4 +24,5 @@ public class TicketService extends GenericService<Ticket, Integer> {
 
         return dao;
     }
+
 }

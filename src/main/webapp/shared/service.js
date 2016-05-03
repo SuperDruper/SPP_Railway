@@ -19,6 +19,14 @@ app.factory('Service', ['$http', '$q', function($http, $q) {
                 });
             }
             return def.promise;
+        },
+        getObjectByIdFromList: function(list, id) {
+            var comArr = eval(list);
+            for( var i = 0; i < comArr.length; i++ ) {
+                if( comArr[i].id == id ) {
+                    return comArr[i];
+                }
+            }
         }
     }
 }]);

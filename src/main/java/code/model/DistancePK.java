@@ -8,8 +8,18 @@ import java.io.Serializable;
  * Created by PC-Alyaksei on 14.03.2016.
  */
 public class DistancePK implements Serializable {
+
     private int stIdFrom;
     private int stIdTo;
+
+
+    public DistancePK() {}
+
+    public DistancePK(int stIdFrom, int stIdTo) {
+        this.stIdFrom = stIdFrom;
+        this.stIdTo = stIdTo;
+    }
+
 
     @Column(name = "st_id_from", nullable = false, insertable = true, updatable = true)
     @Id

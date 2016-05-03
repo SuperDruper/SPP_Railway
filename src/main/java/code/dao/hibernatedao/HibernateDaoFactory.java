@@ -36,9 +36,11 @@ public class HibernateDaoFactory extends AbstractDaoFactory {
             return (IDao<T, PK>) new RaceStationHibernateDao();
         }  else if(entityClass.equals(Race.class)) {
             return (IDao<T, PK>) new RaceHibernateDao();
+        }  else if(entityClass.equals(Distance.class)) {
+            return (IDao<T, PK>) new DistanceHibernateDao();
         }
 
 
-        return new GenericHibernateDao<T, PK>(entityClass);
+        return new GenericHibernateDao<>(entityClass);
     }
 }

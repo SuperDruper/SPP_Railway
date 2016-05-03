@@ -294,6 +294,24 @@
             </result>
         </action>
 
+        <!--POST-->
+        <action name="race/listraceinfo" class="code.controller.race.RaceInfosAction">
+            <result type="json">
+                <param name="excludeProperties" >
+                    ^raceSearchData
+                </param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <action name="race/racedetails" class="code.controller.race.RaceDetailsAction">
+            <result type="json">
+                <param name="excludeProperties" >
+                </param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
     </package>
 
 </struts>

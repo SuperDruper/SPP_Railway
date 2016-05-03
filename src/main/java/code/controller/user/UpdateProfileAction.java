@@ -4,7 +4,7 @@ import code.controller.PostAction;
 import code.controller.shared.Authorize;
 import code.model.User;
 import code.service.UserService;
-import code.validator.ValidationUtils;
+import code.infrastructure.ValidationUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;

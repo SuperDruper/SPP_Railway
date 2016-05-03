@@ -39,8 +39,8 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
             controller: 'RoleController'
         })
         .when('/race/crud', {
-        templateUrl: 'modules/race/crud/race.view.html',
-        controller: 'RaceListController'
+            templateUrl: 'modules/race/crud/race.view.html',
+            controller: 'RaceListController'
         })
         .when('/route/crud', {
          templateUrl: 'modules/route/crud/route.view.html',
@@ -57,6 +57,14 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
         .when('/race_station/crud', {
             templateUrl: 'modules/race_station/crud/race_station.view.html',
             controller: 'RaceStationController'
+        })
+        .when('/ticketorder/racechoice', {
+            templateUrl: 'modules/ticketorder/racechoice/racechoice.view.html',
+            controller: 'RaceChoiceController'
+        })
+        .when('/ticketorder/racedetails', {
+            templateUrl: 'modules/ticketorder/racedetails/racedetails.view.html',
+            controller: 'RaceDetailsController'
         });
 }]);
 

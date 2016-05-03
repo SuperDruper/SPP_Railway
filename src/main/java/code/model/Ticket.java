@@ -8,6 +8,7 @@ import java.sql.Timestamp;
  */
 @Entity
 public class Ticket {
+
     private int id;
     private Timestamp orderDate;
     private int num;
