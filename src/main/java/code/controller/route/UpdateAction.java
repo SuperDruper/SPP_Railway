@@ -1,6 +1,7 @@
 package code.controller.route;
 
 import code.controller.PostAction;
+import code.controller.shared.Authorize;
 import code.model.CrudAction;
 import code.model.Role;
 import code.model.Route;
@@ -9,6 +10,7 @@ import code.service.GenericService;
 /**
  * Created by dzmitry.antonenka on 24.04.2016.
  */
+@Authorize("admin")
 public class UpdateAction extends PostAction {
     private CrudAction action;
 

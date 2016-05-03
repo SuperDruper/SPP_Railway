@@ -17,7 +17,7 @@ public class HibernateDaoFactoryTest {
     Class<?> entityClass;
     HibernateDaoFactory hibernateDaoFactory = new HibernateDaoFactory();
 
-    public HibernateDaoFactoryTest(Class<?> entityClass) {
+    public HibernateDaoFactoryTest(Class<?> entityClass, Class<?> pkClass) {
         this.entityClass = entityClass;
     }
 
@@ -50,15 +50,15 @@ public class HibernateDaoFactoryTest {
     }
 
     @Parameterized.Parameters
-    public static List<Object> listOfGenricObjects() {
-        return Arrays.asList(new Object[]{
-                Role.class,
-                Race.class,
-                RaceStation.class,
-                Route.class,
-                Ticket.class,
-                Train.class,
-                User.class,
+    public static List<Object[]> listOfGenericObjects() {
+        return Arrays.asList(new Object[][] {
+                { Role.class, Integer.class },
+                { Race.class, Integer.class },
+                { RaceStation.class, Integer.class },
+                { Route.class, Integer.class },
+                { Ticket.class, Integer.class },
+                { Train.class, Integer.class },
+                { User.class, Integer.class },
         });
     }
 }

@@ -2,6 +2,32 @@
  * Created by dzmitry.antonenka on 11.04.2016.
  */
 app.controller('RaceStationController', function ($scope, RaceStationService) {
+    // Disable weekend selection
+    $scope.disabled = function(date, mode) {
+        return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+    };
+
+    $scope.dates = [{date:'01-05-2001'}, {date:'05-05-2014'}, {date:'10-11-2008'}]
+    $scope.dateToCreate = {
+        date : '01-05-2001'
+    };
+    $scope.dateToCreate2 = {
+        date : '05-05-2014'
+    };
+
+    $scope.open = function($event, dt) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        dt.opened = true;
+    };
+
+    $scope.dateOptions = {
+        formatYear: 'yy',
+        startingDay: 1
+    };
+    $scope.format = 'dd-MMMM-yyyy'
+
     $scope.removeRow = function(id){
         var index = -1;
         var comArr = eval( $scope.raceStations );
@@ -141,6 +167,7 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
                 $scope.stations = data.data.stations;
             });
     };
+
 
     return RaceStationService.getRaceStations()
         .then(function(data) {

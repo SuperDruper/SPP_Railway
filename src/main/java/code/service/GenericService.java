@@ -28,7 +28,7 @@ public class GenericService <T, PK extends Serializable> {
     }
 
     public Class<T> getEntityClass() {
-        return entityClass;
+        return null;
     }
 
 

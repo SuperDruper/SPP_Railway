@@ -1,6 +1,7 @@
 package code.controller.race_station;
 
 import code.controller.GetAction;
+import code.controller.shared.Authorize;
 import code.model.*;
 import code.service.GenericService;
 
@@ -9,6 +10,7 @@ import java.util.List;
 /**
  * Created by dzmitry.antonenka on 26.04.2016.
  */
+@Authorize("admin")
 public class RaceStationListShowingAction extends GetAction {
     private List<RaceStation> raceStations;
     private List<Race> races;
