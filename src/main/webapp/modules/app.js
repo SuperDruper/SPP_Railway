@@ -57,6 +57,10 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
         .when('/race_station/crud', {
             templateUrl: 'modules/race_station/crud/race_station.view.html',
             controller: 'RaceStationController'
+        })
+        .when('/ticket/crud', {
+            templateUrl: 'modules/ticket/crud/ticket.view.html',
+            controller: 'TicketController'
         });
 }]);
 

@@ -12,13 +12,15 @@
         <label for="">Email</label>
         <input type="text" ng-model="email" placeholder="Email"> <br/><br/>
         <label for="">Role name</label>
-        <input type="text" ng-model="roleName" placeholder="Role name"> <br/><br/>
+        <select name="role" id="role" ng-model="roleToCreate" ng-init="roles[0]">
+            <option ng-repeat="role in roles" value="{{role.id}}">{{role.name}}</option>
+        </select>
         <input type="button" value="Create" class="btn btn-primary" ng-click="register()"/>
 
 
         <div>
             <p>ERROR list:</p>
-            <ul ng-show = "errors" ng-repeat="error in errors" aria-dropeffect="popup">
+            <ul ng-repeat="error in errors">
                 <li class="validationError">
                     {{error}}
                 </li>

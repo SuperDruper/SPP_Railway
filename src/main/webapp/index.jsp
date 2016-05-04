@@ -34,9 +34,10 @@
 
 <br>
 
-<div ng-show="userRole == 'admin'">
+<%--<div ng-show="userRole == 'admin'">--%>
   <p>
     <a href="/user/list">Users</a><br>
+    <a href="/ticket/crud">Tickets</a><br>
     <a href="/train/crud">Train CRUD</a><br />
     <a href="/role/crud">Role CRUD</a><br />
     <a href="/race/crud">Race CRUD</a><br />
@@ -46,7 +47,7 @@
     <a href="/route/crud">route CRUD</a><br />
     <a href="/train_type/crud">TrainType CRUD</a>
   </p>
-</div>
+<%--</div>--%>
 
 
 <div ng-controller="boostapp">
@@ -101,6 +102,9 @@
 
 <script src="<s:url value="modules/race_station/crud/race_station.controller.js" />"></script>
 <script src="<s:url value="modules/race_station/crud/race_station.service.js" />"></script>
+
+<script src="<s:url value="modules/ticket/crud/ticket.controller.js" />"></script>
+<script src="<s:url value="modules/ticket/crud/ticket.service.js" />"></script>
 
 </body>
 </html>

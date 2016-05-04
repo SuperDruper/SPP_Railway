@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by dzmitry.antonenka on 10.04.2016.
  */
-@Authorize("admin")
+//@Authorize("admin")
 public class TrailListShowingAction extends GetAction {
     private List<Train> trains;
     private List<TrainType> trainTypes;

@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by dzmitry.antonenka on 26.04.2016.
  */
-@Authorize("admin")
+//@Authorize("admin")
 public class StationDistanceListShowingAction extends GetAction {
     public List<Distance> getStationDistances() {
         return stationDistances;

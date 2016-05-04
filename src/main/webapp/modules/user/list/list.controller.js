@@ -17,11 +17,14 @@ app.controller('UserListController', function ($scope, UserListService, Service)
                 id : 2
             };
 
-            UserListService.removeRow({ user: object, action: action });
-            $scope.users.splice(index, 1);
+            UserListService.removeRow({ user: object, action: action })
+                .then(function (data) {
+                    $scope.errors.push.apply($scope.errors, data.errorList);
+                });
         }
 
-    };
+    }
+        ;
 
     $scope.updateRoleForUser = function(user, roleId) {
         var comTrainTypesArr = eval( $scope.roles );
@@ -65,7 +68,10 @@ app.controller('UserListController', function ($scope, UserListService, Service)
                 id : 1
             };
 
-            UserListService.updateRow({ user: object, action: action });
+            UserListService.updateRow({ user: object, action: action })
+                .then(function (data) {
+                    $scope.errors.push.apply($scope.errors, data.errorList);
+                });
         }
     };
 
@@ -74,7 +80,7 @@ app.controller('UserListController', function ($scope, UserListService, Service)
         $scope.events = [];
 
         const role = {
-            name : $scope.roleName
+            id : $scope.roleToCreate
         };
 
         const user = {
@@ -96,9 +102,8 @@ app.controller('UserListController', function ($scope, UserListService, Service)
                     $scope.login = '';
                     $scope.email = '';
                     $scope.password = '';
-                    $scope.roleName = '';
+                    $scope.roleToCreate = '';
                 }
-                UserListService.getUsers();
             });
     };
 

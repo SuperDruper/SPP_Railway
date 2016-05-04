@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by PC-Alyaksei on 14.03.2016.
  */
-@Authorize("admin")
+//@Authorize("admin")
 public class UserListShowingAction extends GetAction {
     private List<User> users;
     private List<Role> roles;
