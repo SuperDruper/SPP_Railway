@@ -1,7 +1,10 @@
-package code.validator;
+package code.infrastructure;
+
+import code.model.User;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
+import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +34,13 @@ public class ValidationUtils {
 
         return messages;
     }
+
+    public static <T> List<String> validate(T obj) {
+        Validator validator = ValidationUtils.getValidationFactory().getValidator();
+        Set<ConstraintViolation<T>> set = validator.validate(obj);
+        return ValidationUtils.fromConstraintViolationSetToMessageList(set);
+    }
+
     private static ValidatorFactory getNewFactory() {
         try {
             return Validation.buildDefaultValidatorFactory();

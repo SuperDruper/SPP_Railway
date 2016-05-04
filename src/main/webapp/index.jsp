@@ -29,12 +29,13 @@
 
 <div>
   <a href="/user/register" ng-hide="userRole">Registration</a><a href="/user/profile" ng-show="userRole">Profile</a> -
-  <a href="/user/login" ng-hide="userRole">Login</a><a href="#" ng-click="logout()" ng-show="userRole">Logout</a>
+  <a href="/user/login" ng-hide="userRole">Login</a><a href="#" ng-click="logout()" ng-show="userRole">Logout</a> -
+  <a href="/ticketorder/racechoice">Races</a>
 </div>
 
 <br>
 
-<%--<div ng-show="userRole == 'admin'">--%>
+<div ng-show="userRole == 'admin'">
   <p>
     <a href="/user/list">Users</a><br>
     <a href="/ticket/crud">Tickets</a><br>
@@ -47,7 +48,7 @@
     <a href="/route/crud">route CRUD</a><br />
     <a href="/train_type/crud">TrainType CRUD</a>
   </p>
-<%--</div>--%>
+</div>
 
 
 <div ng-controller="boostapp">
@@ -61,6 +62,7 @@
 <script src="<s:url value="modules/app.js" />"></script>
 <script src="<s:url value="shared/service.js" />"></script>
 <script src="<s:url value="shared/user_role_name.service.js" />"></script>
+<script src="<s:url value="shared/get_race_stations.service.js" />"></script>
 
 <script src="<s:url value="modules/example/example.controller.js" />"></script>
 <script src="<s:url value="modules/example/example.service.js" />"></script>
@@ -105,6 +107,13 @@
 
 <script src="<s:url value="modules/ticket/crud/ticket.controller.js" />"></script>
 <script src="<s:url value="modules/ticket/crud/ticket.service.js" />"></script>
+
+<script src="<s:url value="modules/ticketorder/racechoice/racechoice.controller.js" />"></script>
+<script src="<s:url value="modules/ticketorder/racechoice/racechoice.service.js" />"></script>
+
+<script src="<s:url value="modules/ticketorder/racedetails/racedetails.controller.js" />"></script>
+<script src="<s:url value="modules/ticketorder/racedetails/racedetails.service.js" />"></script>
+
 
 </body>
 </html>

@@ -8,6 +8,7 @@ import code.model.RaceStation;
  * Created by dzmitry.antonenka on 20.03.2016.
  */
 public class RaceStationService extends GenericService<RaceStation, Integer> {
+
     private IRaceStationsDao dao;
 
     public RaceStationService() {

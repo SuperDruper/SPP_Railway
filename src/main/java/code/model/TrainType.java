@@ -9,6 +9,7 @@ import java.util.Collection;
 @Entity
 @Table(name = "train_type", schema = "", catalog = "railway")
 public class TrainType {
+
     private int id;
     private String name;
     private double coefficient;

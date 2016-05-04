@@ -2,6 +2,7 @@ package code.dao.daointerface;
 
 import code.model.*;
 import code.dao.IDao;
+import code.model.race.RaceSearchData;
 
 import java.util.List;
 
@@ -20,4 +21,8 @@ public interface IRaceDao extends IDao<Race, Integer> {
     public java.util.Collection<RaceStation> getRaceStationsForRace(Race race);
     public java.util.Collection<Ticket> getAllTicketsForRace(Race race);
     public Train getTrainForRace(Race race);
+
+    List<Race> findRaces(RaceSearchData searchData);
+
+    Race findByPKWithDetails(int pk);
 }

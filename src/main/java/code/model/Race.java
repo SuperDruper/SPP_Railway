@@ -8,6 +8,7 @@ import java.util.Collection;
  */
 @Entity
 public class Race {
+
     private int id;
     private Route route;
     private Train train;

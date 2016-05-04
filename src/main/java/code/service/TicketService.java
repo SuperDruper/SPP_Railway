@@ -9,6 +9,8 @@ import code.model.User;
 import java.util.Collection;
 import java.util.List;
 
+import java.util.List;
+
 /**
  * Created by dzmitry.antonenka on 20.03.2016.
  */
@@ -38,4 +40,5 @@ public class TicketService extends GenericService<Ticket, Integer> {
 
         return dao;
     }
+
 }

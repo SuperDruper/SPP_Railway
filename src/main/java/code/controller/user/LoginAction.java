@@ -13,6 +13,10 @@ import java.util.List;
 public class LoginAction extends PostAction {
 
     private static final long serialVersionUID = 1L;
+    private static final String LOGIN_AND_PASSWORD_CANT_BE_NULL =
+            "Login and password can't be null!";
+    private static final String SUCH_PAIR_OF_LOGIN_AND_PASSWORD_DOES_NOT_EXISTS =
+            "Such pair of login and password does not exists!";
 
     private String login;
     private String password;
@@ -24,14 +28,14 @@ public class LoginAction extends PostAction {
     public String create() {
         if (login == null || password == null) {
             errorList = new ArrayList<String>(){{
-                add("Login and password can't be null!");
+                add(LOGIN_AND_PASSWORD_CANT_BE_NULL);
             }};
         } else {
             User user = new UserService().getUserByLogin(login);
 
             if (user == null || !user.getPassword().equals(password)) {
                 errorList = new ArrayList<String>(){{
-                    add("Such pair of login and password does not exists!");
+                    add(SUCH_PAIR_OF_LOGIN_AND_PASSWORD_DOES_NOT_EXISTS);
                 }};
             }
             else {
@@ -73,6 +77,15 @@ public class LoginAction extends PostAction {
 
     public void setErrorList(List<String> errorList) {
         this.errorList = errorList;
+    }
+
+
+    public static String getLoginAndPasswordCantBeNull() {
+        return LOGIN_AND_PASSWORD_CANT_BE_NULL;
+    }
+
+    public static String getSuchPairOfLoginAndPasswordDoesNotExists() {
+        return SUCH_PAIR_OF_LOGIN_AND_PASSWORD_DOES_NOT_EXISTS;
     }
 }
 

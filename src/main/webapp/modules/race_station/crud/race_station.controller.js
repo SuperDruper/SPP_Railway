@@ -178,7 +178,7 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
         });
 
         return smth;
-    }
+    };
 
     $scope.updateRaceForRaceStation = function(raceStation, raceId) {
         var comTrainTypesArr = eval( $scope.races );

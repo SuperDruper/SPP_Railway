@@ -7,7 +7,7 @@ import code.model.User;
 import code.service.GenericService;
 import code.service.RoleService;
 import code.service.UserService;
-import code.validator.ValidationUtils;
+import code.infrastructure.ValidationUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -39,9 +39,7 @@ public class RegisterAction extends PostAction {
     }
 
     private boolean validate(User user) {
-        Validator validator = ValidationUtils.getValidationFactory().getValidator();
-        Set<ConstraintViolation<User>> set = validator.validate(user);
-        errorList = ValidationUtils.fromConstraintViolationSetToMessageList(set);
+        errorList = ValidationUtils.validate(user);
 
         if (new UserService().getUserByLogin(user.getLogin()) != null) {
             errorList.add("User with such login is already exists!");
