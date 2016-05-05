@@ -21,9 +21,7 @@ import java.util.Set;
 public class UpdateAction extends PostAction {
     private Train train;
     private CrudAction action;
-
     private List<String> errorList;
-    private List<String> eventList;
 
     @Override
     public String create() {
@@ -50,6 +48,8 @@ public class UpdateAction extends PostAction {
         TrainType trainType = new GenericService<TrainType, Integer>(TrainType.class).findByPK(train.getTrainType().getId());
         train.setTrainType(trainType);
 
+        if(!validationTrainObject(train, false)) return;
+
         new TrainService().update(train);
     }
 
@@ -63,6 +63,7 @@ public class UpdateAction extends PostAction {
         TrainType trainType = new GenericService<TrainType, Integer>(TrainType.class).findByPK(train.getTrainType().getId());
         train.setTrainType(trainType);
 
+        if(!validationTrainObject(train, true)) return;
         new TrainService().persist(train);
     }
 
@@ -78,12 +79,11 @@ public class UpdateAction extends PostAction {
 
 
 
-    private boolean validationTrainObject(Train train) {
+    private boolean validationTrainObject(Train train, boolean isNeedToCreate) {
         errorList = new ArrayList<String>();
-        eventList = new ArrayList<String>();
 
         if(train == null) {
-            errorList.add("Attempt to store null object !");
+            errorList.add("Unknown error occur when create object !");
             return false;
         }
         if(train.getTrainType() == null) {
@@ -103,11 +103,23 @@ public class UpdateAction extends PostAction {
         }
 
         if (errorList.size() == 0) {
-            return true;
+            return isNeedToCreate ? furtherValidation(train) : true;
         }
         else {
             return false;
         }
+    }
+
+    boolean furtherValidation(Train train) {
+        boolean isValid = true;
+
+        Train storedTrain = new TrainService().findByPK(train.getId());
+        if(storedTrain != null) {
+            isValid = false;
+            errorList.add("Attempt to create train with existing name.");
+        }
+
+        return isValid;
     }
 
     private String generateMesssageAboutInvalidIdForField(String field, int invalidID) {
@@ -124,9 +136,6 @@ public class UpdateAction extends PostAction {
 
     public Train getTrain() { return train; }
     public void setTrain(Train train) { this.train = train; }
-
-    public List<String> getEventList() { return eventList; }
-    public void setEventList(List<String> eventList) { this.eventList = eventList; }
 
     public List<String> getErrorList() {
         return errorList;

@@ -8,7 +8,6 @@ import java.util.Collection;
  */
 @Entity
 public class Train {
-    
     private int id;
     private int carriageAmount;
     private Collection<Race> races;
