@@ -23,7 +23,7 @@
 
         <label for="">Race</label>
         <select name="race" id="race" ng-model="race" ng-init="races[0]">
-            <option ng-repeat="race in races" value="{{race.id}}">{{race.id}}</option>
+            <option ng-repeat="race in races" value="{{race.id}}">#{{race.id}} {{race.route.name}}</option>
         </select>
         <br/>
         <!--<input type="number" ng-model="trainType" class="form-control" placeholder="Train type id"> <br/><br/>-->
@@ -51,7 +51,7 @@
                     <option ng-selected= "{{race.id == defaultSelectedRace}}"
                             ng-repeat="race in races"
                             value="{{race.id}}">
-                        {{race.id}}
+                        #{{race.id}} {{race.route.name}}
                     </option>
                 </select>
             </td>

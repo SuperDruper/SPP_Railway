@@ -3,10 +3,10 @@ package code.controller.user;
 import code.controller.PostAction;
 import code.controller.shared.Authorize;
 import code.controller.shared.CRUDAction;
+import code.infrastructure.ValidationUtils;
 import code.model.CrudAction;
 import code.model.User;
 import code.service.UserService;
-import code.validator.ValidationUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;

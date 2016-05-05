@@ -24,6 +24,8 @@ public interface IDao <T, PK extends Serializable> {
 
     public T findByPK(PK pk);
 
+    public T findByFieldWithName(String fieldName, Object value);
+
     public void delete(T entity);
 
     public void deleteByPK(PK pk);

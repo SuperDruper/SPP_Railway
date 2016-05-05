@@ -1,5 +1,6 @@
 package code.controller.ticket;
 
+import code.infrastructure.ValidationUtils;
 import code.model.*;
 import code.service.GenericService;
 import code.controller.PostAction;
@@ -7,7 +8,6 @@ import code.controller.shared.Authorize;
 import code.model.CrudAction;
 import code.model.Role;
 import code.service.GenericService;
-import code.validator.ValidationUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;

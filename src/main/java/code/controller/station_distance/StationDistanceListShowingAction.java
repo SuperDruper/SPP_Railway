@@ -22,11 +22,21 @@ public class StationDistanceListShowingAction extends GetAction {
     }
 
     private List<Distance> stationDistances;
+    private List<Station> stations;
 
     @Override
     public String view() {
         stationDistances = new GenericService<Distance, Integer>(Distance.class).findAll();
+        stations = new GenericService<Station, Integer>(Station.class).findAll();
 
         return SUCCESS;
+    }
+
+
+    public List<Station> getStations() {
+        return stations;
+    }
+    public void setStations(List<Station> stations) {
+        this.stations = stations;
     }
 }

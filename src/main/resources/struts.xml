@@ -268,7 +268,7 @@
         <action name="station_distance/crud" class="code.controller.station_distance.StationDistanceListShowingAction">
             <result type="json">
                 <param name="excludeProperties">
-
+                    ^.+?raceStations(?![_\w\d])
                 </param>
                 <param name="noCache">true</param>
             </result>

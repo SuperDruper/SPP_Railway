@@ -45,13 +45,42 @@ app.controller('StationDistanceController', function ($scope, $window, StationDi
             StationDistanceService.updateRow({ stationDistance: object, action: action });
         }
     };
+
+    $scope.updateStationToForStationDistance = function(stationDistance, defaultSelectedStationTo) {
+        var index = -1;
+        var comArr = eval( $scope.stationDistances );
+        for( var i = 0; i < comArr.length; i++ ) {
+            if( comArr[i] === stationDistance ) {
+                index = i;
+                break;
+            }
+        }
+
+        var stationDistance = comArr[index];
+        stationDistance.stIdTo = defaultSelectedStationTo;
+    };
+
+    $scope.updateStationFromForStationDistance = function(stationDistance, defaultSelectedStationFrom) {
+        var index = -1;
+        var comArr = eval( $scope.stationDistances );
+        for( var i = 0; i < comArr.length; i++ ) {
+            if( comArr[i] === stationDistance ) {
+                index = i;
+                break;
+            }
+        }
+
+        var stationDistance = comArr[index];
+        stationDistance.stIdTo = defaultSelectedStationFrom;
+    };
+
     $scope.register = function() {
         $scope.errors = [];
         $scope.events = [];
 
         const object = {
-            stIdFrom: $scope.stationIdFrom,
-            stIdTo: $scope.stationIdTo,
+            stIdFrom: $scope.stationFrom,
+            stIdTo: $scope.stationTo,
             distance : $scope.distance
         };
 
@@ -71,12 +100,13 @@ app.controller('StationDistanceController', function ($scope, $window, StationDi
         $scope.$watch('asyncRequestComplited',function(newValue, oldValue, scope){
             if(scope.asyncRequestComplited && $scope.errors.length == 0){
                 // $window.location.href = '/';
-                $scope.stationIdToCreate = "";
-                $scope.stationNameToCreate = "";
+                $scope.stationFrom = '';
+                $scope.stationTo = '';
 
                 StationDistanceService.getStationDistances()
                     .then(function(data) {
                         $scope.stationDistances = data.data.stationDistances;
+                        $scope.stations = data.data.stations;
                     });
             }
         });
@@ -87,6 +117,7 @@ app.controller('StationDistanceController', function ($scope, $window, StationDi
     return StationDistanceService.getStationDistances()
         .then(function(data) {
             $scope.stationDistances = data.data.stationDistances;
+            $scope.stations = data.data.stations;
         });
 
 });

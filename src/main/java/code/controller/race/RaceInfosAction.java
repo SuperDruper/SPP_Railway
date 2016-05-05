@@ -3,10 +3,10 @@ package code.controller.race;
 import code.controller.PostAction;
 import code.infrastructure.Constants;
 import code.infrastructure.ValidationUtils;
+import code.model.Race;
 import code.model.RaceStation;
 import code.model.race.RaceInfo;
 import code.model.race.RaceSearchData;
-import code.model.Race;
 import code.service.RaceCostService;
 import code.service.RaceService;
 
