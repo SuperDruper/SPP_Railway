@@ -34,6 +34,15 @@ public class RaceService extends GenericService<Race, Integer> {
         return result;
     }
 
+    public Race findRaceUseInnerJOINWithTrainAndTrainTypes(int raceID)
+    {
+        getDao().openCurrentSessionWithTransaction();
+        Race race = getDao().findRaceUseInnerJOINWithTrainAndTrainTypes(raceID);
+        getDao().closeCurrentSessionWithTransaction();
+
+        return race;
+    }
+
     public Race findByPKWithDetails(int pk) {
         getDao().openCurrentSessionWithTransaction();
         Race result = getDao().findByPKWithDetails(pk);

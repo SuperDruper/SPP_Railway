@@ -82,10 +82,20 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
             ticket.dOrderDate = ticket.orderDate.toString();
             ticket.orderDate = null;
 
-            TicketService.updateRow({ ticket: ticket, action: action });
+            TicketService.updateRow({ ticket: ticket, action: action })
+                .then(function() {
+                    refreshData();
+                });
         }
     };
 
+    function refreshData() {
+        TrainTypeListService.getTickets()
+            .then(function(data) {
+                $scope.tickets = data.data.tickets;
+                $scope.errors.push.apply($scope.errors, data.errorList);
+            });
+    };
 
     function validate(carriageNumber, placeNumber, orderDate) {
         var isValid = true;

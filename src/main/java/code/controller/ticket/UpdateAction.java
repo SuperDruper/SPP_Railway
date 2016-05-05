@@ -8,6 +8,7 @@ import code.controller.shared.Authorize;
 import code.model.CrudAction;
 import code.model.Role;
 import code.service.GenericService;
+import code.service.RaceService;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -21,6 +22,7 @@ import java.util.*;
 public class UpdateAction extends PostAction {
     private CrudAction action;
     private Ticket ticket;
+    private Race race;
     private List<String> errorList;
 
     @Override
@@ -45,7 +47,7 @@ public class UpdateAction extends PostAction {
 
     void saveActionExecute() {
         User user = getUserFromSession();
-        Race race = new GenericService<Race, Integer>(Race.class).findByPK(ticket.getRace().getId());
+        race = new RaceService().findRaceUseInnerJOINWithTrainAndTrainTypes(ticket.getRace().getId());
 
         if(user != null && race != null) {
             ticket.setRace(race);
@@ -83,7 +85,7 @@ public class UpdateAction extends PostAction {
 
         if (errorList.size() == 0) {
             if(isNeedToCreate) {
-                return furtherValidationTicketsForRace(ticket.getRace(), ticket);
+                return furtherValidationTicketsForRace(race, ticket);
             } else {
                 return true;
             }
@@ -93,14 +95,11 @@ public class UpdateAction extends PostAction {
         }
     }
 
-    //HELPERS
-
+    // HELPERS
     boolean furtherValidationTicketsForRace(Race race, Ticket ticketToCreate)
     {
         boolean approved = true;
-        new GenericService<Ticket, Integer>(Ticket.class).findByPK(race.getId());
-        Race raceWithFullData = new GenericService<Race, Integer>(Race.class).findByPK(race.getId());
-        Collection<Ticket> tickets =  raceWithFullData.getTickets();
+        Collection<Ticket> tickets =  race.getTickets();
 
         if(tickets != null && !tickets.isEmpty()) {
             for (Ticket ticket : tickets)
@@ -120,12 +119,12 @@ public class UpdateAction extends PostAction {
         }
 
         if( !(ticketToCreate.getCarriageNum() > 0 && ticketToCreate.getCarriageNum() <= race.getTrain().getCarriageAmount()) ) {
-            errorList.add("Entered invalid carriage number value");
+            errorList.add("Entered invalid carriage number value. " + "Max carriage count is " + ticket.getRace().getTrain().getCarriageAmount());
             approved = false;
         }
 
         if( !(ticketToCreate.getNum() > 0 && ticketToCreate.getNum() <= race.getTrain().getTrainType().getPlacesAmount()) ) {
-            errorList.add("Entered invalid place of carriage value");
+            errorList.add("Entered invalid place of carriage value." + "Max count of places is " + race.getTrain().getTrainType().getPlacesAmount());
             approved = false;
         }
 
@@ -134,9 +133,6 @@ public class UpdateAction extends PostAction {
 
 
     // GETTERS & SETTERS
-    public Ticket getTicket() {
-        return ticket;
-    }
     public void setTicket(Ticket ticket) {
         this.ticket = ticket;
     }

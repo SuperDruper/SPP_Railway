@@ -323,7 +323,8 @@
         <action name="ticket/update" class="code.controller.ticket.UpdateAction">
             <result type="json">
                 <param name="excludeProperties" >
-
+                    ^.+?raceStations(?![_\w\d]),
+                    ^.*?raceStations
                 </param>
                 <param name="noCache">true</param>
             </result>
