@@ -80,7 +80,7 @@
                         ng-change="updateStationFromForTicket(ticket, defaultSelectedStationFrom)">
                     <!--<option value="">--- Select an option ---</option>-->
                     <option ng-selected= "{{station.id == defaultSelectedStationFrom}}"
-                            ng-repeat="station in stations[i]"
+                            ng-repeat="station in stationsHashMap[defaultSelectedRace]"
                             value="{{station.id}}">
                         {{station.name}}
                     </option>
@@ -91,7 +91,7 @@
                         ng-init="defaultSelectedStationTo = ticket.stationTo.id"
                         ng-change="updateStationToForTicket(ticket, defaultSelectedStationTo)">
                     <option ng-selected= "{{station.id == defaultSelectedStationTo}}"
-                            ng-repeat="station in stations"
+                            ng-repeat="station in stationsHashMap[defaultSelectedRace]"
                             value="{{station.id}}">
                         {{station.name}}
                     </option>

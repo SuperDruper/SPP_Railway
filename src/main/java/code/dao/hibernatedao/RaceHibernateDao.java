@@ -4,6 +4,7 @@ import code.dao.daointerface.IRaceDao;
 import code.model.*;
 import code.model.race.RaceSearchData;
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -119,16 +120,17 @@ public class RaceHibernateDao extends GenericHibernateDao<Race, Integer> impleme
         query.setInteger("id", raceID);
 
         Race race  = (Race)query.uniqueResult();
+        Hibernate.initialize(race.getTickets());
+
         return race;
     }
 
     private static final String GET_RACE_BY_ROUTE =
             "SELECT race FROM Race race " +
-                    "WHERE race.route.id = :routeId and race.train.id = :trainId";
+                    "WHERE race.train.id = :trainId";
     @Override
     public List<Race> getRacesWithRouteAndTrain(Route route, Train train) {
         Query query = getCurrentSession().createQuery(GET_RACE_BY_ROUTE);
-        query.setInteger("routeId", route.getId());
         query.setInteger("trainId", train.getId());
 
         List<Race> races  = query.list();

@@ -75,14 +75,14 @@ public class UpdateAction extends PostAction {
         boolean isValid = true;
         Race storedRaceWithEqualId = new RaceService().findByPK(race.getId());
         if(storedRaceWithEqualId != null && isNeedToCreate) {
-            String message = isNeedToCreate ? "Attempt to create existing race with equal ID !" : "Attempt to set race ID with existing one.";
+            String message = isNeedToCreate ? "Attempt to create existing race with existing ID !" : "Attempt to set race ID with existing one.";
             errorList.add(message);
             isValid = false;
         }
 
-        List<Race> racesWithCurrentRouteAndTrain = new RaceService().findRacesWithRouteAndTrain(race.getRoute(), race.getTrain());
+        List<Race> racesWithCurrentRouteAndTrain =  new RaceService().findRacesWithRouteAndTrain(race.getRoute(), race.getTrain());
         if(!racesWithCurrentRouteAndTrain.isEmpty()) {
-            String message = isNeedToCreate ? "Attempt to create role with existing name !" : "Attempt to change route/train for race with existing one. So some race already has it and will overlap it !";
+            String message = isNeedToCreate ? "Attempt to create race with assigned train !" : "Attempt to change race with already assigned train. So some race already has it and will overlap it !";
             errorList.add(message);
             isValid = false;
         }
@@ -97,7 +97,6 @@ public class UpdateAction extends PostAction {
         this.errorList = errorList;
     }
 
-    public Race getRace() { return race; }
     public void setRace(Race race) { this.race = race; }
 
     public void setAction(CrudAction action) { this.action = action; }

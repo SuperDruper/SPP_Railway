@@ -79,6 +79,32 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
                 $scope.stations = data.stations;
             });
     }
+    $scope.updateStationToForTicket = function(ticket, stationTo) {
+        var comTrainsArr = eval( $scope.tickets );
+        var indexTicket = -1;
+        for( var i = 0; i < comTrainsArr.length; i++ ) {
+            if( comTrainsArr[i].id === ticket.id) {
+                indexTicket = i;
+                break;
+            }
+        }
+
+        var ticket = $scope.tickets[indexTicket];
+        ticket.stationTo = { id : stationTo };
+    }
+    $scope.updateStationFromForTicket = function(ticket, stationFrom) {
+        var comTrainsArr = eval( $scope.tickets );
+        var indexTicket = -1;
+        for( var i = 0; i < comTrainsArr.length; i++ ) {
+            if( comTrainsArr[i].id === ticket.id) {
+                indexTicket = i;
+                break;
+            }
+        }
+
+        var ticket = $scope.tickets[indexTicket];
+        ticket.stationFrom = { id : stationFrom };
+    }
 
     $scope.updateRow = function(id){
         var index = -1;
@@ -97,7 +123,7 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
                 id : 1
             };
 
-            if(!validate(ticket.carriageNum, ticket.num, ticket.orderDate.toString(), ticket.stationFrom, ticket.stationTo)) return;
+            if(!validate(ticket.carriageNum, ticket.num, ticket.orderDate.toString(), ticket.stationFrom.id, ticket.stationTo.id)) return;
             ticket.dOrderDate = ticket.orderDate.toString();
             ticket.orderDate = null;
 
@@ -119,11 +145,11 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
     function validate(carriageNumber, placeNumber, orderDate, stationFrom, stationTo) {
         var isValid = true;
 
-        if(carriageNumber == "" || isNaN(parseInt(carriageNumber))) {
+        if(carriageNumber == null || carriageNumber == "" || isNaN(parseInt(carriageNumber)) || carriageNumber <= 0) {
             $scope.errors.push("Entered Carriage number number is NAN !");
             isValid = false;
         }
-        if(placeNumber == "" || isNaN(parseInt(placeNumber))) {
+        if(placeNumber == null || placeNumber == "" || isNaN(parseInt(placeNumber)) || carriageNumber <= 0) {
             $scope.errors.push("Entered place number is NAN !");
             isValid = false;
         }
@@ -215,5 +241,10 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
 
             $scope.errors.push.apply($scope.errors, data.errorList);
             $scope.events.push.apply($scope.events, data.eventList);
+
+            return TicketService.getStationsForRace({races : data.data.races, action : { id : 10 }})
+                .then(function(data) {
+                    $scope.stationsHashMap = data.stationHashMap;
+                });
         });
 });

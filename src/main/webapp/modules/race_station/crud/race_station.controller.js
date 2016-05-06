@@ -158,7 +158,7 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
     function validate(raceStationId, departureDate, arrivingDate, raceId, stationId) {
         var isValid = true;
 
-        if(raceStationId == "" || isNaN(parseInt(carriageNumber)) || parseInt(carriageNumber) <=0 ) {
+        if(raceStationId == "" || isNaN(parseInt(raceStationId)) || parseInt(raceStationId) <=0 ) {
             $scope.errors.push("RaceStation identifier is incorrect(must be greater then 0)");
             isValid = false;
         }

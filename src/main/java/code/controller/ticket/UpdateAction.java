@@ -24,6 +24,8 @@ public class UpdateAction extends PostAction {
     private Ticket ticket;
 
     private Race race;
+    private List<Race> races;
+    private HashMap<Integer, List<Station>> stationHashMap;
 
     private List<Station> stations;
     private List<String> errorList;
@@ -87,11 +89,7 @@ public class UpdateAction extends PostAction {
         errorList = ValidationUtils.fromConstraintViolationSetToMessageList(set);
 
         if (errorList.size() == 0) {
-            if(isNeedToCreate) {
-                return furtherValidationTicketsForRace(race, ticket);
-            } else {
-                return true;
-            }
+           return furtherValidationTicketsForRace(ticket, isNeedToCreate);
         }
         else {
             return false;
@@ -99,12 +97,12 @@ public class UpdateAction extends PostAction {
     }
 
     // HELPERS
-    boolean furtherValidationTicketsForRace(Race race, Ticket ticketToCreate)
+    boolean furtherValidationTicketsForRace(Ticket ticketToCreate, boolean isNeedToCreate)
     {
         boolean approved = true;
         Collection<Ticket> tickets =  race.getTickets();
 
-        if(tickets != null && !tickets.isEmpty()) {
+        if(isNeedToCreate && tickets != null && !tickets.isEmpty()) {
             for (Ticket ticket : tickets)
             {
                 if(ticket.getCarriageNum() == ticketToCreate.getCarriageNum() && ticket.getNum() == ticketToCreate.getNum())
@@ -134,6 +132,29 @@ public class UpdateAction extends PostAction {
         return approved;
     }
 
+
+
+    public void setRaces(List<Race> races) {
+        this.races = races;
+        List<Race> racesWithFullInfo = new ArrayList<>();
+        for (Race race : races) {
+            racesWithFullInfo.add(new RaceService().findRaceUseInnerJOINWithTrainAndTrainTypes(race.getId()));
+        }
+        races = racesWithFullInfo;
+
+        stationHashMap = new HashMap<>();
+        for (Race race : races) {
+            Collection<RaceStation> raceStations = race.getRaceStations();
+            List<Station> stations = new ArrayList<>();
+            for (RaceStation raceStation : raceStations) {
+                stations.add(raceStation.getStation());
+            }
+            stationHashMap.put(race.getId(), stations);
+        }
+    }
+    public HashMap<Integer, List<Station>> getStationHashMap() {
+        return stationHashMap;
+    }
 
     // GETTERS & SETTERS
     public void setRace(Race race) {
