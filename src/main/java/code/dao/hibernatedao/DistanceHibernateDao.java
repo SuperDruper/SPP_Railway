@@ -3,6 +3,7 @@ package code.dao.hibernatedao;
 import code.dao.daointerface.IDistanceDao;
 import code.model.Distance;
 import code.model.DistancePK;
+import org.hibernate.Query;
 
 /**
  * Created by PC-Alyaksei on 01.05.2016.

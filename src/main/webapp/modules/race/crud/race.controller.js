@@ -2,6 +2,8 @@
  * Created by dzmitry.antonenka on 11.04.2016.
  */
 app.controller('RaceListController', function ($scope, RaceListService) {
+    $scope.errors = [];
+
     $scope.removeRow = function(id){
         var index = -1;
         var comArr = eval( $scope.races );
@@ -41,7 +43,13 @@ app.controller('RaceListController', function ($scope, RaceListService) {
                 id : 1
             };
 
-            RaceListService.updateRow({ race: object, action: action });
+            if(!validate(object.id, object.route, object.train)) return;
+
+            RaceListService.updateRow({ race: object, action: action })
+                .then(function (data) {
+                    $scope.errors.push.apply($scope.errors, data.errorList);
+                    refreshData();
+                });
         }
     };
 
@@ -58,12 +66,13 @@ app.controller('RaceListController', function ($scope, RaceListService) {
             id : 0
         };
 
+        if(!validate($scope.raceIdToCreate, $scope.routeToCreate, $scope.trainToCreate)) return;
+
         $scope.asyncRequestComplited = false;
 
         var smth = RaceListService.register({race:race, action: action})
             .then(function(data) {
                 $scope.errors.push.apply($scope.errors, data.errorList);
-                $scope.events.push.apply($scope.events, data.eventList);
 
                 $scope.asyncRequestComplited = true;
             });
@@ -76,11 +85,33 @@ app.controller('RaceListController', function ($scope, RaceListService) {
                 RaceListService.getRaces()
                     .then(function(data) {
                         $scope.races = data.data.races;
+                        $scope.errors.push.apply($scope.errors, data.data.errorList);
                     });
             }
         });
 
         return smth;
+    }
+
+    function validate(raceIdToCreate, routeToCreate, trainToCreate)
+    {
+        var isValid = true;
+        $scope.errors = [];
+
+        if(raceIdToCreate == '' || isNaN(parseInt(raceIdToCreate))) {
+            $scope.errors.push("Race id is incorrect !(must be an integer)");
+            isValid = false;
+        }
+        if(routeToCreate == null) {
+            $scope.errors.push("Route NOT selected !");
+            isValid = false;
+        }
+        if(trainToCreate == null) {
+            $scope.errors.push("Train NOT selected !");
+            isValid = false;
+        }
+
+        return isValid;
     }
 
     $scope.updateTrainForRace = function(race, trainId) {
@@ -105,10 +136,6 @@ app.controller('RaceListController', function ($scope, RaceListService) {
         var race = $scope.races[indexRace];
         var train = $scope.trains[indexTrain];
         race.train = train;
-
-        //$scope.trains.splice(indexTrain, 1);
-        //$scope.trains.splice(indexTrain, 0, train);
-        //$scope.trains[indexTrain] = train;
     };
     $scope.updateRouteForRace = function(race, routeId) {
         var comTrainTypesArr = eval( $scope.routes );
@@ -134,8 +161,8 @@ app.controller('RaceListController', function ($scope, RaceListService) {
         race.route = route;
     };
 
-    $scope.refreshData = function() {
-        RaceListService.getRaces()
+    refreshData = function() {
+       return RaceListService.getRaces()
             .then(function(data) {
                 $scope.races = data.data.races;
                 $scope.routes = data.data.routes;

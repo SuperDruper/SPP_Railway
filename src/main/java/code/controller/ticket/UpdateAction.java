@@ -22,7 +22,10 @@ import java.util.*;
 public class UpdateAction extends PostAction {
     private CrudAction action;
     private Ticket ticket;
+
     private Race race;
+
+    private List<Station> stations;
     private List<String> errorList;
 
     @Override
@@ -133,6 +136,17 @@ public class UpdateAction extends PostAction {
 
 
     // GETTERS & SETTERS
+    public void setRace(Race race) {
+        this.race = new RaceService().findRaceUseInnerJOINWithTrainAndTrainTypes(race.getId());
+
+        stations = new ArrayList<Station>();
+        for (RaceStation raceStation : this.race.getRaceStations()) {
+            stations.add(raceStation.getStation());
+        }
+    }
+    public List<Station> getStations() {
+        return stations;
+    }
     public void setTicket(Ticket ticket) {
         this.ticket = ticket;
     }

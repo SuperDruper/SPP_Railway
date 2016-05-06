@@ -2,101 +2,6 @@
  * Created by dzmitry.antonenka on 11.04.2016.
  */
 app.controller('RaceStationController', function ($scope, RaceStationService) {
-    $scope.today = function() {
-        $scope.dt = new Date();
-    };
-    $scope.today();
-
-    $scope.clear = function() {
-        $scope.dt = null;
-    };
-
-    $scope.inlineOptions = {
-        customClass: getDayClass,
-        minDate: new Date(),
-        showWeeks: true
-    };
-
-    $scope.dateOptions = {
-        dateDisabled: disabled,
-        formatYear: 'yy',
-        maxDate: new Date(2020, 5, 22),
-        minDate: new Date(),
-        startingDay: 1
-    };
-
-    // Disable weekend selection
-    function disabled(data) {
-        var date = data.date,
-            mode = data.mode;
-        return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
-    }
-
-    $scope.toggleMin = function() {
-        $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
-        $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
-    };
-
-    $scope.toggleMin();
-
-    $scope.open1 = function() {
-        $scope.popup1.opened = true;
-    };
-
-    $scope.open2 = function() {
-        $scope.popup2.opened = true;
-    };
-
-    $scope.setDate = function(year, month, day) {
-        $scope.dt = new Date(year, month, day);
-    };
-
-    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-    $scope.format = $scope.formats[0];
-    $scope.altInputFormats = ['M!/d!/yyyy'];
-
-    $scope.popup1 = {
-        opened: false
-    };
-
-    $scope.popup2 = {
-        opened: false
-    };
-
-    var tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    var afterTomorrow = new Date();
-    afterTomorrow.setDate(tomorrow.getDate() + 1);
-    $scope.events = [
-        {
-            date: tomorrow,
-            status: 'full'
-        },
-        {
-            date: afterTomorrow,
-            status: 'partially'
-        }
-    ];
-
-    function getDayClass(data) {
-        var date = data.date,
-            mode = data.mode;
-        if (mode === 'day') {
-            var dayToCheck = new Date(date).setHours(0,0,0,0);
-
-            for (var i = 0; i < $scope.events.length; i++) {
-                var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
-
-                if (dayToCheck === currentDay) {
-                    return $scope.events[i].status;
-                }
-            }
-        }
-
-        return '';
-    }
-
-
     $scope.removeRow = function(id){
         var index = -1;
         var comArr = eval( $scope.raceStations );
@@ -131,12 +36,23 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
         if( index === -1 ) {
             alert( "Cannot update row with id" + id);
         } else {
-            const object = comArr[index];
+            const object = jQuery.extend(true, {}, comArr[index]);
             const action = {
                 id : 1
             };
 
-            RaceStationService.updateRow({ race: object, action: action });
+            if(!validate(object.id, object.depature, object.arriving, object.race.id, object.station.id)) return;
+            object.dDepature = object.depature.toString();
+            object.dArriving = object.arriving;
+
+            object.depature = null;
+            object.arriving = null;
+
+            RaceStationService.updateRow({ race: object, action: action })
+                .then(function(data) {
+                    $scope.errors.push.apply($scope.errors, data.errorList);
+                    refreshData();
+                });
         }
     };
 
@@ -146,14 +62,16 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
 
         const raceStation = {
             id : $scope.raceStationIdToCreate,
-            depature : $scope.departureToCreate,
-            arriving : $scope.arrivingToCreate,
+            dDepature : $scope.departureToCreate,
+            dArriving : $scope.arrivingToCreate,
             race : { id : $scope.raceIdToCreate },
             station : { id : $scope.stationIdToCreate }
         };
         const action = {
             id : 0
         };
+
+        if(!validate($scope.raceStationIdToCreate, $scope.departureToCreate, $scope.arrivingToCreate, $scope.raceIdToCreate, $scope.stationIdToCreate)) return;
 
         $scope.asyncRequestComplited = false;
 
@@ -237,11 +155,56 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
             });
     };
 
+    function validate(raceStationId, departureDate, arrivingDate, raceId, stationId) {
+        var isValid = true;
 
-    return RaceStationService.getRaceStations()
-        .then(function(data) {
-            $scope.raceStations = data.data.raceStations;
-            $scope.races = data.data.races;
-            $scope.stations = data.data.stations;
-        });
+        if(raceStationId == "" || isNaN(parseInt(carriageNumber)) || parseInt(carriageNumber) <=0 ) {
+            $scope.errors.push("RaceStation identifier is incorrect(must be greater then 0)");
+            isValid = false;
+        }
+
+        var dateComponentsForDeparture = departureDate.split(' ');
+
+        var timestampForDeparture=Date.parse(dateComponentsForDeparture[0] + "T" + dateComponentsForDeparture[1])
+        if (isNaN(timestampForDeparture))
+        {
+            $scope.errors.push("Departure date is incorrect !");
+            isValid = false;
+        }
+
+        var dateComponentsForArriving = arrivingDate.split(' ');
+
+        var timestampForArriving=Date.parse(dateComponentsForArriving[0] + "T" + dateComponentsForArriving[1])
+        if (isNaN(timestampForArriving))
+        {
+            $scope.errors.push("Arriving date is incorrect !");
+            isValid = false;
+        }
+
+        if(raceId <= 0) {
+            $scope.errors.push("Station \'From\' NOT selected");
+            isValid = false;
+        }
+        if(stationId <= 0) {
+            $scope.errors.push("Station \'To\' NOT selected");
+            isValid = false;
+        }
+
+        if(timestampForArriving <= timestampForDeparture)
+        {
+            $scope.errors.push("Arriving and Departure date overlap each other !");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    function refreshData() {
+        return RaceStationService.getRaceStations()
+            .then(function(data) {
+                $scope.raceStations = data.data.raceStations;
+                $scope.races = data.data.races;
+                $scope.stations = data.data.stations;
+            });
+    }
 });

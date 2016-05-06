@@ -12,8 +12,33 @@ public class RaceStation {
     private int id;
     private Timestamp depature;
     private Timestamp arriving;
+
+    //reduntant (( | Currenly need to translate date too timestamp.
+    private String dDepature;
+    private String dArriving;
+
     private Race race;
     private Station station;
+
+    public void setdDepature(String dDepature) {
+        this.dDepature = dDepature;
+        try {
+            if(dDepature != null)
+                setDepature(Timestamp.valueOf(dDepature));
+        } catch (Exception exc) {
+            this.depature = null;
+        }
+    }
+
+    public void setdArriving(String dArriving) {
+        this.dArriving = dArriving;
+        try {
+            if(dDepature != null)
+                setArriving(Timestamp.valueOf(dArriving));
+        } catch (Exception exc) {
+            this.arriving = null;
+        }
+    }
 
     @Id
     @Column(name = "rcst_id", nullable = false, insertable = true, updatable = true)
@@ -32,7 +57,9 @@ public class RaceStation {
     }
 
     public void setDepature(Timestamp depature) {
-        this.depature = depature;
+        if(depature != null) {
+            this.depature = depature;
+        }
     }
 
     @Basic
@@ -42,7 +69,9 @@ public class RaceStation {
     }
 
     public void setArriving(Timestamp arriving) {
-        this.arriving = arriving;
+        if(arriving != null) {
+            this.arriving = arriving;
+        }
     }
 
     @Override

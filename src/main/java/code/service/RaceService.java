@@ -3,6 +3,8 @@ package code.service;
 import code.dao.AbstractDaoFactory;
 import code.dao.daointerface.IRaceDao;
 import code.model.Race;
+import code.model.Route;
+import code.model.Train;
 import code.model.race.RaceSearchData;
 
 import java.util.List;
@@ -30,6 +32,13 @@ public class RaceService extends GenericService<Race, Integer> {
     public List<Race> findRaces(RaceSearchData searchData) {
         getDao().openCurrentSessionWithTransaction();
         List<Race> result = getDao().findRaces(searchData);
+        getDao().closeCurrentSessionWithTransaction();
+        return result;
+    }
+
+    public List<Race> findRacesWithRouteAndTrain(Route route, Train train) {
+        getDao().openCurrentSessionWithTransaction();
+        List<Race> result = getDao().getRacesWithRouteAndTrain(route, train);
         getDao().closeCurrentSessionWithTransaction();
         return result;
     }

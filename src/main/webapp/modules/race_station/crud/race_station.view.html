@@ -16,23 +16,15 @@
 
         <label for="">Departure</label>
         <div class="col-md-6">
-            <p class="input-group">
-                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dateToCreate" is-open="dateToCreate.opened" datepicker-options="dateOptions" />
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event,dateToCreate)"><i class="glyphicon glyphicon-calendar"></i></button>
-              </span>
-            </p>
-        </div>
+            <label for="">Order date(Please use fromat yyyy-[m]m-[d]d hh:mm:ss[.f...] E.g. 2016-04-05 14:36:00</label>
+            <input type="text" ng-model="departureToCreate" class="form-control" placeholder="Order date">  <br/>
+        </div><br />
 
         <label for="">Arriving</label>
         <div class="col-md-6">
-            <p class="input-group">
-                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dateToCreate2.date" is-open="dateToCreate2.opened" datepicker-options="dateOptions" />
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event,dateToCreate2)"><i class="glyphicon glyphicon-calendar"></i></button>
-              </span>
-            </p>
-        </div>
+            <label for="">Order date(Please use fromat yyyy-[m]m-[d]d hh:mm:ss[.f...] E.g. 2016-04-05 14:36:00</label>
+            <input type="text" ng-model="arrivingToCreate" class="form-control" placeholder="Order date">  <br/>
+        </div><br />
 
         <label for="">Race</label>
         <select name="race" id="race" ng-model="raceIdToCreate" ng-init="races[0]">
@@ -47,6 +39,15 @@
         <button type="submit" class="btn btn-default" ng-click="register()">Create</button>
     </div>
 
+    <div>
+        <p>ERROR list:</p>
+        <ul ng-repeat="error in errors">
+            <li class="validationError">
+                {{error}}
+            </li>
+        </ul>
+    </div>
+
     <table class="table table-bordered table-striped">
         <tr>
             <td>RaceStation ID(name)</td>
@@ -58,24 +59,10 @@
         <tr ng-repeat="raceStation in raceStations">
             <td><input data-provide="datepicker" type="text" name="id" ng-model="raceStation.id" required></td>
             <td>
-                <div class="col-md-6">
-                    <p class="input-group">
-                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="raceStation.depature" is-open="raceStation.opened" datepicker-options="dateOptions" />
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event,raceStation.depature)"><i class="glyphicon glyphicon-calendar"></i></button>
-              </span>
-                    </p>
-                </div>
+                <input type="text" ng-model="raceStation.depature" class="form-control" placeholder="Order date">  <br/>
             </td>
             <td>
-                <div class="col-md-6">
-                    <p class="input-group">
-                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="raceStation.arriving" is-open="raceStation.opened" datepicker-options="dateOptions" />
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event,raceStation.arriving)"><i class="glyphicon glyphicon-calendar"></i></button>
-              </span>
-                    </p>
-                </div>
+                <input type="text" ng-model="raceStation.arriving" class="form-control" placeholder="Order date">  <br/>
             </td>
 
             <td>

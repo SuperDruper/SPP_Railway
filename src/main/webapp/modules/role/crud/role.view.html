@@ -6,6 +6,15 @@
     </div>
 
     <div>
+        <p>ERROR list:</p>
+        <ul ng-repeat="error in errors">
+            <li class="validationError">
+                {{error}}
+            </li>
+        </ul>
+    </div>
+
+    <div>
         <table class="table table-bordered table-striped">
             <tr>
                 <td>Name</td>

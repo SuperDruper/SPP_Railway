@@ -2,6 +2,10 @@
  * Created by dzmitry.antonenka on 11.04.2016.
  */
 app.controller('StationDistanceController', function ($scope, $window, StationDistanceService) {
+    $scope.errors = [];
+    $scope.stationFrom = '';
+    $scope.stationTo = '';
+    $scope.distance = '';
 
     $scope.removeRow = function(stationDistance){
         var index = -1;
@@ -42,7 +46,13 @@ app.controller('StationDistanceController', function ($scope, $window, StationDi
                 id : 1
             };
 
-            StationDistanceService.updateRow({ stationDistance: object, action: action });
+            if(!validate(object.stIdFrom, object.stIdTo, object.distance)) return;
+
+            StationDistanceService.updateRow({ stationDistance: object, action: action })
+                .then(function(data) {
+                    $scope.errors.push.apply($scope.errors, data.errorList);
+                    refreshData();
+                });
         }
     };
 
@@ -88,6 +98,9 @@ app.controller('StationDistanceController', function ($scope, $window, StationDi
             id : 0
         };
 
+
+        if(!validate($scope.stationFrom, $scope.stationTo, $scope.distance)) return;
+
         $scope.asyncRequestComplited = false;
 
         var smth = StationDistanceService.register({stationDistance:object, action: action})
@@ -102,6 +115,7 @@ app.controller('StationDistanceController', function ($scope, $window, StationDi
                 // $window.location.href = '/';
                 $scope.stationFrom = '';
                 $scope.stationTo = '';
+                $scope.distance = '';
 
                 StationDistanceService.getStationDistances()
                     .then(function(data) {
@@ -112,6 +126,37 @@ app.controller('StationDistanceController', function ($scope, $window, StationDi
         });
 
         return smth;
+    }
+
+    function validate(stationFrom, stationTo, distance)
+    {
+        var isValid = true;
+
+        if(stationFrom == '') {
+            $scope.errors.push("Station \'From\' not set !");
+            isValid = false;
+        }
+
+        if(stationTo == '') {
+            $scope.errors.push("Station \'To\' not set !");
+            isValid = false;
+        }
+
+        if(distance == '' || isNaN(parseFloat(distance))) {
+            $scope.errors.push("Eneterd invalid distance(needs to be in meters) !");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    function refreshData()
+    {
+        return StationDistanceService.getStationDistances()
+            .then(function(data) {
+                $scope.stationDistances = data.data.stationDistances;
+                $scope.stations = data.data.stations;
+            });
     }
 
     return StationDistanceService.getStationDistances()

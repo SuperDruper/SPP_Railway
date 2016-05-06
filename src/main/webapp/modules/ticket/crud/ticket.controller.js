@@ -8,6 +8,9 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
     $scope.carriageNumber = '';
     $scope.placeNumber = '';
     $scope.orderDate = '';
+    $scope.stationFrom = '';
+    $scope.stationTo = '';
+
 
     $scope.removeRow = function(id){
         var index = -1;
@@ -61,6 +64,22 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
         ticket.race = race;
     };
 
+    $scope.updateStationListForRace = function(raceId) {
+        const race =
+        {
+            id : raceId
+        }
+
+        const action = {
+            id : 10
+        };
+
+        TicketService.getStationsForRace({race : race, action : action})
+            .then(function(data) {
+                $scope.stations = data.stations;
+            });
+    }
+
     $scope.updateRow = function(id){
         var index = -1;
         var comArr = eval( $scope.tickets );
@@ -78,7 +97,7 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
                 id : 1
             };
 
-            if(!validate(ticket.carriageNum, ticket.num, ticket.orderDate.toString())) return;
+            if(!validate(ticket.carriageNum, ticket.num, ticket.orderDate.toString(), ticket.stationFrom, ticket.stationTo)) return;
             ticket.dOrderDate = ticket.orderDate.toString();
             ticket.orderDate = null;
 
@@ -97,7 +116,7 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
             });
     };
 
-    function validate(carriageNumber, placeNumber, orderDate) {
+    function validate(carriageNumber, placeNumber, orderDate, stationFrom, stationTo) {
         var isValid = true;
 
         if(carriageNumber == "" || isNaN(parseInt(carriageNumber))) {
@@ -118,13 +137,28 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
             isValid = false;
         }
 
+        if(stationFrom <= 0) {
+            $scope.errors.push("Station \'From\' NOT selected");
+            isValid = false;
+        }
+        if(stationTo <= 0) {
+            $scope.errors.push("Station \'To\' NOT selected");
+            isValid = false;
+        }
+
+        if(stationFrom == stationTo && $scope.errors.length == 0)
+        {
+            $scope.errors.push("Station \'From\' equal with Station \'To\' !");
+            isValid = false;
+        }
+
         return isValid;
     }
 
     $scope.register = function() {
         $scope.errors = [];
 
-        if(!validate($scope.carriageNumber, $scope.placeNumber, $scope.orderDate)) {
+        if(!validate($scope.carriageNumber, $scope.placeNumber, $scope.orderDate, $scope.stationFrom, $scope.stationTo)) {
             return;
         }
 
@@ -136,7 +170,9 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
             dOrderDate : $scope.orderDate,
             num : $scope.placeNumber,
             carriageNum : $scope.carriageNumber,
-            race : race
+            race : race,
+            stationFrom : { id : $scope.stationFrom },
+            stationTo : { id : $scope.stationTo }
         };
         const action = {
             id : 0
@@ -156,6 +192,8 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
                 $scope.placeNumber = '';
                 $scope.carriageNumber = '';
                 $scope.race = '';
+                $scope.stationFrom = '';
+                $scope.stationTo = '';
 
                 return TicketService.getTickets()
                     .then(function(data) {

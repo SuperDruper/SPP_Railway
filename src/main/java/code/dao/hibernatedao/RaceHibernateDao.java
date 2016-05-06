@@ -111,6 +111,7 @@ public class RaceHibernateDao extends GenericHibernateDao<Race, Integer> impleme
             "SELECT r FROM Race r inner join fetch r.train tr " +
                     "inner join fetch tr.trainType trT " +
                     "inner join fetch r.raceStations rs " +
+                    "inner join fetch rs.station "  +
                     "WHERE r.id = :id";
     public Race findRaceUseInnerJOINWithTrainAndTrainTypes(int raceID)
     {
@@ -119,6 +120,20 @@ public class RaceHibernateDao extends GenericHibernateDao<Race, Integer> impleme
 
         Race race  = (Race)query.uniqueResult();
         return race;
+    }
+
+    private static final String GET_RACE_BY_ROUTE =
+            "SELECT race FROM Race race " +
+                    "WHERE race.route.id = :routeId and race.train.id = :trainId";
+    @Override
+    public List<Race> getRacesWithRouteAndTrain(Route route, Train train) {
+        Query query = getCurrentSession().createQuery(GET_RACE_BY_ROUTE);
+        query.setInteger("routeId", route.getId());
+        query.setInteger("trainId", train.getId());
+
+        List<Race> races  = query.list();
+
+        return races;
     }
 
     private static final String GET_RACE_WITH_TICKETS_HQL =

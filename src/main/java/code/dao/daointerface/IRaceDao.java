@@ -16,6 +16,8 @@ public interface IRaceDao extends IDao<Race, Integer> {
     public List<Race> getAllRaces();
     public Race getRaceById(Integer ID);
 
+    public List<Race> getRacesWithRouteAndTrain(Route route, Train train);
+
     //MARK  -  GETTERS
     public Route getRouteForRace(Race race);
     public java.util.Collection<RaceStation> getRaceStationsForRace(Race race);

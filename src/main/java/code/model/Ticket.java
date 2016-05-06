@@ -9,7 +9,6 @@ import java.sql.Timestamp;
  */
 @Entity
 public class Ticket {
-
     private int id;
     private Timestamp orderDate;
     private String dOrderDate;
@@ -17,6 +16,28 @@ public class Ticket {
     private int carriageNum;
     private Race race;
     private User user;
+    private Station stationFrom;
+    private Station stationTo;
+
+    @ManyToOne
+    @JoinColumn(name = "st_id_from", referencedColumnName = "st_id", nullable = false)
+    public Station getStationFrom() {
+        return stationFrom;
+    }
+
+    public void setStationFrom(Station stationFrom) {
+        this.stationFrom = stationFrom;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "st_id_to", referencedColumnName = "st_id", nullable = false)
+    public Station getStationTo() {
+        return stationTo;
+    }
+
+    public void setStationTo(Station stationTo) {
+        this.stationTo = stationTo;
+    }
 
     @Column(nullable = true, insertable = true, updatable = true)
     public String getdOrderDate() {

@@ -7,6 +7,10 @@ app.factory('TicketService', ['Service', function(Service) {
             return Service.request('/api/ticket/crud');
         },
 
+        getStationsForRace: function(object) {
+            return Service.request('/api/ticket/update', 'POST', object)
+        },
+
         register: function(object) {
             return Service.request('/api/ticket/update', 'POST', object);
         },
