@@ -121,6 +121,8 @@ public class RaceHibernateDao extends GenericHibernateDao<Race, Integer> impleme
 
         Race race  = (Race)query.uniqueResult();
         Hibernate.initialize(race.getTickets());
+        Hibernate.initialize(race);
+
 
         return race;
     }
@@ -135,6 +137,7 @@ public class RaceHibernateDao extends GenericHibernateDao<Race, Integer> impleme
 
         List<Race> races  = query.list();
 
+
         return races;
     }
 
@@ -144,7 +147,12 @@ public class RaceHibernateDao extends GenericHibernateDao<Race, Integer> impleme
     public Race findByPKWithDetails(int pk) {
         Query query = getCurrentSession().createQuery(GET_RACE_WITH_TICKETS_HQL);
         query.setInteger(0, pk);
-        return (Race) query.uniqueResult();
+
+        Race race = (Race) query.uniqueResult();
+        Hibernate.initialize(race.getTickets());
+        Hibernate.initialize(race);
+
+        return race;
     }
 
 }
