@@ -25,7 +25,8 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
         })
         .when('/train/register', {
             templateUrl: 'modules/train/register/train.view.html',
-        }) //add new routes here
+            controller: 'TrainController'
+        })
         .when('/train/crud', {
             templateUrl: 'modules/train/crud/train.view.html',
             controller: 'TrainController'
@@ -65,6 +66,10 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
         .when('/ticketorder/racedetails', {
             templateUrl: 'modules/ticketorder/racedetails/racedetails.view.html',
             controller: 'RaceDetailsController'
+        })
+        .when('/ticketorder/ticketshow', {
+            templateUrl: 'modules/ticketorder/ticketshow/ticketshow.view.html',
+            controller: 'TicketShowController'
         });
 }]);
 

@@ -11,7 +11,6 @@ import java.util.List;
 /**
  * Created by dzmitry.antonenka on 26.04.2016.
  */
-@Authorize("admin")
 public class StationListShowingAction extends GetAction {
     public List<Station> getStations() {
         return stations;

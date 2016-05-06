@@ -1,6 +1,7 @@
 package code.controller.race;
 
 import code.controller.PostAction;
+import code.controller.shared.Authorize;
 import code.infrastructure.Constants;
 import code.infrastructure.ValidationUtils;
 import code.model.RaceStation;

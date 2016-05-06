@@ -1,4 +1,5 @@
-app.controller('RaceChoiceController', function ($scope, $rootScope, $location, RaceChoiceService, GetRaceStationService, Service) {
+angular.module('app').controller('RaceChoiceController', function ($scope, $location, RaceChoiceService,
+                                                 StationService, Service, TicketShare) {
 
     var departureStationId = 0;
     var arriveStationId = 0;
@@ -57,7 +58,8 @@ app.controller('RaceChoiceController', function ($scope, $rootScope, $location, 
                 var arriveStationName = Service.getObjectByIdFromList($scope.stations, arriveStationId).name;
                 var raceInfo = Service.getObjectByIdFromList($scope.raceInfos, id);
 
-                const RACE_DATA_TO_SHOW = {
+                const RACE_DATA_TO_SHARE = {
+                    raceId: id,
                     departureStationName: departureStationName,
                     arriveStationName: arriveStationName,
                     name: raceInfo.name,
@@ -66,14 +68,13 @@ app.controller('RaceChoiceController', function ($scope, $rootScope, $location, 
                     arriving: raceInfo.arriving,
                     carriages: data.raceDetails.carriages
                 };
-                $rootScope.raceDataToShow = RACE_DATA_TO_SHOW;
+                TicketShare.set(RACE_DATA_TO_SHARE);
                 $location.path('/ticketorder/racedetails');
             }
         });
-
     };
 
-    return GetRaceStationService.getRaceStations().then(function(data) {
+    return StationService.getStation().then(function(data) {
         $scope.stations = data.data.stations;
     });
 

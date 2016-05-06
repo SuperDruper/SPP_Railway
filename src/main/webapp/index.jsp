@@ -61,7 +61,8 @@
 <script src="<s:url value="modules/app.js" />"></script>
 <script src="<s:url value="shared/service.js" />"></script>
 <script src="<s:url value="shared/user_role_name.service.js" />"></script>
-<script src="<s:url value="shared/get_race_stations.service.js" />"></script>
+<script src="<s:url value="shared/get_stations.service.js" />"></script>
+<script src="<s:url value="shared/datasharing/ticket_share.service.js" />"></script>
 
 <script src="<s:url value="modules/example/example.controller.js" />"></script>
 <script src="<s:url value="modules/example/example.service.js" />"></script>
@@ -109,6 +110,8 @@
 
 <script src="<s:url value="modules/ticketorder/racedetails/racedetails.controller.js" />"></script>
 <script src="<s:url value="modules/ticketorder/racedetails/racedetails.service.js" />"></script>
+
+<script src="<s:url value="modules/ticketorder/ticketshow/ticketshow.controller.js" />"></script>
 
 
 </body>

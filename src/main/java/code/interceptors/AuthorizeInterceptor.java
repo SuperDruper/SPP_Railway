@@ -40,7 +40,7 @@ public class AuthorizeInterceptor extends AbstractInterceptor {
 
                 if (haveAccessRightRoleNames.length == 0 ||
                         Arrays.asList(haveAccessRightRoleNames).contains(roleName)) {
-                    return actionInvocation.invokeActionOnly();
+                    return actionInvocation.invoke();
                 }
             } catch (NullPointerException e) {}
 

@@ -1,10 +1,10 @@
 /**
  * Created by dzmitry.antonenka on 11.04.2016.
  */
-app.factory('RaceStationService', ['Service', 'GetRaceStationService', function(Service, GetRaceStationService) {
+app.factory('RaceStationService', ['Service', function(Service) {
     return {
         getRaceStations: function() {
-            return GetRaceStationService.getRaceStations();
+            return Service.request('/api/race_station/crud');
         },
         register: function(object) {
             return Service.request('/api/race_station/update', 'POST', object);
