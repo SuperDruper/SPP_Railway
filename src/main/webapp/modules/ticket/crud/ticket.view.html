@@ -57,7 +57,7 @@
             <td>Actions</td>
         </tr>
         <tr ng-repeat="ticket in tickets | orderBy:'id'">
-            <td><input type="text" name="Order date" ng-model="ticket.orderDate" required></td>
+            <td><input type="text" min="{{ticket.orderDate | date:'yyyy-MM-dd __ HH:mm'}}" name="Order date" ng-model="ticket.orderDate" required></td>
             <td><input type="number" name="Carriage number" ng-model="ticket.carriageNum" required></td>
             <td><input type="number" name="Place number" ng-model="ticket.num" required></td>
 

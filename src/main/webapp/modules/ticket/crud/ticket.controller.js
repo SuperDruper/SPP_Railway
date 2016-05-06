@@ -128,29 +128,31 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
             ticket.orderDate = null;
 
             TicketService.updateRow({ ticket: ticket, action: action })
-                .then(function() {
+                .then(function(data) {
                     refreshData();
+                    $scope.errors.push.apply($scope.errors, data.errorList);
                 });
         }
     };
 
     function refreshData() {
-        TrainTypeListService.getTickets()
+        return TicketService.getTickets()
             .then(function(data) {
                 $scope.tickets = data.data.tickets;
-                $scope.errors.push.apply($scope.errors, data.errorList);
+                $scope.errors.push.apply($scope.errors, data.data.errorList);
             });
     };
 
     function validate(carriageNumber, placeNumber, orderDate, stationFrom, stationTo) {
         var isValid = true;
+        $scope.errors = [];
 
         if(carriageNumber == null || carriageNumber == "" || isNaN(parseInt(carriageNumber)) || carriageNumber <= 0) {
-            $scope.errors.push("Entered Carriage number number is NAN !");
+            $scope.errors.push("Entered Carriage number number is not alowed !");
             isValid = false;
         }
         if(placeNumber == null || placeNumber == "" || isNaN(parseInt(placeNumber)) || carriageNumber <= 0) {
-            $scope.errors.push("Entered place number is NAN !");
+            $scope.errors.push("Entered place number is not allowed !");
             isValid = false;
         }
 
@@ -159,7 +161,7 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
         var timestamp=Date.parse(dateComponents[0] + "T" + dateComponents[1])
         if (isNaN(timestamp))
         {
-            $scope.errors.push("Entered order date is NAN !");
+            $scope.errors.push("Entered order date is nat allowed !");
             isValid = false;
         }
 
