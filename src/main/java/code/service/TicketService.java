@@ -1,5 +1,6 @@
 package code.service;
 
+import code.controller.shared.Authorize;
 import code.dao.daointerface.ITicketDao;
 import code.dao.AbstractDaoFactory;
 import code.model.*;
@@ -21,6 +22,15 @@ public class TicketService extends GenericService<Ticket, Integer> {
 
     public TicketService() {
         super(Ticket.class);
+    }
+
+    public List<Ticket> getTicketsForUser(User user)
+    {
+        getDao().openCurrentSessionWithTransaction();
+        List<Ticket> tickets = getDao().getTicketsForUser(user);
+        getDao().closeCurrentSessionWithTransaction();
+
+        return tickets;
     }
 
     @Override

@@ -2,6 +2,7 @@
  * Created by dzmitry.antonenka on 11.04.2016.
  */
 app.controller('RoleController', function ($scope, $window, RoleService) {
+    $scope.errors = [];
 
     $scope.removeRow = function(id){
         var index = -1;
@@ -42,7 +43,12 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
                 id : 1
             };
 
-            RoleService.updateRow({ role: object, action: action });
+            if(!validate(object.name)) return;
+            RoleService.updateRow({ role: object, action: action })
+                .then(function(data) {
+                    $scope.errors.push.apply($scope.errors, data.errorList);
+                    refreshData();
+                });
         }
     };
     $scope.register = function() {
@@ -50,7 +56,6 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
         $scope.events = [];
 
         const object = {
-            id: $scope.roleId,
             name: $scope.roleName
         };
 
@@ -59,6 +64,8 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
         };
 
         $scope.asyncRequestComplited = false;
+
+        if(!validate($scope.roleName)) return;
 
         var smth = RoleService.register({role:object, action: action})
             .then(function(data) {
@@ -73,14 +80,29 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
                 $scope.roleId = "";
                 $scope.roleName = "";
 
-                RoleService.getRoles()
-                    .then(function(data) {
-                        $scope.roles = data.data.roles;
-                    });
+                refreshData();
             }
         });
 
         return smth;
+    }
+
+    function validate(roleName)
+    {
+        if(roleName != null && roleName.trim().length != 0) {
+            return true;
+        } else {
+            $scope.errors.push("Role name cannot be empty !");
+            return false;
+        }
+    }
+
+    function refreshData()
+    {
+       return RoleService.getRoles()
+            .then(function(data) {
+                $scope.roles = data.data.roles;
+            });
     }
 
     return RoleService.getRoles()

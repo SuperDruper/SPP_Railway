@@ -71,7 +71,7 @@ public class Race {
         this.raceStations = raceStations;
     }
 
-    @OneToMany(mappedBy = "race")
+    @OneToMany(mappedBy = "race", fetch = FetchType.EAGER)
     public Collection<Ticket> getTickets() {
         return tickets;
     }

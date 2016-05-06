@@ -268,7 +268,7 @@
         <action name="station_distance/crud" class="code.controller.station_distance.StationDistanceListShowingAction">
             <result type="json">
                 <param name="excludeProperties">
-
+                    ^.+?raceStations(?![_\w\d])
                 </param>
                 <param name="noCache">true</param>
             </result>
@@ -300,6 +300,31 @@
             <result type="json">
                 <param name="excludeProperties" >
 
+                </param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+
+        <action name="ticket/crud" class="code.controller.ticket.TicketListShowingAction">
+            <result type="json">
+                <param name="excludeProperties" >
+                    ^tickets\[\d+\]\.user,
+                    ^.+?raceStations(?![_\w\d]),
+                    ^.+?races(?![_\w\d]),
+                    ^.+?tickets(?![_\w\d]),
+                    ^.+?trains(?![_\w\d])
+                </param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <!-- POST EXAMPLE -->
+        <action name="ticket/update" class="code.controller.ticket.UpdateAction">
+            <result type="json">
+                <param name="excludeProperties" >
+                    ^.+?raceStations(?![_\w\d]),
+                    ^.*?raceStations
                 </param>
                 <param name="noCache">true</param>
             </result>

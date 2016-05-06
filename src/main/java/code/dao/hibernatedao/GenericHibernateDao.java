@@ -70,6 +70,11 @@ public class GenericHibernateDao<T, PK extends Serializable> implements IDao<T, 
         return getCurrentSession().get(getEntityClass(), pk);
     }
 
+    @Override
+    public T findByFieldWithName(String fieldName, Object value) {
+        return null;
+    }
+
     /**
      * This method deletes instance, but not it's dependencies.
      * In case of using this , method to entity with dependencies exception will be thrown!

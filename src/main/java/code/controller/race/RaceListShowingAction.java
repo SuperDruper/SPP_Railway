@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by dzmitry.antonenka on 23.04.2016.
  */
-@Authorize("admin")
+//@Authorize("admin")
 public class RaceListShowingAction  extends GetAction {
     public List<Race> getRaces() {
         return races;

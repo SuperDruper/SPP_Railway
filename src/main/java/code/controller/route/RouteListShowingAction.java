@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by dzmitry.antonenka on 24.04.2016.
  */
-@Authorize("admin")
+//@Authorize("admin")
 public class RouteListShowingAction extends GetAction {
     private List<Route> routes;
     private List<Race> races;

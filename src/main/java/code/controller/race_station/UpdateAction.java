@@ -10,7 +10,7 @@ import code.service.GenericService;
 /**
  * Created by dzmitry.antonenka on 26.04.2016.
  */
-@Authorize("admin")
+//@Authorize("admin")
 public class UpdateAction extends PostAction {
     private CrudAction action;
     private RaceStation raceStation;

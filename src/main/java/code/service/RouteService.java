@@ -22,4 +22,8 @@ public class RouteService extends GenericService<Route, Integer> {
 
         return dao;
     }
+
+    public Route getRouteByName(String name) {
+        return getModelByUniqueStringField("name", name);
+    }
 }

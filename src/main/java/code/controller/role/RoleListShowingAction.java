@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by dzmitry.antonenka on 11.04.2016.
  */
-@Authorize("admin")
+//@Authorize("admin")
 public class RoleListShowingAction extends GetAction {
     private List<Role> roles;
 

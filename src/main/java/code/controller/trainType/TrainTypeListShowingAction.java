@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by dzmitry.antonenka on 10.04.2016.
  */
-@Authorize("admin")
+//@Authorize("admin")
 public class TrainTypeListShowingAction extends GetAction {
     private List<TrainType> trainTypes = new GenericService<TrainType, Integer>(TrainType.class).findAll();
 

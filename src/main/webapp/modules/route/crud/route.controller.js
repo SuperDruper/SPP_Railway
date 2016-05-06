@@ -2,6 +2,7 @@
  * Created by dzmitry.antonenka on 11.04.2016.
  */
 app.controller('RouteController', function ($scope, $window, RouteService) {
+    $scope.errors = [];
 
     $scope.removeRow = function(id){
         var index = -1;
@@ -42,7 +43,13 @@ app.controller('RouteController', function ($scope, $window, RouteService) {
                 id : 1
             };
 
-            RouteService.updateRow({ route: object, action: action });
+            if(!validate(object.name)) return;
+
+            RouteService.updateRow({ route: object, action: action })
+                .then(function(data) {
+                    $scope.errors.push.apply($scope.errors, data.errorList);
+                    refreshData();
+                });
         }
     };
     $scope.register = function() {
@@ -57,13 +64,13 @@ app.controller('RouteController', function ($scope, $window, RouteService) {
             id : 0
         };
 
+        if(!validate($scope.routeNameToCreate)) return;
+
         $scope.asyncRequestComplited = false;
 
         var smth = RouteService.register({route:route, action: action})
             .then(function(data) {
                 $scope.errors.push.apply($scope.errors, data.errorList);
-                $scope.events.push.apply($scope.events, data.eventList);
-
                 $scope.asyncRequestComplited = true;
             });
         $scope.$watch('asyncRequestComplited',function(newValue, oldValue, scope){
@@ -82,6 +89,23 @@ app.controller('RouteController', function ($scope, $window, RouteService) {
         });
 
         return smth;
+    }
+
+    function refreshData() {
+        return RouteService.getRoutes()
+            .then(function(data) {
+                $scope.routes = data.data.routes;
+            })
+    }
+
+    function validate(routeName)
+    {
+        if(routeName != null && routeName.trim().length != 0) {
+            return true;
+        } else {
+            $scope.errors.push("Route name cannot be empty !");
+            return false;
+        }
     }
 
     return RouteService.getRoutes()

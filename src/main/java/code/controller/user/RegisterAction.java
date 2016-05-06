@@ -1,8 +1,10 @@
 package code.controller.user;
 
 import code.controller.PostAction;
+import code.dao.hibernatedao.GenericHibernateDao;
 import code.model.Role;
 import code.model.User;
+import code.service.GenericService;
 import code.service.RoleService;
 import code.service.UserService;
 import code.infrastructure.ValidationUtils;
@@ -25,8 +27,9 @@ public class RegisterAction extends PostAction {
 
     @Override
     public String create() {
+        //Why always const role ??
         Role role = RoleService.getUserRole();
-        user.setRole(role);
+        user.setRole(role); //replace with | new GenericService<Role, Integer>().findByPK(user.getRole().getId());
 
         if (validate(user)) {
             new UserService().persist(user);

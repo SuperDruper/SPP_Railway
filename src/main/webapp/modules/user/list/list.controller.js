@@ -1,4 +1,5 @@
 app.controller('UserListController', function ($scope, UserListService, Service) {
+    $scope.errors = [];
 
     $scope.removeRow = function(id){
         var index = -1;
@@ -17,11 +18,14 @@ app.controller('UserListController', function ($scope, UserListService, Service)
                 id : 2
             };
 
-            UserListService.removeRow({ user: object, action: action });
-            $scope.users.splice(index, 1);
+            UserListService.removeRow({ user: object, action: action })
+                .then(function (data) {
+                    $scope.errors.push.apply($scope.errors, data.errorList);
+                });
         }
 
-    };
+    }
+        ;
 
     $scope.updateRoleForUser = function(user, roleId) {
         var comTrainTypesArr = eval( $scope.roles );
@@ -65,7 +69,13 @@ app.controller('UserListController', function ($scope, UserListService, Service)
                 id : 1
             };
 
-            UserListService.updateRow({ user: object, action: action });
+            if(!validate(object.name, object.surname, object.login, object.email, object.password, object.role)) return;
+
+            UserListService.updateRow({ user: object, action: action })
+                .then(function (data) {
+                    refreshData();
+                    $scope.errors.push.apply($scope.errors, data.errorList);
+                });
         }
     };
 
@@ -74,7 +84,7 @@ app.controller('UserListController', function ($scope, UserListService, Service)
         $scope.events = [];
 
         const role = {
-            name : $scope.roleName
+            id : $scope.roleToCreate
         };
 
         const user = {
@@ -86,6 +96,8 @@ app.controller('UserListController', function ($scope, UserListService, Service)
             role: role
         };
 
+        if(!validate($scope.name, $scope.surname, $scope.login, $scope.email, $scope.password, role)) return;
+
         return Service.request('/api/user/register', 'POST', {user: user})
             .then(function (data) {
                 $scope.errors.push.apply($scope.errors, data.errorList);
@@ -96,11 +108,51 @@ app.controller('UserListController', function ($scope, UserListService, Service)
                     $scope.login = '';
                     $scope.email = '';
                     $scope.password = '';
-                    $scope.roleName = '';
+                    $scope.roleToCreate = '';
                 }
-                UserListService.getUsers();
             });
     };
+
+    function validate(name, surname, login, email, password, roleToCreate)
+    {
+        $scope.errors = [];
+
+        var isValid = true;
+        if(name == null || name == '') {
+            $scope.errors.push("Name cannot be empty !");
+            isValid = false;
+        }
+        if(surname == null || surname == '') {
+            $scope.errors.push("Surname cannot be empty !");
+            isValid = false;
+        }
+        if(login == null || login == '') {
+            $scope.errors.push("Login cannot be empty !");
+            isValid = false;
+        }
+        if(email == null || email == '') {
+            $scope.errors.push("Email cannot be empty !");
+            isValid = false;
+        }
+        if(password == null || password == '') {
+            $scope.errors.push("Password cannot be empty !");
+            isValid = false;
+        }
+        if(roleToCreate == null || roleToCreate == '') {
+            $scope.errors.push("Role not SELECTED !");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    function refreshData() {
+        return UserListService.getUsers()
+            .then(function(data) {
+                $scope.users = data.data.users;
+                $scope.roles = data.data.roles;
+            });
+    }
 
     return UserListService.getUsers()
         .then(function(data) {
