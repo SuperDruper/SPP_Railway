@@ -11,28 +11,70 @@
 
 <div>
     <div class="form-group">
-        <label for="">RaceStation ID(name)</label>
-        <input class="form-control" type="number" ng-model="raceStationIdToCreate" placeholder="Identifier">  <br/>
+        <label for="">RaceStation ID(name)</label><br />
+        <input class="form-control" type="number" ng-model="raceStationIdToCreate" placeholder="Identifier">  <br/><br />
 
-        <label for="">Departure(Please use E.g. 2016-04-05 14:36:00)</label>
-        <div class="col-md-6">
-            <input type="text" ng-model="departureToCreate" class="form-control" placeholder="Order date">  <br/>
-        </div><br />
+        <label for="">Departure(Please use E.g. 2016-04-05 14:36:00)</label><br />
+        <div>
+            <div class="container" style="width: inherit">
+                <div class="row">
+                    <div>
+                        <div class="form-group form-group-sm">
+                            <div class='input-group date datetimepicker'>
+                                <input type='text' class="form-control" ng-model="departureToCreate" name="departureToCreate" id="departureToCreate" required/>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('.datetimepicker').datetimepicker({
 
-        <label for="">Arriving(Please use E.g. 2016-04-05 14:36:00)</label>
-        <div class="col-md-6">
-            <input type="text" ng-model="arrivingToCreate" class="form-control" placeholder="Order date">  <br/>
-        </div><br />
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+        </div><br/>
 
-        <label for="">Race</label>
+        <label for="">Arriving(Please use E.g. 2016-04-05 14:36:00)</label><br/>
+        <div>
+            <div >
+                <div class="container" style="width: inherit">
+                    <div class="row">
+                        <div>
+                            <div class="form-group form-group-sm">
+                                <div class='input-group date datetimepicker'>
+                                    <input  type='text' class="form-control" ng-model="arrivingToCreate" name="arrivingToCreate" id="arrivingToCreate" required/>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            $(function () {
+                                $('.datetimepicker').datetimepicker({
+
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div><br/><br/>
+        </div> <br />
+
+        <label for="">Race</label><br />
         <select name="race" id="race" ng-model="raceIdToCreate" ng-init="races[0]">
             <option ng-repeat="race in races" value="{{race.id}}">{{race.id}}</option>
-        </select> <br />
+        </select> <br /><br />
 
         <label for="">Station</label>
         <select name="station" id="station" ng-model="stationIdToCreate" ng-init="stations[0]">
             <option ng-repeat="station in stations" value="{{station.id}}">{{station.name}}</option>
-        </select>
+        </select> <br />
 
         <button type="submit" class="btn btn-default" ng-click="register()">Create</button>
     </div>
@@ -47,54 +89,100 @@
     </div>
 
     <table class="table table-bordered table-striped">
-        <tr>
-            <td>RaceStation ID(name)</td>
-            <td>Departure</td>
-            <td>Arriving</td>
-            <td>Race</td>
-            <td>Station</td>
-        </tr>
-        <tr ng-repeat="raceStation in raceStations">
-            <td><input data-provide="datepicker" type="text" name="id" ng-model="raceStation.id" required></td>
-            <td>
-                <input type="text" ng-model="raceStation.depature" class="form-control" placeholder="Order date">  <br/>
-            </td>
-            <td>
-                <input type="text" ng-model="raceStation.arriving" class="form-control" placeholder="Order date">  <br/>
-            </td>
+        <thead>
+                <tr>
+                    <th>RaceStation ID(name)</th>
+                    <th>Departure</th>
+                    <th>Arriving</th>
+                    <th>Race</th>
+                    <th>Station</th>
+                </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="raceStation in raceStations">
+                <td>
+                    <input maxlength="8"  data-provide="datepicker" type="text" name="id" ng-model="raceStation.id" required>
+                </td>
+                <td>
+                    <div class="container" style="width: inherit">
+                        <div class="row">
+                            <div>
+                                <div class="form-group form-group-sm">
+                                    <div class='input-group date datetimepicker'>
+                                        <input  type='text' class="form-control" ng-model="raceStation.depature"/>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('.datetimepicker').datetimepicker({
 
-            <td>
-                <select ng-model="defaultSelectedRace"
-                        ng-init="defaultSelectedRace = raceStation.race.id"
-                        ng-change="updateRaceForRaceStation(race, defaultSelectedRace)">
-                    <!--<option value="">--- Select an option ---</option>-->
-                    <option ng-selected= "{{race.id == defaultSelectedRace}}"
-                            ng-repeat="race in races"
-                            value="{{race.id}}">
-                        {{race.id}}
-                    </option>
-                </select>
-                <!--<input type="text" name="id" step="0.01" ng-model="race.route.name" required>-->
-            </td>
-            <td>
-                <select ng-model="defaultSelectedStation"
-                        ng-init="defaultSelectedStation = raceStation.station.id"
-                        ng-change="updateTrainForRaceStation(race, defaultSelectedStation)">
-                    <!--<option value="">--- Select an option ---</option>-->
-                    <option ng-selected= "{{station.id == defaultSelectedStation}}"
-                            ng-repeat="station in stations"
-                            value="{{station.id}}">
-                        {{station.name}}
-                    </option>
-                </select>
-                <!--<input type="number" name="placesAmount" ng-model="race.train.id" required>-->
-            </td>
-            <td>
-                <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(raceStation.id)"/>
-            </td>
-            <td>
-                <input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(raceStation.id)"/>
-            </td>
-        </tr>
+                                    });
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="container" style="width: inherit">
+                        <div class="row">
+                            <div >
+                                <div class="form-group form-group-sm">
+                                    <div class='input-group date datetimepicker'>
+                                        <input type='text' class="form-control" ng-model="raceStation.arriving"/>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('.datetimepicker').datetimepicker({
+
+                                    });
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <select ng-model="defaultSelectedRace"
+                            ng-init="defaultSelectedRace = raceStation.race.id"
+                            ng-change="updateRaceForRaceStation(race, defaultSelectedRace)">
+                        <!--<option value="">--- Select an option ---</option>-->
+                        <option ng-selected= "{{race.id == defaultSelectedRace}}"
+                                ng-repeat="race in races"
+                                value="{{race.id}}">
+                            {{race.id}}
+                        </option>
+                    </select>
+                    <!--<input type="text" name="id" step="0.01" ng-model="race.route.name" required>-->
+                </td>
+                <td>
+                    <select ng-model="defaultSelectedStation"
+                            ng-init="defaultSelectedStation = raceStation.station.id"
+                            ng-change="updateTrainForRaceStation(race, defaultSelectedStation)">
+                        <!--<option value="">--- Select an option ---</option>-->
+                        <option ng-selected= "{{station.id == defaultSelectedStation}}"
+                                ng-repeat="station in stations"
+                                value="{{station.id}}">
+                            {{station.name}}
+                        </option>
+                    </select>
+                    <!--<input type="number" name="placesAmount" ng-model="race.train.id" required>-->
+                </td>
+                <td>
+                    <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(raceStation.id)"/>
+                </td>
+                <td>
+                    <input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(raceStation.id)"/>
+                </td>
+            </tr>
+        </tbody>
     </table>
 </div>

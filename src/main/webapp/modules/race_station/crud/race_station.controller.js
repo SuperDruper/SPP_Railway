@@ -36,19 +36,14 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
         if( index === -1 ) {
             alert( "Cannot update row with id" + id);
         } else {
-            const object = jQuery.extend(true, {}, comArr[index]);
+            const object = comArr[index];
             const action = {
                 id : 1
             };
 
             if(!validate(object.id, object.depature, object.arriving, object.race.id, object.station.id)) return;
-            object.dDepature = object.depature.toString();
-            object.dArriving = object.arriving;
 
-            object.depature = null;
-            object.arriving = null;
-
-            RaceStationService.updateRow({ race: object, action: action })
+            RaceStationService.updateRow({ raceStationContainer: object, action: action })
                 .then(function(data) {
                     $scope.errors.push.apply($scope.errors, data.errorList);
                     refreshData();
@@ -62,8 +57,8 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
 
         const raceStation = {
             id : $scope.raceStationIdToCreate,
-            dDepature : $scope.departureToCreate,
-            dArriving : $scope.arrivingToCreate,
+            depature : $scope.departureToCreate,
+            arriving : $scope.arrivingToCreate,
             race : { id : $scope.raceIdToCreate },
             station : { id : $scope.stationIdToCreate }
         };
@@ -75,7 +70,7 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
 
         $scope.asyncRequestComplited = false;
 
-        var smth = RaceStationService.register({ raceStation:raceStation, action: action})
+        var smth = RaceStationService.register({ raceStationContainer :raceStation, action: action})
             .then(function(data) {
                 $scope.errors.push.apply($scope.errors, data.errorList);
                 $scope.events.push.apply($scope.events, data.eventList);
@@ -94,6 +89,8 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
                     });
             }
         });
+
+        $scope.watch()
 
         return smth;
     };
@@ -207,4 +204,6 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
                 $scope.stations = data.data.stations;
             });
     }
+
+    return refreshData();
 });
