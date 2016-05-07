@@ -24,10 +24,15 @@ app.controller('TrainListController', function ($scope, TrainTypeListService) {
                 id : 2
             };
 
-            TrainTypeListService.removeRow({ trainType: object, action: action });
-            $scope.trainTypes.splice(index, 1);
-        }
+            TrainTypeListService.removeRow({ trainType: object, action: action })
+                .then(function(data) {
+                    $scope.errors.push.apply($scope.errors, data.errorList);
 
+                    if($scope.errors.length == 0) {
+                        $scope.trainTypes.splice(index, 1);
+                    }
+                });
+        }
     };
     $scope.updateRow = function(id){
         var index = -1;
@@ -49,28 +54,30 @@ app.controller('TrainListController', function ($scope, TrainTypeListService) {
             if(!validate(trainType.name, trainType.coefficient, trainType.placesAmount)) return;
 
             TrainTypeListService.updateRow({ trainType: trainType, action: action })
-                .then(function() {
-                    refreshData()
+                .then(function(data) {
+                    refreshData();
+                    $scope.errors.push.apply($scope.errors, data.errorList);
                 });
         }
     };
 
 
     function validate(trainTypeNameToCreate, trainTypeCoefficientToCreate, trainTypePlacesAmountToCreate) {
+        $scope.errors = [];
         var isValid = true;
 
-        if(trainTypeNameToCreate.trim().length == 0) {
+        if(trainTypeNameToCreate == null || trainTypeNameToCreate.trim().length == 0) {
             $scope.errors.push("Train type name cannot be empty !");
             isValid = false;
         }
 
-        if(isNaN(parseFloat(trainTypeCoefficientToCreate)))
+        if(trainTypeCoefficientToCreate == null || isNaN(parseFloat(trainTypeCoefficientToCreate)) || parseFloat(trainTypeCoefficientToCreate) <= 0)
         {
             $scope.errors.push("Train coefficient coefficient must be FLOAT number.");
             isValid = false;
         }
 
-        if(isNaN(parseInt(trainTypePlacesAmountToCreate)))
+        if(trainTypePlacesAmountToCreate == null || isNaN(parseInt(trainTypePlacesAmountToCreate)) || parseInt(trainTypePlacesAmountToCreate) <= 0)
         {
             $scope.errors.push("Train places amount must be INT number.");
             isValid = false;
@@ -113,16 +120,14 @@ app.controller('TrainListController', function ($scope, TrainTypeListService) {
     }
 
     function refreshData() {
-        TrainTypeListService.getTrainTypes()
+       return TrainTypeListService.getTrainTypes()
             .then(function(data) {
                 $scope.trainTypes = data.data.trainTypes;
-                $scope.errors.push.apply($scope.errors, data.errorList);
             });
     };
 
         return TrainTypeListService.getTrainTypes()
         .then(function(data) {
             $scope.trainTypes = data.data.trainTypes;
-                $scope.errors.push.apply($scope.errors, data.data.errorList);
         });
 });

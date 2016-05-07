@@ -6,6 +6,8 @@ app.controller('RaceListController', function ($scope, RaceListService) {
 
     $scope.removeRow = function(id){
         var index = -1;
+        $scope.errors = [];
+
         var comArr = eval( $scope.races );
         for( var i = 0; i < comArr.length; i++ ) {
             if( comArr[i].id === id ) {

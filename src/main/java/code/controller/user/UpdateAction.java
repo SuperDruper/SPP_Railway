@@ -10,6 +10,7 @@ import code.service.UserService;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -33,11 +34,7 @@ public class UpdateAction extends PostAction {
 
                 break;
             case 2:
-                try {
-                    new UserService().deleteByPK(user.getId());
-                } catch (Exception exc) {
-                    errorList.add(exc.getLocalizedMessage());
-                }
+                deleteUser(user);
                 break;
             default:
                 errorList.add("Unsupported CRUD action type!");
@@ -60,6 +57,21 @@ public class UpdateAction extends PostAction {
         }
     }
 
+    private void deleteUser(User user)
+    {
+        errorList = new ArrayList<>();
+        try {
+            User mySelf = getUserFromSession();
+            if(mySelf.getId() == user.getId()) {
+                errorList.add("Cannot delete yourself.");
+            } else
+            {
+                new UserService().deleteByPK(user.getId());
+            }
+        } catch (Exception exc) {
+            errorList.add(exc.getLocalizedMessage());
+        }
+    }
 
     public CrudAction getAction() {
         return action;

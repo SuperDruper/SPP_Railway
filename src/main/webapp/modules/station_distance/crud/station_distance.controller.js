@@ -9,6 +9,7 @@ app.controller('StationDistanceController', function ($scope, $window, StationDi
 
     $scope.removeRow = function(stationDistance){
         var index = -1;
+        $scope.errors = [];
         var comArr = eval( $scope.stationDistances );
         for( var i = 0; i < comArr.length; i++ ) {
             if( comArr[i] == stationDistance ) {
@@ -24,8 +25,14 @@ app.controller('StationDistanceController', function ($scope, $window, StationDi
                 id : 2
             };
 
-            StationDistanceService.removeRow({ stationDistance: object, action: action });
-            $scope.stationDistances.splice(index, 1);
+            StationDistanceService.removeRow({ stationDistance: object, action: action })
+                .then(function (data) {
+                    $scope.errors.push.apply($scope.errors, data.errorList);
+
+                    if($scope.errors.length == 0) {
+                        $scope.stationDistances.splice(index, 1);
+                    }
+                });
         }
 
     };
@@ -50,8 +57,8 @@ app.controller('StationDistanceController', function ($scope, $window, StationDi
 
             StationDistanceService.updateRow({ stationDistance: object, action: action })
                 .then(function(data) {
-                    $scope.errors.push.apply($scope.errors, data.errorList);
                     refreshData();
+                    $scope.errors.push.apply($scope.errors, data.errorList);
                 });
         }
     };
@@ -130,6 +137,7 @@ app.controller('StationDistanceController', function ($scope, $window, StationDi
 
     function validate(stationFrom, stationTo, distance)
     {
+        $scope.errors = [];
         var isValid = true;
 
         if(stationFrom == '') {
@@ -142,7 +150,7 @@ app.controller('StationDistanceController', function ($scope, $window, StationDi
             isValid = false;
         }
 
-        if(distance == '' || isNaN(parseFloat(distance))) {
+        if(distance == '' || isNaN(parseInt(distance))) {
             $scope.errors.push("Eneterd invalid distance(needs to be in meters) !");
             isValid = false;
         }

@@ -2,10 +2,7 @@ package code.controller.train;
 
 import code.controller.PostAction;
 import code.infrastructure.ValidationUtils;
-import code.model.CrudAction;
-import code.model.Ticket;
-import code.model.Train;
-import code.model.TrainType;
+import code.model.*;
 import code.service.GenericService;
 import code.service.TrainService;
 
@@ -55,7 +52,12 @@ public class UpdateAction extends PostAction {
 
     private void deleteActionExecute()
     {
-        new TrainService().delete(train);
+        errorList =  new ArrayList<>();
+        try {
+            new TrainService().delete(train);
+        } catch (Exception exc) {
+            errorList.add("Cannot delete entity, 'cause it's already related with another object !");
+        }
     }
 
     private void createActionExecute()
@@ -98,7 +100,7 @@ public class UpdateAction extends PostAction {
                 errorList.add(generateMesssageAboutInvalidIdForField("train.getTrainType().getId()",train.getTrainType().getId()));
             }
         }
-        if(objectHasStoredInDBWithId(train)) {
+        if(isNeedToCreate && objectHasStoredInDBWithId(train)) {
             errorList.add("Object train with id = " + train.getId() + "already has stored !");
         }
 

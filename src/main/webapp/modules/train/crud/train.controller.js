@@ -3,6 +3,7 @@ app.controller('TrainController', function ($scope, $window, TrainService) {
 
     $scope.removeRow = function(id){
         var index = -1;
+        $scope.errors = [];
         var comArr = eval( $scope.trains );
         for( var i = 0; i < comArr.length; i++ ) {
             if( comArr[i].id === id ) {
@@ -18,8 +19,13 @@ app.controller('TrainController', function ($scope, $window, TrainService) {
                 id : 2
             };
 
-            TrainService.removeRow({ train: object, action: action });
-            $scope.trains.splice(index, 1);
+            TrainService.removeRow({ train: object, action: action }).then(function(data) {
+                $scope.errors.push.apply($scope.errors, data.errorList);
+
+                if($scope.errors.length == 0) {
+                    $scope.trains.splice(index, 1);
+                }
+            });
         }
 
     };
@@ -66,7 +72,12 @@ app.controller('TrainController', function ($scope, $window, TrainService) {
             };
 
             if(!validate(object.id, object.carriageAmount, object.trainType)) return;
-            TrainService.updateRow({ train: object, action: action });
+            TrainService.updateRow({ train: object, action: action })
+                .then(function(data) {
+                    refreshData();
+
+                    $scope.errors.push.apply($scope.errors, data.errorList);
+            });
         }
     };
     $scope.register = function() {
@@ -116,27 +127,40 @@ app.controller('TrainController', function ($scope, $window, TrainService) {
 
     function validate(trainIdentifier, trainCarriageAmount, trainType)
     {
+        $scope.errors = [];
         var isValid = true;
 
-        if(isNaN(parseInt(trainIdentifier)))
+        if(trainIdentifier == null || isNaN(parseInt(trainIdentifier)))
         {
             $scope.errors.push("Train identifier must be an integer value.");
             isValid = false;
         }
 
-        if(isNaN(parseInt(trainCarriageAmount)))
+        if(trainCarriageAmount == null || isNaN(parseInt(trainCarriageAmount)))
         {
             $scope.errors.push("Train carriage amount must be an integer value.");
             isValid = false;
         }
 
-        if(trainType == null || trainType.id <=0 )
+        if(trainType == null || (trainType.id <=0 || trainType.id > $scope.trainTypes.length))
         {
             $scope.errors.push("Train type must be selected");
             isValid = false;
         }
 
         return isValid;
+    }
+
+
+    function refreshData()
+    {
+        return TrainService.getTrains()
+            .then(function(data) {
+                $scope.trains = data.data.trains;
+                $scope.trainTypes = data.data.trainTypes;
+
+                $scope.defaultSelectedTrainType = $scope.trainTypes[0].id;
+            });
     }
 
     return TrainService.getTrains()

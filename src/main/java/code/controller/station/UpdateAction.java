@@ -5,12 +5,14 @@ import code.controller.shared.Authorize;
 import code.infrastructure.ValidationUtils;
 import code.model.CrudAction;
 import code.model.Role;
+import code.model.Route;
 import code.model.Station;
 import code.service.GenericService;
 import code.service.RoleService;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -54,9 +56,13 @@ public class UpdateAction extends PostAction {
     }
 
     void deleteActionExecute() {
-        new GenericService<Station, Integer>(Station.class).delete(station);
+        errorList =  new ArrayList<>();
+        try {
+            new GenericService<Station, Integer>(Station.class).delete(station);
+        } catch (Exception exc) {
+            errorList.add("Cannot delete entity, 'cause it's already related with another object !");
+        }
     }
-
 
     private boolean validate(Station station, boolean isNeedToCreate) {
         Validator validator = ValidationUtils.getValidationFactory().getValidator();
@@ -79,7 +85,6 @@ public class UpdateAction extends PostAction {
         } else {
             return true;
         }
-
     }
 
     public List<String> getErrorList() {
