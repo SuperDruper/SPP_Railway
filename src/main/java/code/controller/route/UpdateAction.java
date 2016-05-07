@@ -13,6 +13,7 @@ import code.service.RouteService;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -53,7 +54,8 @@ public class UpdateAction extends PostAction {
         return SUCCESS;
     }
     void saveActionExecute() {
-        if(!validate(route, true)) return;
+        errorList = RouteService.validate(route, true);
+        if(!errorList.isEmpty()) return;
 
         route.setName(StringHelper.getUTF8EncodedStringFromString(route.getName()));
         new GenericService<Route, Integer>(Route.class).persist(route);
@@ -61,34 +63,18 @@ public class UpdateAction extends PostAction {
 
     void updateActionExecute()
     {
-        if(!validate(route, false)) return;
+        errorList = RouteService.validate(route, false);
+        if(!errorList.isEmpty()) return;
+
         new GenericService<Route, Integer>(Route.class).update(route);
     }
 
     void deleteActionExecute() {
-        new GenericService<Route, Integer>(Route.class).deleteByPK(route.getId());
-    }
-
-    private boolean validate(Route route, boolean isNeedToCreate) {
-        Validator validator = ValidationUtils.getValidationFactory().getValidator();
-        Set<ConstraintViolation<Route>> set = validator.validate(route);
-        errorList = ValidationUtils.fromConstraintViolationSetToMessageList(set);
-
-        if (errorList.size() == 0) {
-            return furtherValidation(route, isNeedToCreate);
-        } else {
-            return false;
-        }
-    }
-    private boolean furtherValidation(Route route, boolean isNeedToCreate) {
-        String fieldValue = StringHelper.getUTF8EncodedStringFromString(route.getName());
-        Route storedRouteWithDuplicatedName = new RouteService().getRouteByName(fieldValue);
-        if(storedRouteWithDuplicatedName != null) {
-            String message = isNeedToCreate ? "Attempt to create role with existing name !" : "Attempt to change name for role with existing one.";
-            errorList.add(message);
-            return false;
-        } else {
-            return true;
+        errorList =  new ArrayList<>();
+        try {
+            new RouteService().deleteByPK(route.getId());
+        } catch (Exception exc) {
+            errorList.add("Cannot delete entity, 'cause it's already related with another object !");
         }
     }
 

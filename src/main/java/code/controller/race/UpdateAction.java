@@ -82,7 +82,7 @@ public class UpdateAction extends PostAction {
 
         List<Race> racesWithCurrentRouteAndTrain =  new RaceService().findRacesWithRouteAndTrain(race.getRoute(), race.getTrain());
         if(!racesWithCurrentRouteAndTrain.isEmpty()) {
-            String message = isNeedToCreate ? "Attempt to create race with assigned train !" : "Attempt to change race with already assigned train. So some race already has it and will overlap it !";
+            String message = isNeedToCreate ? "Attempt to create race with already assigned train !" : "Attempt to change race with already assigned train. So some race already has it and will overlap it !";
             errorList.add(message);
             isValid = false;
         }

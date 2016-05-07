@@ -6,6 +6,7 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
 
     $scope.removeRow = function(id){
         var index = -1;
+        $scope.errors = [];
         var comArr = eval( $scope.roles );
         for( var i = 0; i < comArr.length; i++ ) {
             if( comArr[i].id === id ) {
@@ -21,8 +22,14 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
                 id : 2
             };
 
-            RoleService.removeRow({ role: object, action: action });
-            $scope.roles.splice(index, 1);
+            RoleService.removeRow({ role: object, action: action })
+                .then(function(data) {
+                    $scope.errors.push.apply($scope.errors, data.errorList);
+
+                    if($scope.errors.length == 0) {
+                        $scope.roles.splice(index, 1);
+                    }
+                });
         }
 
     };
@@ -46,8 +53,8 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
             if(!validate(object.name)) return;
             RoleService.updateRow({ role: object, action: action })
                 .then(function(data) {
-                    $scope.errors.push.apply($scope.errors, data.errorList);
                     refreshData();
+                    $scope.errors.push.apply($scope.errors, data.errorList);
                 });
         }
     };
@@ -89,6 +96,8 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
 
     function validate(roleName)
     {
+        $scope.errors = [];
+
         if(roleName != null && roleName.trim().length != 0) {
             return true;
         } else {

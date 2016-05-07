@@ -10,6 +10,7 @@ import code.service.GenericService;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -79,7 +80,12 @@ public class UpdateAction extends PostAction {
         }
     }
     void deleteActionExecute() {
-        new GenericService<TrainType, Integer>(TrainType.class).delete(trainType);
+        errorList =  new ArrayList<>();
+        try {
+            new GenericService<TrainType, Integer>(TrainType.class).delete(trainType);
+        } catch (Exception exc) {
+            errorList.add("Cannot delete entity, 'cause it's already related with another object !");
+        }
     }
 
     public List<String> getErrorList() {

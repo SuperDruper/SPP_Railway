@@ -3,6 +3,7 @@ app.controller('UserListController', function ($scope, UserListService, Service)
 
     $scope.removeRow = function(id){
         var index = -1;
+        $scope.errors = [];
         var comArr = eval( $scope.users );
         for( var i = 0; i < comArr.length; i++ ) {
             if( comArr[i].id === id ) {
@@ -21,6 +22,9 @@ app.controller('UserListController', function ($scope, UserListService, Service)
             UserListService.removeRow({ user: object, action: action })
                 .then(function (data) {
                     $scope.errors.push.apply($scope.errors, data.errorList);
+                    if($scope.errors.length == 0) {
+                        $scope.users.splice(index, 1);
+                    }
                 });
         }
 
@@ -101,6 +105,7 @@ app.controller('UserListController', function ($scope, UserListService, Service)
         return Service.request('/api/user/register', 'POST', {user: user})
             .then(function (data) {
                 $scope.errors.push.apply($scope.errors, data.errorList);
+                refreshData();
 
                 if ($scope.errors.length == 0) {
                     $scope.name = '';

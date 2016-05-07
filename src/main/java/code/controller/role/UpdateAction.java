@@ -11,6 +11,7 @@ import code.service.RoleService;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -56,7 +57,12 @@ public class UpdateAction extends PostAction {
     }
 
     void deleteActionExecute() {
-        new GenericService<Role, Integer>(Role.class).delete(role);
+        errorList =  new ArrayList<>();
+        try {
+            new GenericService<Role, Integer>(Role.class).delete(role);
+        } catch (Exception exc) {
+            errorList.add("Cannot delete entity, 'cause it's already related with another object !");
+        }
     }
 
     private boolean validate(Role role, boolean isNeedToCreate) {

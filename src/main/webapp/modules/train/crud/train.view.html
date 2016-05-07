@@ -32,6 +32,7 @@
         </tr>
         <tr ng-repeat="train in trains | orderBy:'id'">
             <td>{{train.id}}</td>
+            <!--<td><input type="number" name="Carriage amount" ng-model="train.id" required></td>-->
             <td><input type="number" name="Carriage amount" ng-model="train.carriageAmount" required></td>
             <td>
                 <select ng-model="defaultSelectedTrainType"

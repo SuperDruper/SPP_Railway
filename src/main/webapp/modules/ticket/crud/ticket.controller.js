@@ -11,9 +11,9 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
     $scope.stationFrom = '';
     $scope.stationTo = '';
 
-
     $scope.removeRow = function(id){
         var index = -1;
+        $scope.errors = [];
         var comArr = eval( $scope.tickets );
         for( var i = 0; i < comArr.length; i++ ) {
             if( comArr[i].id === id ) {
@@ -148,7 +148,7 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
         $scope.errors = [];
 
         if(carriageNumber == null || carriageNumber == "" || isNaN(parseInt(carriageNumber)) || carriageNumber <= 0) {
-            $scope.errors.push("Entered Carriage number number is not alowed !");
+            $scope.errors.push("Entered Carriage number number is not allowed !");
             isValid = false;
         }
         if(placeNumber == null || placeNumber == "" || isNaN(parseInt(placeNumber)) || carriageNumber <= 0) {
@@ -161,7 +161,7 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
         var timestamp=Date.parse(dateComponents[0] + "T" + dateComponents[1])
         if (isNaN(timestamp))
         {
-            $scope.errors.push("Entered order date is nat allowed !");
+            $scope.errors.push("Entered order date is not allowed !");
             isValid = false;
         }
 
