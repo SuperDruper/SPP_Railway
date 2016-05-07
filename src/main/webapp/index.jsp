@@ -28,14 +28,14 @@
 <body>
 
 <div>
-  <a href="/user/register" ng-hide="userRole">Registration</a><a href="/user/profile" ng-show="userRole">Profile</a>
-  <a href="/user/login" ng-hide="userRole">Login</a><a href="#" ng-click="logout()" ng-show="userRole">Logout</a>
+  <a href="/user/register" ng-hide="roleId > 0">Registration</a><a href="/user/profile" ng-show="roleId > 0">Profile</a>
+  <a href="/user/login" ng-hide="roleId > 0">Login</a><a href="#" ng-click="logout()" ng-show="roleId > 0">Logout</a>
   <a href="/ticketorder/racechoice">Races</a> <a href="#" ng-show="userRole">Tickets</a>
 </div>
 
 <br>
 
-<div ng-show="userRole == 'admin'">
+<div ng-show="roleId == 1">
   <p>
     <a href="/user/list">Users</a><br>
     <a href="/ticket/crud">Tickets</a><br>
