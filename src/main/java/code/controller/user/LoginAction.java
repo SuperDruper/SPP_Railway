@@ -33,6 +33,9 @@ public class LoginAction extends PostAction {
         } else {
             User user = new UserService().getUserByLogin(login);
 
+            login = login.toLowerCase();
+            password = password.toLowerCase();
+
             if (user == null || !user.getPassword().equals(password)) {
                 errorList = new ArrayList<String>(){{
                     add(SUCH_PAIR_OF_LOGIN_AND_PASSWORD_DOES_NOT_EXISTS);

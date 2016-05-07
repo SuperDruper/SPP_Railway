@@ -41,8 +41,6 @@ public class User {
     private String login;
 
     @Size(min = 8, max = 50, message = "Password must be between {min} and {max} characters long!")
-    @Pattern(regexp = "[a-zA-Z\\d_\\-\\.]+",
-            message = "Password may contain only latin characters, digits, points, hyphen or underscore!")
     @NotNull(message = "Password must be set!")
     private String password;
 
