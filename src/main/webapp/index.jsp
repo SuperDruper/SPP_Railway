@@ -28,9 +28,9 @@
 <body>
 
 <div>
-  <a href="/user/register" ng-hide="userRole">Registration</a><a href="/user/profile" ng-show="userRole">Profile</a> -
-  <a href="/user/login" ng-hide="userRole">Login</a><a href="#" ng-click="logout()" ng-show="userRole">Logout</a> -
-  <a href="/ticketorder/racechoice">Races</a>
+  <a href="/user/register" ng-hide="userRole">Registration</a><a href="/user/profile" ng-show="userRole">Profile</a>
+  <a href="/user/login" ng-hide="userRole">Login</a><a href="#" ng-click="logout()" ng-show="userRole">Logout</a>
+  <a href="/ticketorder/racechoice">Races</a> <a href="#" ng-show="userRole">Tickets</a>
 </div>
 
 <br>
@@ -55,6 +55,41 @@
   <div ng-view></div>
 </div>
 
+<div>
+  <ul ng-repeat="error in ticketErrors">
+    <li class="validationError">
+      {{error}}
+    </li>
+  </ul>
+
+  <table class="table table-bordered table-striped">
+    <tr>
+      <td>Ticket</td>
+      <td>Race</td>
+      <td>Route</td>
+      <td>Station from</td>
+      <td>Station to</td>
+      <td>Date from</td>
+      <td>Date to</td>
+      <td>Carriage</td>
+      <td>Place</td>
+    </tr>
+    <tr ng-repeat="ticketDetails in ticketDetailsList">
+      <td>{{ticketDetails.ticketNum}}</td>
+      <td>{{ticketDetails.raceId}}</td>
+      <td>{{ticketDetails.routeName}}</td>
+      <td>{{ticketDetails.departureStationName}}</td>
+      <td>{{ticketDetails.arriveStationName}}</td>
+      <td>{{ticketDetails.departureDate}}</td>
+      <td>{{ticketDetails.arriveDate}}</td>
+      <td>{{ticketDetails.carriageNum}}</td>
+      <td>{{ticketDetails.placeNum}}</td>
+      <td><input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(ticketDetails.ticketNum)"/></td>
+    </tr>
+  </table>
+</div>
+
+
 
 <script src="<s:url value="js/lib/angular/angular.min.js" />"></script>
 <script src="<s:url value="js/lib/angular/angular-route.min.js" />"></script>
@@ -62,7 +97,7 @@
 <script src="<s:url value="modules/app.js" />"></script>
 <script src="<s:url value="shared/service.js" />"></script>
 <script src="<s:url value="shared/user_role_name.service.js" />"></script>
-<script src="<s:url value="shared/get_race_stations.service.js" />"></script>
+<script src="<s:url value="shared/datasharing/ticket_share.service.js" />"></script>
 
 <script src="<s:url value="modules/example/example.controller.js" />"></script>
 <script src="<s:url value="modules/example/example.service.js" />"></script>
@@ -113,6 +148,8 @@
 
 <script src="<s:url value="modules/ticketorder/racedetails/racedetails.controller.js" />"></script>
 <script src="<s:url value="modules/ticketorder/racedetails/racedetails.service.js" />"></script>
+
+<script src="<s:url value="modules/ticketorder/ticketshow/ticketshow.controller.js" />"></script>
 
 
 </body>

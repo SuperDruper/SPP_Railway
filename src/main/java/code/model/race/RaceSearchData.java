@@ -1,14 +1,14 @@
 package code.model.race;
 
-import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by PC-Alyaksei on 01.05.2016.
  */
-public class RaceSearchData {
+public class RaceSearchData implements Serializable {
 
     @Min(value = 1, message = "DepartureStationId field must be positive!")
     private int departureStationId;
@@ -17,11 +17,11 @@ public class RaceSearchData {
     @NotNull(message = "Date shouldn't be empty!")
     private Date raceDate;
 
-
     public int getDepartureStationId() {
         return departureStationId;
     }
 
+    @SuppressWarnings("UnusedDeclaration")
     public void setDepartureStationId(int departureStationId) {
         this.departureStationId = departureStationId;
     }
@@ -30,6 +30,7 @@ public class RaceSearchData {
         return arriveStationId;
     }
 
+    @SuppressWarnings("UnusedDeclaration")
     public void setArriveStationId(int arriveStationId) {
         this.arriveStationId = arriveStationId;
     }
@@ -38,6 +39,7 @@ public class RaceSearchData {
         return raceDate;
     }
 
+    @SuppressWarnings("UnusedDeclaration")
     public void setRaceDate(Date raceDate) {
         this.raceDate = raceDate;
     }

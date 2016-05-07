@@ -4,36 +4,28 @@ import code.controller.shared.Authorize;
 import code.dao.daointerface.ITicketDao;
 import code.dao.AbstractDaoFactory;
 import code.infrastructure.ValidationUtils;
-import code.model.Race;
-import code.model.Ticket;
-import code.model.User;
+import code.model.*;
+import code.model.ticket.TicketDataToOrder;
+import code.model.ticket.TicketDetails;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.util.*;
+import java.sql.Timestamp;
 
 import java.util.List;
 
 /**
  * Created by dzmitry.antonenka on 20.03.2016.
  */
-
-@Authorize
 public class TicketService extends GenericService<Ticket, Integer> {
+
     private ITicketDao dao;
 
     public TicketService() {
         super(Ticket.class);
     }
 
-    public List<Ticket> getTicketsForUser(User user)
-    {
-        getDao().openCurrentSessionWithTransaction();
-        List<Ticket> tickets = getDao().getTicketsForUser(user);
-        getDao().closeCurrentSessionWithTransaction();
-
-        return tickets;
-    }
 
     @Override
     public ITicketDao getDao() {
@@ -62,7 +54,7 @@ public class TicketService extends GenericService<Ticket, Integer> {
     // HELPERS
     public static List<String> furtherValidationTicketsForRace(List<String> errorList, Ticket ticketToCreate, Race race, boolean isNeedToCreate) {
         boolean approved = true;
-        Collection<Ticket> tickets =  race.getTickets();
+        Collection<Ticket> tickets = race.getTickets();
 
         if(isNeedToCreate && tickets != null && !tickets.isEmpty()) {
             for (Ticket ticket : tickets)
@@ -92,6 +84,108 @@ public class TicketService extends GenericService<Ticket, Integer> {
         }
 
         return errorList;
+    }
+
+
+    public List<TicketDetails> findTicketDetailsListByUserId(int userId) {
+        getDao().openCurrentSession();
+
+        List<Ticket> tickets = getDao().findTicketsWithRaceStationsByUserId(userId);
+        List<TicketDetails> ticketDetailsList = new ArrayList<>();
+
+        getDao().closeCurrentSession();
+
+        for (Ticket ticket : tickets) {
+            TicketDetails ticketDetails = convertToTicketDetails(ticket);
+            ticketDetailsList.add(ticketDetails);
+        }
+
+        return ticketDetailsList;
+    }
+
+
+    private TicketDetails convertToTicketDetails(Ticket ticket) {
+        RaceStation departureRaceStation = getRaceStationFromListById(
+                ticket.getRace().getRaceStations(), ticket.getStationFrom().getId());
+        RaceStation arriveRaceStation = getRaceStationFromListById(
+                ticket.getRace().getRaceStations(), ticket.getStationTo().getId());
+
+        Date departure = departureRaceStation.getDepature();
+        Date arriving =  arriveRaceStation.getArriving();
+
+        return new TicketDetails(
+                ticket.getId(),
+                ticket.getRace().getId(),
+                ticket.getRace().getRoute().getName(),
+                ticket.getStationFrom().getName(),
+                ticket.getStationTo().getName(),
+                departure,
+                arriving,
+                ticket.getCarriageNum(),
+                ticket.getNum()
+        );
+    }
+    private RaceStation getRaceStationFromListById(Collection<RaceStation> list, int stationId) {
+        RaceStation result = null;
+
+        for (RaceStation raceStation : list) {
+            if (raceStation.getStation().getId() == stationId) {
+                result = raceStation;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+
+    public int orderTicketAndGetTicketNum(TicketDataToOrder ticketDataToOrder, User user) {
+        GenericService<Station, Integer> stationService = new GenericService<>(Station.class);
+        RaceService raceService = new RaceService();
+
+        Station stationFrom = stationService.getModelByUniqueStringField("name",
+                ticketDataToOrder.getDepartureStationName());
+        Station stationTo = stationService.getModelByUniqueStringField("name",
+                ticketDataToOrder.getArriveStationName());
+        Timestamp data = new Timestamp(new Date().getTime());
+        Race race = raceService.findByPK(ticketDataToOrder.getRaceId());
+
+
+        Ticket ticket = new Ticket();
+        ticket.setNum(ticketDataToOrder.getPlaceNum());
+        ticket.setCarriageNum(ticketDataToOrder.getCarriageNum());
+        ticket.setOrderDate(data);
+        ticket.setRace(race);
+        ticket.setStationFrom(stationFrom);
+        ticket.setStationTo(stationTo);
+        ticket.setUser(user);
+
+
+        getDao().openCurrentSessionWithTransaction();
+        getDao().persist(ticket);
+        getDao().closeCurrentSessionWithTransaction();
+
+        return ticket.getId();
+    }
+
+    public boolean ticketIsAlreadyExists(int raceId, int carriageNum, int placeNum) {
+        getDao().openCurrentSessionWithTransaction();
+        Ticket ticket = getDao().findByAlternativeKey(carriageNum, placeNum, raceId);
+        getDao().closeCurrentSessionWithTransaction();
+        return ticket != null;
+    }
+
+    public boolean ticketDataIsPossible(int raceId, int carriageNum, int placeNum) {
+        Race race = new RaceService().findByPK(raceId);
+
+        if (race == null) return false;
+
+        Train train = race.getTrain();
+        int carriageMaxNum = train.getCarriageAmount();
+        int placeMaxNum = train.getTrainType().getPlacesAmount();
+
+        return carriageNum > 0 && carriageNum <= carriageMaxNum
+               && placeNum > 0 && placeNum <= placeMaxNum;
     }
 
 }

@@ -6,6 +6,7 @@ import code.model.Ticket;
 import code.model.User;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Date;
 import java.util.List;
 
@@ -21,5 +22,9 @@ public interface ITicketDao extends IDao<Ticket, Integer> {
     public Race getRaceForTicket(Ticket ticket);
     public User getUserForTicket(Ticket ticket);
     public Integer getNumberForTicket(Ticket ticket);
-    public Date getOrderDateForTicket(Ticket ticket);
+    public Timestamp getOrderDateForTicket(Ticket ticket);
+
+    List<Ticket> findTicketsWithRaceStationsByUserId(int userId);
+
+    Ticket findByAlternativeKey(int carriageNum, int placeNum, int raceId);
 }

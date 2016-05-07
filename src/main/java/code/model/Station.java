@@ -13,6 +13,7 @@ public class Station {
     private Collection<RaceStation> raceStations;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "st_id", nullable = false, insertable = true, updatable = true)
     public int getId() {
         return id;
@@ -39,7 +40,6 @@ public class Station {
 
         Station station = (Station) o;
 
-        if (id != station.id) return false;
         if (name != null ? !name.equals(station.name) : station.name != null) return false;
 
         return true;
@@ -47,8 +47,7 @@ public class Station {
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        int result = name != null ? name.hashCode() : 0;
         return result;
     }
 

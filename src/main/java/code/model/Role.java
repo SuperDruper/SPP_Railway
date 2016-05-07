@@ -1,6 +1,8 @@
 package code.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 
 /**
@@ -8,11 +10,15 @@ import java.util.Collection;
  */
 @Entity
 public class Role {
+
+    @Min(value = 0, message = "Id field can't be negative!")
     private int id;
+    @Size(min = 1, max = 50, message = "Role name must be between {min} and {max} characters long!")
     private String name;
     private Collection<User> users;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "rl_id", nullable = true, insertable = true, updatable = true)
     public int getId() {
         return id;

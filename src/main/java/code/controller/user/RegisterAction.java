@@ -11,6 +11,7 @@ import code.infrastructure.ValidationUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -27,12 +28,17 @@ public class RegisterAction extends PostAction {
 
     @Override
     public String create() {
-        //Why always const role ??
         Role role = RoleService.getUserRole();
-        user.setRole(role); //replace with | new GenericService<Role, Integer>().findByPK(user.getRole().getId());
+        user.setRole(role);
 
         if (validate(user)) {
-            new UserService().persist(user);
+            try {
+                new UserService().persist(user);
+            } catch (Exception e) {
+                errorList = new ArrayList<>();
+                errorList.add("Inputted data isn't correct!");
+                e.printStackTrace();
+            }
         }
 
         return SUCCESS;

@@ -1,11 +1,12 @@
 package code.model.race;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by PC-Alyaksei on 01.05.2016.
  */
-public class RaceInfo {
+public class RaceInfo implements Serializable {
 
     private int id;
     private String name;

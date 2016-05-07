@@ -1,6 +1,7 @@
 package code.controller.ticket;
 
 import code.controller.GetAction;
+import code.controller.shared.Authorize;
 import code.infrastructure.Constants;
 import code.model.Race;
 import code.model.Role;
@@ -15,6 +16,7 @@ import java.util.List;
 /**
  * Created by dzmitry.antonenka on 03.05.2016.
  */
+@Authorize("admin")
 public class TicketListShowingAction extends GetAction {
     private List<Ticket> tickets;
     private List<Race> races;
@@ -27,7 +29,7 @@ public class TicketListShowingAction extends GetAction {
 
         User user = getUserFromSession();
         if(user != null) {
-            tickets = new TicketService().getTicketsForUser(user);
+            tickets = new TicketService().findAll();
         } else {
             //    throw new Exception("Cannot see tickets for user == null");
             errorList = new ArrayList<>();

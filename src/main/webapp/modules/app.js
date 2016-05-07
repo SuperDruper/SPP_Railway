@@ -25,7 +25,8 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
         })
         .when('/train/register', {
             templateUrl: 'modules/train/register/train.view.html',
-        }) //add new routes here
+            controller: 'TrainController'
+        })
         .when('/train/crud', {
             templateUrl: 'modules/train/crud/train.view.html',
             controller: 'TrainController'
@@ -69,6 +70,10 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
         .when('/ticketorder/racedetails', {
             templateUrl: 'modules/ticketorder/racedetails/racedetails.view.html',
             controller: 'RaceDetailsController'
+        })
+        .when('/ticketorder/ticketshow', {
+            templateUrl: 'modules/ticketorder/ticketshow/ticketshow.view.html',
+            controller: 'TicketShowController'
         });
 }]);
 
@@ -83,5 +88,35 @@ app.controller('boostapp', function ($rootScope, $window, UserRoleNameService, S
         Service.request('/api/user/logout', 'GET');
         $window.location.href = '/';
     };
+
+    $rootScope.removeRow = function(id){
+        var index = -1;
+        var comArr = eval( $rootScope.ticketDetailsList );
+        for( var i = 0; i < comArr.length; i++ ) {
+            if( comArr[i].ticketNum === id ) {
+                index = i;
+                break;
+            }
+        }
+
+        if( index === -1 ) {
+            alert( "Something gone wrong" );
+        } else {
+            const object = comArr[index];
+
+            Service.request('/api/ticket/removeticket', 'POST', { ticketId: id })
+                .then(function(data) {
+                    $rootScope.ticketErrors = data.errorList;
+
+                    if($rootScope.ticketErrors.length == 0) {
+                        $rootScope.ticketDetailsList.splice(index, 1);
+                    }
+                });
+        }
+    };
+
+    Service.request('/api/ticket/usertickets').then(function(data) {
+        $rootScope.ticketDetailsList = data.data.ticketDetailsList;
+    });
 
 });

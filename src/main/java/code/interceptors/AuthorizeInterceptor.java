@@ -16,10 +16,10 @@ import java.util.Map;
  */
 public class AuthorizeInterceptor extends AbstractInterceptor {
 
+    public static final String YOU_MUST_BE_AUTHORIZED = "You must be authorized!";
+
     @Override
     public String intercept(ActionInvocation actionInvocation) throws Exception {
-        String result;
-
         Object action = actionInvocation.getAction();
         Class actionClass = action.getClass();
         Authorize annotation = (Authorize) actionClass.getAnnotation(Authorize.class);
@@ -30,21 +30,28 @@ public class AuthorizeInterceptor extends AbstractInterceptor {
         else {
             Map<String, Object> session = actionInvocation.getInvocationContext().getSession();
 
-            try {
-                int userId = (int) session.get(Constants.USER_AUTHORIZATION_SESSION_KEY);
-                User user = new UserService().findByPK(userId);
-                session.put(Constants.USER_SESSION_KEY, user);
-                String roleName = user.getRole().getName();
+            Integer userId = (Integer) session.get(Constants.USER_AUTHORIZATION_SESSION_KEY);
 
-                String[] haveAccessRightRoleNames = annotation.value();
+            User user = new UserService().findByPK(userId);
+            throwNotAuthorizedExceptionIfNull(user);
 
-                if (haveAccessRightRoleNames.length == 0 ||
-                        Arrays.asList(haveAccessRightRoleNames).contains(roleName)) {
-                    return actionInvocation.invoke();
-                }
-            } catch (NullPointerException e) {}
+            session.put(Constants.USER_SESSION_KEY, user);
+            String roleName = user.getRole().getName();
 
-            throw new NotAuthorizedException("You must be authorized!");
+            String[] haveAccessRightRoleNames = annotation.value();
+
+            if (haveAccessRightRoleNames.length == 0 ||
+                    Arrays.asList(haveAccessRightRoleNames).contains(roleName)) {
+                return actionInvocation.invoke();
+            }
+
+            throw new NotAuthorizedException(YOU_MUST_BE_AUTHORIZED);
+        }
+    }
+
+    private void throwNotAuthorizedExceptionIfNull(Object obj) throws NotAuthorizedException {
+        if (obj == null) {
+            throw new NotAuthorizedException(YOU_MUST_BE_AUTHORIZED);
         }
     }
 

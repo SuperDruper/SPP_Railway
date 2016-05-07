@@ -149,8 +149,7 @@ public class RaceHibernateDao extends GenericHibernateDao<Race, Integer> impleme
         query.setInteger(0, pk);
 
         Race race = (Race) query.uniqueResult();
-        Hibernate.initialize(race.getTickets());
-        Hibernate.initialize(race);
+        if (race != null) Hibernate.initialize(race.getTickets());
 
         return race;
     }

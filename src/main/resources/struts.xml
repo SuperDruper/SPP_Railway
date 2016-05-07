@@ -333,17 +333,34 @@
         <!--POST-->
         <action name="race/listraceinfo" class="code.controller.race.RaceInfosAction">
             <result type="json">
-                <param name="excludeProperties" >
-                    ^raceSearchData
-                </param>
                 <param name="noCache">true</param>
             </result>
         </action>
 
+        <!--POST-->
         <action name="race/racedetails" class="code.controller.race.RaceDetailsAction">
             <result type="json">
-                <param name="excludeProperties" >
-                </param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <!--GET-->
+        <action name="ticket/usertickets" class="code.controller.ticket.GetUserTicketsAction">
+            <result type="json">
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <!--POST-->
+        <action name="ticket/ticketorder" class="code.controller.ticket.TicketOrderAction">
+            <result type="json">
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <!--GET-->
+        <action name="ticket/removeticket" class="code.controller.ticket.DeleteUserTicketAction">
+            <result type="json">
                 <param name="noCache">true</param>
             </result>
         </action>

@@ -13,6 +13,7 @@ public class Route {
     private Collection<Race> races;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "rt_id", nullable = false, insertable = true, updatable = true)
     public int getId() {
         return id;

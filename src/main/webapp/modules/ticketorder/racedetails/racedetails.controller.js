@@ -1,62 +1,33 @@
-app.controller('RaceDetailsController',
-        function ($scope, $rootScope, $location, RaceChoiceService, GetRaceStationService) {
+angular.module('app').controller('RaceDetailsController',
+        function ($scope, $location, TicketShare, RaceDetailsService) {
 
-    $scope.find = function() {
+    $scope.buy = function() {
         $scope.errors = [];
 
-        var errorOccurs = false;
-        if ($scope.departureStationId === $scope.arriveStationId) {
-            $scope.errors = ['You don\'t need the race, ' +
-                    'where departure and arrive stations are the same!'];
-            errorOccurs = true;
-        }
-        if ($scope.departureStationId === 0) {
-            $scope.errors.push.apply($scope.errors, ['Departure station can\'t be empty!']);
-            errorOccurs = true;
-        }
-        if ($scope.arriveStationId === 0) {
-            $scope.errors.push.apply($scope.errors, ['Arriving station can\'t be empty!']);
-            errorOccurs = true;
-        }
-        if (errorOccurs) {
-            return;
-        }
-
-        const raceSearchData = {
-            departureStationId : $scope.departureStationId,
-            arriveStationId : $scope.arriveStationId,
-            raceDate : RaceChoiceService.convertUTCDateToLocalDate($scope.raceDate)
+        var raceData = $scope.race;
+        const ticketDataToOrder = {
+            raceId: raceData.raceId,
+            departureStationName: raceData.departureStationName,
+            arriveStationName: raceData.arriveStationName,
+            carriageNum: $scope.carriageNum,
+            placeNum: $scope.placeNum
         };
 
 
-        return RaceChoiceService.getRaceInfos( {raceSearchData:raceSearchData} )
+        return RaceDetailsService.orderTicket( {ticketDataToOrder:ticketDataToOrder} )
             .then(function(data) {
                 if(data.errorList.length > 0) {
                     $scope.errors.push.apply($scope.errors, data.errorList);
                 }
 
                 if($scope.errors.length == 0) {
-                    $scope.raceInfos = data.raceInfos;
-                    $scope.errors = null;
+                    TicketShare.get().carriageNum = $scope.carriageNum;
+                    TicketShare.get().placeNum = $scope.placeNum;
+                    TicketShare.get().ticketNum = data.ticketNum;
+                    $location.path('/ticketorder/ticketshow');
                 }
             });
     };
 
-    $scope.showRaceDetails = function(id) {
-        RaceChoiceService.getRaceDetails({raceId: id}).then(function (data) {
-            if (data.errorList.length != 0) {
-                alert("Something was wrong with server! It says that:" + data.errorList.join(".\n"));
-            }
-            else {
-                $rootScope.raceDetailsToShow = data.raceDetails;
-                $location.path('/ticketorder/racedetails');
-            }
-        });
-
-    };
-
-    return GetRaceStationService.getRaceStations().then(function(data) {
-        $scope.stations = data.data.stations;
-    });
-
+    $scope.race = TicketShare.get();
 });

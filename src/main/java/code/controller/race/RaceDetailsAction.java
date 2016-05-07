@@ -1,6 +1,7 @@
 package code.controller.race;
 
 import code.controller.PostAction;
+import code.controller.shared.Authorize;
 import code.model.Race;
 import code.model.Ticket;
 import code.model.race.Carriage;
@@ -14,6 +15,7 @@ import java.util.List;
 /**
  * Created by PC-Alyaksei on 02.05.2016.
  */
+@Authorize
 public class RaceDetailsAction extends PostAction {
 
     private int raceId;
