@@ -80,7 +80,7 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
 app.controller('boostapp', function ($rootScope, $window, UserRoleNameService, Service) {
 
     UserRoleNameService.uploadRoleName().then(function (data) {
-        $rootScope.userRole = UserRoleNameService.roleName;
+        $rootScope.roleId = UserRoleNameService.roleId;
     });
 
     $rootScope.logout = function() {

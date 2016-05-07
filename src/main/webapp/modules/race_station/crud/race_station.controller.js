@@ -29,7 +29,6 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
                     }
                 });
         }
-
     };
     $scope.updateRow = function(id){
         var index = -1;
