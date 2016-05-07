@@ -21,9 +21,9 @@
         <caption>Ticket data</caption>
         <tr><td>Route name:</td>        <td>{{race.name}}</td></tr>
         <tr><td>Departure station:</td> <td>{{race.departureStationName}}</td></tr>
-        <tr><td>Departure data:</td>    <td>{{race.departure}}</td></tr>
+        <tr><td>Departure data:</td>    <td>{{race.departure.toString().replace('T', ' ')}}</td></tr>
         <tr><td>Arriving station:</td>  <td>{{race.arriveStationName}}</td></tr>
-        <tr><td>Arriving data:</td>     <td>{{race.arriving}}</td></tr>
+        <tr><td>Arriving data:</td>     <td>{{race.arriving.toString().replace('T', ' ')}}</td></tr>
         <tr><td>Cost:</td>              <td>{{race.cost}}</td></tr>
     </table>
 

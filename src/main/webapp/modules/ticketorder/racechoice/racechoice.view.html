@@ -40,8 +40,8 @@
             </tr>
             <tr ng-repeat="raceInfo in raceInfos">
                 <td>{{raceInfo.name}}</td>
-                <td>{{raceInfo.departure}}</td>
-                <td>{{raceInfo.arriving}}</td>
+                <td>{{raceInfo.departure.toString().replace('T', ' ')}}</td>
+                <td>{{raceInfo.arriving.toString().replace('T', ' ')}}</td>
                 <td>{{raceInfo.cost}}</td>
                 <td ng-show="userRole">
                     <button type="submit" class="btn btn-default" ng-click="showRaceDetails(raceInfo.id)">

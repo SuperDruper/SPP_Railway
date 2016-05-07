@@ -39,6 +39,16 @@ angular.module('app').controller('RaceChoiceController', function ($scope, $loca
         arriveStationId = $scope.arriveStationId;
 
 
+        $scope.options = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            weekday: 'long',
+            timezone: 'UTC',
+            hour: 'numeric',
+            minute: 'numeric'
+        };
+
         return RaceChoiceService.getRaceInfos( {raceSearchData:raceSearchData} )
             .then(function(data) {
                 if(data.errorList.length > 0) {
