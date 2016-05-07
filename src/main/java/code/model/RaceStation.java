@@ -18,7 +18,6 @@ public class RaceStation {
     private Station station;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "rcst_id", nullable = false, insertable = true, updatable = true)
     public int getId() {
         return id;

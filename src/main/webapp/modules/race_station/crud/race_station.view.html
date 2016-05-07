@@ -17,54 +17,14 @@
         <label for="">Departure(Please use E.g. 2016-04-05 14:36:00)</label><br />
         <div>
             <div class="container" style="width: inherit">
-                <div class="row">
-                    <div>
-                        <div class="form-group form-group-sm">
-                            <div class='input-group date datetimepicker'>
-                                <input type='text' class="form-control" ng-model="departureToCreate" name="departureToCreate" id="departureToCreate" required/>
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                            </div>
-                        </div>
-                    </div>
-                    <script type="text/javascript">
-                        $(function () {
-                            $('.datetimepicker').datetimepicker({
-
-                            });
-                        });
-                    </script>
-                </div>
-            </div>
-        </div><br/>
+                <input type='text' class="form-control" ng-model="departureToCreate" name="departureToCreate" id="departureToCreate" required/>
+            </div><br/>
 
         <label for="">Arriving(Please use E.g. 2016-04-05 14:36:00)</label><br/>
-        <div>
-            <div >
-                <div class="container" style="width: inherit">
-                    <div class="row">
-                        <div>
-                            <div class="form-group form-group-sm">
-                                <div class='input-group date datetimepicker'>
-                                    <input  type='text' class="form-control" ng-model="arrivingToCreate" name="arrivingToCreate" id="arrivingToCreate" required/>
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <script type="text/javascript">
-                            $(function () {
-                                $('.datetimepicker').datetimepicker({
-
-                                });
-                            });
-                        </script>
-                    </div>
-                </div>
+            <div class="container" style="width: inherit">
+                <input  type='text' class="form-control" ng-model="arrivingToCreate" name="arrivingToCreate" id="arrivingToCreate" required/>
             </div><br/><br/>
-        </div> <br />
+        <br />
 
         <label for="">Race</label><br />
         <select name="race" id="race" ng-model="raceIdToCreate" ng-init="races[0]">
@@ -105,48 +65,12 @@
                 </td>
                 <td>
                     <div class="container" style="width: inherit">
-                        <div class="row">
-                            <div>
-                                <div class="form-group form-group-sm">
-                                    <div class='input-group date datetimepicker'>
-                                        <input  type='text' class="form-control" ng-model="raceStation.depature"/>
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <script type="text/javascript">
-                                $(function () {
-                                    $('.datetimepicker').datetimepicker({
-
-                                    });
-                                });
-                            </script>
-                        </div>
+                         <input  type='text' class="form-control" ng-model="raceStation.depature"/>
                     </div>
                 </td>
                 <td>
                     <div class="container" style="width: inherit">
-                        <div class="row">
-                            <div >
-                                <div class="form-group form-group-sm">
-                                    <div class='input-group date datetimepicker'>
-                                        <input type='text' class="form-control" ng-model="raceStation.arriving"/>
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <script type="text/javascript">
-                                $(function () {
-                                    $('.datetimepicker').datetimepicker({
-
-                                    });
-                                });
-                            </script>
-                        </div>
+                         <input type='text' class="form-control" ng-model="raceStation.arriving"/>
                     </div>
                 </td>
 

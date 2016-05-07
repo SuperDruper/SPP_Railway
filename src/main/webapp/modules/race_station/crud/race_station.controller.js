@@ -2,6 +2,8 @@
  * Created by dzmitry.antonenka on 11.04.2016.
  */
 app.controller('RaceStationController', function ($scope, RaceStationService) {
+    $scope.errors = [];
+
     $scope.removeRow = function(id){
         var index = -1;
         var comArr = eval( $scope.raceStations );
@@ -19,8 +21,13 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
                 id : 2
             };
 
-            RaceStationService.removeRow({ race: object, action: action });
-            $scope.raceStations.splice(index, 1);
+            RaceStationService.removeRow({ raceStationContainer : object, action: action })
+                .then(function(data) {
+                    $scope.errors.push.apply($scope.errors, data.errorList);
+                    if($scope.errors.length == 0) {
+                        $scope.raceStations.splice(index, 1);
+                    }
+                });
         }
 
     };
@@ -34,7 +41,7 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
             }
         }
         if( index === -1 ) {
-            alert( "Cannot update row with id" + id);
+            alert( "Cannot update row with id " + id);
         } else {
             const object = comArr[index];
             const action = {
@@ -89,8 +96,6 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
                     });
             }
         });
-
-        $scope.watch()
 
         return smth;
     };
@@ -154,6 +159,7 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
 
     function validate(raceStationId, departureDate, arrivingDate, raceId, stationId) {
         var isValid = true;
+        $scope.errors = [];
 
         if(raceStationId == "" || isNaN(parseInt(raceStationId)) || parseInt(raceStationId) <=0 ) {
             $scope.errors.push("RaceStation identifier is incorrect(must be greater then 0)");
