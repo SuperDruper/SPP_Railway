@@ -80,8 +80,8 @@
       <td>{{ticketDetails.routeName}}</td>
       <td>{{ticketDetails.departureStationName}}</td>
       <td>{{ticketDetails.arriveStationName}}</td>
-      <td>{{ticketDetails.departureDate}}</td>
-      <td>{{ticketDetails.arriveDate}}</td>
+      <td>{{ticketDetails.departureDate.replace('T', ' ')}}</td>
+      <td>{{ticketDetails.arriveDate.replace('T', ' ')}}</td>
       <td>{{ticketDetails.carriageNum}}</td>
       <td>{{ticketDetails.placeNum}}</td>
       <td><input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(ticketDetails.ticketNum)"/></td>
