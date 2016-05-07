@@ -30,5 +30,4 @@ angular.module('app').controller('RaceDetailsController',
     };
 
     $scope.race = TicketShare.get();
-
 });

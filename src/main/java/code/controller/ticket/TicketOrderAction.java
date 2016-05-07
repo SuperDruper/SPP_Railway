@@ -24,10 +24,25 @@ public class TicketOrderAction extends PostAction {
     @Override
     public String create() throws Exception {
         try {
-            ticketNum = new TicketService().orderTicketAndGetTicketNum(ticketDataToOrder, getUserFromSession());
+            TicketService service = new TicketService();
+            int race = ticketDataToOrder.getRaceId();
+            int carriage = ticketDataToOrder.getCarriageNum();
+            int place = ticketDataToOrder.getPlaceNum();
+
+            if (!service.ticketDataIsPossible(race, carriage, place)) {
+                errorList.add("Race train can't have such pair of carriage and place numbers!");
+                return SUCCESS;
+            }
+
+            if (service.ticketIsAlreadyExists(race, carriage, place)) {
+                errorList.add("This ticket have been ordered while you were choosing " +
+                        "carriage and place. Try to choose another one! =)");
+                return SUCCESS;
+            }
+
+            ticketNum = service.orderTicketAndGetTicketNum(ticketDataToOrder, getUserFromSession());
         } catch (Exception ex) {
-            errorList.add("This ticket have been ordered while you were choosing " +
-                    "carriage and place. Try to choose another one! =)");
+            errorList.add("Your request data is incorrect ... or the server is wrong!");
             ex.printStackTrace();
         }
 

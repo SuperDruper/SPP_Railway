@@ -26,14 +26,6 @@ public class TicketService extends GenericService<Ticket, Integer> {
         super(Ticket.class);
     }
 
-    public List<Ticket> getTicketsForUser(User user)
-    {
-        getDao().openCurrentSessionWithTransaction();
-        List<Ticket> tickets = getDao().getTicketsForUser(user);
-        getDao().closeCurrentSessionWithTransaction();
-
-        return tickets;
-    }
 
     @Override
     public ITicketDao getDao() {
@@ -94,20 +86,24 @@ public class TicketService extends GenericService<Ticket, Integer> {
         return errorList;
     }
 
+
     public List<TicketDetails> findTicketDetailsListByUserId(int userId) {
         getDao().openCurrentSession();
 
         List<Ticket> tickets = getDao().findTicketsWithRaceStationsByUserId(userId);
         List<TicketDetails> ticketDetailsList = new ArrayList<>();
 
+        getDao().closeCurrentSession();
+
         for (Ticket ticket : tickets) {
             TicketDetails ticketDetails = convertToTicketDetails(ticket);
             ticketDetailsList.add(ticketDetails);
         }
-        getDao().closeCurrentSession();
 
         return ticketDetailsList;
     }
+
+
     private TicketDetails convertToTicketDetails(Ticket ticket) {
         RaceStation departureRaceStation = getRaceStationFromListById(
                 ticket.getRace().getRaceStations(), ticket.getStationFrom().getId());
@@ -118,7 +114,7 @@ public class TicketService extends GenericService<Ticket, Integer> {
         Date arriving =  arriveRaceStation.getArriving();
 
         return new TicketDetails(
-                ticket.getNum(),
+                ticket.getId(),
                 ticket.getRace().getId(),
                 ticket.getRace().getRoute().getName(),
                 ticket.getStationFrom().getName(),
@@ -171,4 +167,25 @@ public class TicketService extends GenericService<Ticket, Integer> {
 
         return ticket.getId();
     }
+
+    public boolean ticketIsAlreadyExists(int raceId, int carriageNum, int placeNum) {
+        getDao().openCurrentSessionWithTransaction();
+        Ticket ticket = getDao().findByAlternativeKey(carriageNum, placeNum, raceId);
+        getDao().closeCurrentSessionWithTransaction();
+        return ticket != null;
+    }
+
+    public boolean ticketDataIsPossible(int raceId, int carriageNum, int placeNum) {
+        Race race = new RaceService().findByPK(raceId);
+
+        if (race == null) return false;
+
+        Train train = race.getTrain();
+        int carriageMaxNum = train.getCarriageAmount();
+        int placeMaxNum = train.getTrainType().getPlacesAmount();
+
+        return carriageNum > 0 && carriageNum <= carriageMaxNum
+               && placeNum > 0 && placeNum <= placeMaxNum;
+    }
+
 }

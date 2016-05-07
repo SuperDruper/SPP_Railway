@@ -14,6 +14,7 @@ public class Train {
     private TrainType trainType;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "tr_id", nullable = false, insertable = true, updatable = true)
     public int getId() {
         return id;

@@ -15,8 +15,13 @@ public class GetUserTicketsAction extends GetAction {
 
     @Override
     public String view() throws Exception {
-        ticketDetailsList = new TicketService().findTicketDetailsListByUserId(getUserIdFromSession());
+        if (getUserIdFromSession() != null) {
+            ticketDetailsList = new TicketService().findTicketDetailsListByUserId(getUserIdFromSession());
+        }
         return SUCCESS;
     }
 
+    public List<TicketDetails> getTicketDetailsList() {
+        return ticketDetailsList;
+    }
 }

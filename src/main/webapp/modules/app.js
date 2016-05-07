@@ -89,4 +89,34 @@ app.controller('boostapp', function ($rootScope, $window, UserRoleNameService, S
         $window.location.href = '/';
     };
 
+    $rootScope.removeRow = function(id){
+        var index = -1;
+        var comArr = eval( $rootScope.ticketDetailsList );
+        for( var i = 0; i < comArr.length; i++ ) {
+            if( comArr[i].ticketNum === id ) {
+                index = i;
+                break;
+            }
+        }
+
+        if( index === -1 ) {
+            alert( "Something gone wrong" );
+        } else {
+            const object = comArr[index];
+
+            Service.request('/api/ticket/removeticket', 'POST', { ticketId: id })
+                .then(function(data) {
+                    $rootScope.ticketErrors = data.errorList;
+
+                    if($rootScope.ticketErrors.length == 0) {
+                        $rootScope.ticketDetailsList.splice(index, 1);
+                    }
+                });
+        }
+    };
+
+    Service.request('/api/ticket/usertickets').then(function(data) {
+        $rootScope.ticketDetailsList = data.data.ticketDetailsList;
+    });
+
 });

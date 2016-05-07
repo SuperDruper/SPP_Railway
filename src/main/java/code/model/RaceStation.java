@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "race_station", schema = "", catalog = "railway")
 public class RaceStation {
+
     private int id;
     private Timestamp depature;
     private Timestamp arriving;
@@ -41,6 +42,7 @@ public class RaceStation {
     }
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "rcst_id", nullable = false, insertable = true, updatable = true)
     public int getId() {
         return id;

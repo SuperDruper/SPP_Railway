@@ -35,7 +35,7 @@
 
         <label for="">Place number</label>
         <select name="placeNum" id="placeNum" ng-model="placeNum">
-            <option ng-repeat="place in race.carriages[carriageNum].places" value="{{place.num}}">{{place.num}}</option>
+            <option ng-repeat="place in race.carriages[carriageNum - 1].places" value="{{place.num}}">{{place.num}}</option>
         </select> <br/><br/>
 
         <button type="submit" class="btn btn-default" ng-click="buy()">I wish you take my money</button>

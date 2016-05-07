@@ -21,6 +21,10 @@ angular.module('app').controller('RaceChoiceController', function ($scope, $loca
             $scope.errors.push.apply($scope.errors, ['Arriving station can\'t be empty!']);
             errorOccurs = true;
         }
+        if (typeof $scope.raceDate == 'undefined' || $scope.raceDate == null) {
+            $scope.errors.push.apply($scope.errors, ['Your race date is incorrect!']);
+            errorOccurs = true;
+        }
         if (errorOccurs) {
             return;
         }

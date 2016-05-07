@@ -56,6 +56,7 @@ public class Ticket {
     }
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "t_id", nullable = false, insertable = true, updatable = true)
     public int getId() {
         return id;
@@ -97,27 +98,30 @@ public class Ticket {
         this.carriageNum = carriageNum;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Ticket)) return false;
 
         Ticket ticket = (Ticket) o;
 
         if (carriageNum != ticket.carriageNum) return false;
-        if (id != ticket.id) return false;
         if (num != ticket.num) return false;
-        if (orderDate != null ? !orderDate.equals(ticket.orderDate) : ticket.orderDate != null) return false;
+        if (!race.equals(ticket.race)) return false;
+        if (!stationFrom.equals(ticket.stationFrom)) return false;
+        if (!stationTo.equals(ticket.stationTo)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (orderDate != null ? orderDate.hashCode() : 0);
-        result = 31 * result + num;
+        int result = num;
         result = 31 * result + carriageNum;
+        result = 31 * result + race.hashCode();
+        result = 31 * result + stationFrom.hashCode();
+        result = 31 * result + stationTo.hashCode();
         return result;
     }
 

@@ -358,6 +358,13 @@
             </result>
         </action>
 
+        <!--GET-->
+        <action name="ticket/removeticket" class="code.controller.ticket.DeleteUserTicketAction">
+            <result type="json">
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
     </package>
 
 </struts>
