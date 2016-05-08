@@ -33,7 +33,7 @@ public class UpdateAction extends PostAction {
 
     @Override
     public String create() {
-        errorList = new ArrayList<>();
+        errorList = new ArrayList();
 
         switch (action.getId()) {
             case 0:
@@ -88,16 +88,16 @@ public class UpdateAction extends PostAction {
 
     public void setRaces(List<Race> races) {
         this.races = races;
-        List<Race> racesWithFullInfo = new ArrayList<>();
+        List<Race> racesWithFullInfo = new ArrayList();
         for (Race race : races) {
             racesWithFullInfo.add(new RaceService().findRaceUseInnerJOINWithTrainAndTrainTypes(race.getId()));
         }
         races = racesWithFullInfo;
 
-        stationHashMap = new HashMap<>();
+        stationHashMap = new HashMap();
         for (Race race : races) {
             Collection<RaceStation> raceStations = race.getRaceStations();
-            List<Station> stations = new ArrayList<>();
+            List<Station> stations = new ArrayList();
             for (RaceStation raceStation : raceStations) {
                 stations.add(raceStation.getStation());
             }

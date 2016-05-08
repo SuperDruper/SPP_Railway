@@ -52,7 +52,7 @@ public class UpdateAction extends PostAction {
 
     private void deleteActionExecute()
     {
-        errorList =  new ArrayList<>();
+        errorList =  new ArrayList<String>();
         try {
             new TrainService().delete(train);
         } catch (Exception exc) {

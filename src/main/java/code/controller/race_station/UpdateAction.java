@@ -20,7 +20,7 @@ import java.util.*;
 public class UpdateAction extends PostAction {
     private CrudAction action;
     private RaceStation raceStation;
-    private List<String> errorList = new ArrayList<>();
+    private List<String> errorList = new ArrayList();
     RaceStationContainer raceStationContainer;
 
     @Override
@@ -63,7 +63,7 @@ public class UpdateAction extends PostAction {
     }
 
     void deleteActionExecute() {
-        errorList = new ArrayList<>();
+        errorList = new ArrayList();
         try {
             new GenericService<RaceStation, Integer>(RaceStation.class).deleteByPK(raceStation.getId());
         } catch (Exception exc) {
@@ -72,7 +72,7 @@ public class UpdateAction extends PostAction {
     }
 
     public List<String> validate(RaceStation raceStation, boolean isNeedToCreate) {
-        List<String> errorList = new ArrayList<>();
+        List<String> errorList = new ArrayList();
 
         Validator validator = ValidationUtils.getValidationFactory().getValidator();
         Set<ConstraintViolation<RaceStation>> set = validator.validate(raceStation);

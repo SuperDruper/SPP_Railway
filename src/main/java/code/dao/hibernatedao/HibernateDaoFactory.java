@@ -41,6 +41,6 @@ public class HibernateDaoFactory extends AbstractDaoFactory {
         }
 
 
-        return new GenericHibernateDao<>(entityClass);
+        return new GenericHibernateDao(entityClass);
     }
 }

@@ -80,7 +80,7 @@ public class RaceHibernateDao extends GenericHibernateDao<Race, Integer> impleme
         query.setTimestamp("stDepartureDate", timestamp);
 
         List<Race> races  = query.list();
-        List<Race> result = new ArrayList<>();
+        List<Race> result = new ArrayList<Race>();
 
         int stationId;
         Timestamp departureTimestamp = null;
