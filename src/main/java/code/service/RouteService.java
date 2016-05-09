@@ -55,8 +55,8 @@ public class RouteService extends GenericService<Route, Integer> {
         return errorList;
     }
 
-
     public Route getRouteByName(String name) {
         return getModelByUniqueStringField("name", name);
     }
+
 }

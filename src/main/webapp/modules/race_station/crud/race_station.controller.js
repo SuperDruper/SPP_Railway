@@ -1,6 +1,4 @@
-/**
- * Created by dzmitry.antonenka on 11.04.2016.
- */
+
 app.controller('RaceStationController', function ($scope, RaceStationService) {
     $scope.errors = [];
 

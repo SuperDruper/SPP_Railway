@@ -31,10 +31,10 @@ public class LoginAction extends PostAction {
                 add(LOGIN_AND_PASSWORD_CANT_BE_NULL);
             }};
         } else {
-            User user = new UserService().getUserByLogin(login);
-
             login = login.toLowerCase();
-            password = password.toLowerCase();
+
+            User user = new UserService().getUserByLogin(login);
+            user.setLogin(user.getLogin().toLowerCase());
 
             if (user == null || !user.getPassword().equals(password)) {
                 errorList = new ArrayList<String>(){{

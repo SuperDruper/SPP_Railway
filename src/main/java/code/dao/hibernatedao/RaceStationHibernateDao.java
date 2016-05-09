@@ -4,6 +4,7 @@ import code.dao.daointerface.IRaceStationsDao;
 import code.model.Race;
 import code.model.RaceStation;
 import code.model.Station;
+import org.hibernate.Query;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -32,5 +33,14 @@ public class RaceStationHibernateDao extends GenericHibernateDao<RaceStation, In
     }
     public RaceStation getRaceStationByID(Integer id) {
         return super.findByPK(id);
+    }
+
+    private static final String FIND_BY_RACE_ID_IN_ASC_ORDER_BY_DATE_HQL =
+            "SELECT rs FROM RaceStation rs WHERE rs.race.id = ? ORDER BY rs.arriving ASC";
+    @Override
+    public List<RaceStation> findByRaceId(int raceId) {
+        Query query = getCurrentSession().createQuery(FIND_BY_RACE_ID_IN_ASC_ORDER_BY_DATE_HQL);
+        query.setInteger(0, raceId);
+        return query.list();
     }
 }

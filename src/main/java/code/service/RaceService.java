@@ -58,4 +58,12 @@ public class RaceService extends GenericService<Race, Integer> {
         getDao().closeCurrentSessionWithTransaction();
         return result;
     }
+
+
+    public List<Race> getRaceWithDetailsByRouteId(int routeId) {
+        getDao().openCurrentSession();
+        List<Race> result = getDao().findRacesWithDetailsByRouteId(routeId);
+        getDao().closeCurrentSession();
+        return result;
+    }
 }

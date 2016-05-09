@@ -12,7 +12,9 @@ import org.hibernate.transform.DistinctRootEntityResultTransformer;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by dzmitry.antonenka on 20.03.2016.
@@ -123,7 +125,6 @@ public class RaceHibernateDao extends GenericHibernateDao<Race, Integer> impleme
         Hibernate.initialize(race.getTickets());
         Hibernate.initialize(race);
 
-
         return race;
     }
 
@@ -152,6 +153,19 @@ public class RaceHibernateDao extends GenericHibernateDao<Race, Integer> impleme
         if (race != null) Hibernate.initialize(race.getTickets());
 
         return race;
+    }
+
+    private static final String GET_RACES_WITH_TICKETS_BY_ROUTE_ID_HQL =
+            "SELECT r FROM Race r left join fetch r.tickets WHERE r.route.id = ?";
+    @Override
+    public List<Race> findRacesWithDetailsByRouteId(int routeId) {
+        Query query = getCurrentSession().createQuery(GET_RACES_WITH_TICKETS_BY_ROUTE_ID_HQL);
+        query.setInteger(0, routeId);
+        List<Race> list = query.list();
+        Set<Race> setItems = new LinkedHashSet<>(list);
+        list.clear();
+        list.addAll(setItems);
+        return list;
     }
 
 }
