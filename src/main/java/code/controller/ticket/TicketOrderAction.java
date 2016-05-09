@@ -18,7 +18,7 @@ public class TicketOrderAction extends PostAction {
     private TicketDataToOrder ticketDataToOrder;
 
     private int ticketNum;
-    private List<String> errorList = new ArrayList<>();
+    private List<String> errorList = new ArrayList();
 
 
     @Override

@@ -32,7 +32,7 @@ public class TicketListShowingAction extends GetAction {
             tickets = new TicketService().findAll();
         } else {
             //    throw new Exception("Cannot see tickets for user == null");
-            errorList = new ArrayList<>();
+            errorList = new ArrayList<String>();
             errorList.add("Cannot show tickets for undefined user. Login please.");
         }
 

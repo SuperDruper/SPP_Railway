@@ -32,7 +32,7 @@ public class RouteService extends GenericService<Route, Integer> {
     }
 
     public static List<String> validate(Route route, boolean isNeedToCreate) {
-        List<String> errorList = new ArrayList<>();
+        List<String> errorList = new ArrayList();
 
         Validator validator = ValidationUtils.getValidationFactory().getValidator();
         Set<ConstraintViolation<Route>> set = validator.validate(route);

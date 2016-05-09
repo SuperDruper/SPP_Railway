@@ -59,7 +59,7 @@ public class UpdateAction extends PostAction {
 
     private void deleteUser(User user)
     {
-        errorList = new ArrayList<>();
+        errorList = new ArrayList<String>();
         try {
             User mySelf = getUserFromSession();
             if(mySelf.getId() == user.getId()) {

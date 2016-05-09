@@ -32,7 +32,7 @@ public class RaceInfosAction extends PostAction {
     public String create() throws Exception {
         if (validateSearchData()) {
             List<Race> races = new RaceService().findRaces(raceSearchData);
-            raceInfos = new ArrayList<>();
+            raceInfos = new ArrayList<RaceInfo>();
 
             for(Race race : races) {
                 raceInfos.add(ConvertToRaceInfo(race));
