@@ -162,7 +162,7 @@ public class RaceHibernateDao extends GenericHibernateDao<Race, Integer> impleme
         Query query = getCurrentSession().createQuery(GET_RACES_WITH_TICKETS_BY_ROUTE_ID_HQL);
         query.setInteger(0, routeId);
         List<Race> list = query.list();
-        Set<Race> setItems = new LinkedHashSet<>(list);
+        Set<Race> setItems = new LinkedHashSet(list);
         list.clear();
         list.addAll(setItems);
         return list;

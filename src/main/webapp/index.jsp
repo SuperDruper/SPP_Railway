@@ -13,10 +13,10 @@
   <link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.min.css">
 
   <link rel="stylesheet" type="text/css" media="screen" href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css" />
-  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+  <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
   <link rel="stylesheet" href="bower_components/angular-modal-progress-bar/dist/angular-modal-progress-bar.css">
 
-  <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
   <script type="text/javascript" src="bower_components/angular-modal-progress-bar/dist/angular-modal-progress-bar.js"></script>
 
@@ -148,9 +148,9 @@
 </table>
 </div>
 
-<script src="<s:url value="js/jquery.js" />"></script>
+<!--<script src="<s:url value="js/jquery.js" />"></script>
 <script src="<s:url value="js/bootstrap.min.js" />"></script>
-
+-->
 <script src="<s:url value="js/lib/angular/angular.min.js" />"></script>
 <script src="<s:url value="js/lib/angular/angular-route.min.js" />"></script>
 
