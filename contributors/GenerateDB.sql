@@ -1,4 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `railway` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE IF NOT EXISTS `railway` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `railway`;
 -- MySQL dump 10.13  Distrib 5.6.23, for Win64 (x86_64)
 --
@@ -100,7 +100,7 @@ CREATE TABLE `race_station` (
 
 LOCK TABLES `race_station` WRITE;
 /*!40000 ALTER TABLE `race_station` DISABLE KEYS */;
-INSERT INTO `race_station` (`rcst_id`, `rcst_depature`, `rcst_arriving`, `st_id`, `rc_id`) VALUES (1,'2016-03-29 09:00:00',NULL,2,1),(2,'2016-03-29 11:00:00','2016-03-29 10:45:00',1,1),(3,'2016-03-29 13:00:00','2016-03-29 12:50:00',3,1),(4,NULL,'2016-03-29 14:50:00',4,1),(5,'2016-03-29 13:00:00',NULL,2,2),(6,NULL,'2016-03-29 17:00:00',4,2);
+INSERT INTO `race_station` (`rcst_id`, `rcst_depature`, `rcst_arriving`, `st_id`, `rc_id`) VALUES (1,'2016-06-29 09:00:00',NULL,2,1),(2,'2016-06-29 11:00:00','2016-06-29 10:45:00',1,1),(3,'2016-06-29 13:00:00','2016-06-29 12:50:00',3,1),(4,NULL,'2016-06-29 14:50:00',4,1),(5,'2016-06-29 13:00:00',NULL,2,2),(6,NULL,'2016-06-29 17:00:00',4,2);
 /*!40000 ALTER TABLE `race_station` ENABLE KEYS */;
 UNLOCK TABLES;
 

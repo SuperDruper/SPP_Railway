@@ -1,0 +1,54 @@
+<div>
+    <label for="">Race choosing</label> <br/><br/>
+    <div ng-show = "errors != null && errors.length > 0">
+        <p>Errors:</p>
+        <ul ng-repeat="error in errors" aria-dropeffect="popup">
+            <li class="validationError">
+                {{error}}
+            </li>
+        </ul>
+    </div>
+
+    <!--TODO: use md-autocomplete instead of selects-->
+    <div class="form-group">
+        <label for="">Enter the departure station</label>
+        <select name="departureStation" id="departureStation" ng-model="departureStationId" ng-init="stations[0]">
+            <option ng-repeat="station in stations" value="{{station.id}}">{{station.name}}</option>
+        </select> <br/><br/>
+
+        <label for="">Enter the arrive station</label>
+        <select name="arriveStation" id="arriveStation" ng-model="arriveStationId" ng-init="stations[1]">
+            <option ng-repeat="station in stations" value="{{station.id}}">{{station.name}}</option>
+        </select> <br/><br/>
+
+        <label for="">Enter the race date</label>
+        <input class="form-control" type="date" step="1" ng-model="raceDate" placeholder="Race date" value="2016-06-29"> <br/><br/>
+
+        <button type="submit" class="btn btn-default" ng-click="find()">Find races</button>
+    </div>
+
+    <br/><br/>
+
+    <div class="table-responsive" ng-show = "raceInfos && !(errors != null && errors.length > 0)">
+        <table class="table table-bordered table-striped text-center">
+            <tr>
+                <th>Route name</th>
+                <th>Departure</th>
+                <th>Arriving</th>
+                <th>Cost</th>
+                <th ng-show="userRole"></th>
+            </tr>
+            <tr ng-repeat="raceInfo in raceInfos">
+                <td>{{raceInfo.name}}</td>
+                <td>{{raceInfo.departure}}</td>
+                <td>{{raceInfo.arriving}}</td>
+                <td>{{raceInfo.cost}}</td>
+                <td ng-show="userRole">
+                    <button type="submit" class="btn btn-default" ng-click="showRaceDetails(raceInfo.id)">
+                        Order ticket
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
