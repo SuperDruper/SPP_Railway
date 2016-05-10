@@ -2,6 +2,60 @@
  * Created by dzmitry.antonenka on 11.04.2016.
  */
 app.controller('RaceStationController', function ($scope, RaceStationService) {
+        $scope.dateTimeNow = function() {
+            $scope.date = new Date();
+        };
+        $scope.dateTimeNow();
+
+        $scope.toggleMinDate = function() {
+            var minDate = new Date();
+            // set to yesterday
+            minDate.setDate(minDate.getDate() - 1);
+            $scope.dateOptions.minDate = $scope.dateOptions.minDate ? null : minDate;
+        };
+
+        $scope.dateOptions = {
+            showWeeks: false,
+            startingDay: 0
+        };
+
+        $scope.toggleMinDate();
+
+        // Disable weekend selection
+        $scope.disabled = function(calendarDate, mode) {
+            return mode === 'day' && ( calendarDate.getDay() === 0 || calendarDate.getDay() === 6 );
+        };
+
+        $scope.open = function($event,opened) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.dateOpened = true;
+        };
+
+        $scope.dateOpened = false;
+        $scope.hourStep = 1;
+        $scope.format = "yyyy-MMM-dd";
+        $scope.minuteStep = 1;
+
+        $scope.timeOptions = {
+            hourStep: [1, 2, 3],
+            minuteStep: [1, 5, 10, 15, 25, 30]
+        };
+
+        $scope.showMeridian = true;
+        $scope.timeToggleMode = function() {
+            $scope.showMeridian = !$scope.showMeridian;
+        };
+
+        $scope.$watch("date", function(date) {
+            // read date value
+        }, true);
+
+        $scope.resetHours = function() {
+            $scope.date.setHours(1);
+        };
+
+
     $scope.errors = [];
 
     $scope.removeRow = function(id){
@@ -47,9 +101,13 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
                 id : 1
             };
 
-            if(!validate(object.id, object.depature, object.arriving, object.race.id, object.station.id)) return;
+            var raceStationCopy = angular.copy(object);
+            raceStationCopy.depature = RaceStationService.convertUTCDateToLocalDate(object.depature);
+            raceStationCopy.arriving = RaceStationService.convertUTCDateToLocalDate(object.arriving);
 
-            RaceStationService.updateRow({ raceStationContainer: object, action: action })
+            if(!validate(raceStationCopy.id, raceStationCopy.depature, raceStationCopy.arriving, raceStationCopy.race.id, raceStationCopy.station.id)) return;
+
+            RaceStationService.updateRow({ raceStationContainer: raceStationCopy, action: action })
                 .then(function(data) {
                     $scope.errors.push.apply($scope.errors, data.errorList);
                     refreshData();
@@ -63,8 +121,8 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
 
         const raceStation = {
             id : $scope.raceStationIdToCreate,
-            depature : $scope.departureToCreate,
-            arriving : $scope.arrivingToCreate,
+            depature : RaceStationService.convertUTCDateToLocalDate($scope.departure),
+            arriving : RaceStationService.convertUTCDateToLocalDate($scope.arriving),
             race : { id : $scope.raceIdToCreate },
             station : { id : $scope.stationIdToCreate }
         };
@@ -72,15 +130,15 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
             id : 0
         };
 
-        if(!validate($scope.raceStationIdToCreate, $scope.departureToCreate, $scope.arrivingToCreate, $scope.raceIdToCreate, $scope.stationIdToCreate)) return;
+        if(!validate($scope.raceStationIdToCreate, $scope.departure, $scope.arriving, $scope.raceIdToCreate, $scope.stationIdToCreate)) return;
 
         $scope.asyncRequestComplited = false;
 
         var smth = RaceStationService.register({ raceStationContainer :raceStation, action: action})
             .then(function(data) {
-                $scope.errors.push.apply($scope.errors, data.errorList);
-                $scope.events.push.apply($scope.events, data.eventList);
+                refreshData();
 
+                $scope.errors.push.apply($scope.errors, data.errorList);
                 $scope.asyncRequestComplited = true;
             });
         $scope.$watch('asyncRequestComplited',function(newValue, oldValue, scope){
@@ -165,18 +223,14 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
             isValid = false;
         }
 
-        var dateComponentsForDeparture = departureDate.split(' ');
-
-        var timestampForDeparture=Date.parse(dateComponentsForDeparture[0] + "T" + dateComponentsForDeparture[1])
+        var timestampForDeparture=Date.parse(departureDate)
         if (isNaN(timestampForDeparture))
         {
             $scope.errors.push("Departure date is incorrect !");
             isValid = false;
         }
 
-        var dateComponentsForArriving = arrivingDate.split(' ');
-
-        var timestampForArriving=Date.parse(dateComponentsForArriving[0] + "T" + dateComponentsForArriving[1])
+        var timestampForArriving=Date.parse(arrivingDate)
         if (isNaN(timestampForArriving))
         {
             $scope.errors.push("Arriving date is incorrect !");
@@ -204,7 +258,13 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
     function refreshData() {
         return RaceStationService.getRaceStations()
             .then(function(data) {
-                $scope.raceStations = data.data.raceStations;
+                $scope.raceStations = data.data.raceStationContainers;
+
+                for(var i = 0; i <  $scope.raceStations.length; i++) {
+                    $scope.raceStations[i].depature = new Date($scope.raceStations[i].depature);
+                    $scope.raceStations[i].arriving = new Date($scope.raceStations[i].arriving);
+                }
+
                 $scope.races = data.data.races;
                 $scope.stations = data.data.stations;
             });

@@ -309,7 +309,7 @@
         <action name="ticket/crud" class="code.controller.ticket.TicketListShowingAction">
             <result type="json">
                 <param name="excludeProperties" >
-                    ^tickets\[\d+\]\.user,
+                    ^ticketContainers\[\d+\]\.user,
                     ^.+?raceStations(?![_\w\d]),
                     ^.+?races(?![_\w\d]),
                     ^.+?tickets(?![_\w\d]),

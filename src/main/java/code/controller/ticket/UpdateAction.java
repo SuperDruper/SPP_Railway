@@ -1,5 +1,6 @@
 package code.controller.ticket;
 
+import code.controller.ticket.model.TicketContainer;
 import code.infrastructure.ValidationUtils;
 import code.model.*;
 import code.service.GenericService;
@@ -24,7 +25,10 @@ public class UpdateAction extends PostAction {
     private CrudAction action;
     private Ticket ticket;
 
+    private TicketContainer ticketContainer;
+
     private Race race;
+
     private List<Race> races;
     private HashMap<Integer, List<Station>> stationHashMap;
 
@@ -117,15 +121,26 @@ public class UpdateAction extends PostAction {
             stations.add(raceStation.getStation());
         }
     }
-    public List<Station> getStations() {
-        return stations;
-    }
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
-    }
 
     public void setAction(CrudAction action) { this.action = action; }
     public CrudAction getAction() { return this.action; }
+
+
+    public TicketContainer getTicketContainer() {
+        return ticketContainer;
+    }
+
+    public void setTicketContainer(TicketContainer ticketContainer) {
+        ticket = TicketContainer.getTicketFromTicketContainer(ticketContainer);
+        this.ticketContainer = ticketContainer;
+    }
+
+    public List<Station> getStations() {
+        return stations;
+    }
+    public void setStations(List<Station> stations) {
+        this.stations = stations;
+    }
 
     public List<String> getErrorList() {
         return errorList;

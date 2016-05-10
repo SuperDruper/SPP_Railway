@@ -1,29 +1,43 @@
-<!--private int id;-->
-<!--private Timestamp depature;-->
-<!--private Timestamp arriving;-->
-<!--private Race race;-->
-<!--private Station station;-->
-<head>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
-    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.js"></script>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-</head>
 
 <div>
     <div class="form-group">
         <label for="">RaceStation ID(name)</label><br />
         <input class="form-control" type="number" ng-model="raceStationIdToCreate" placeholder="Identifier">  <br/><br />
 
-        <label for="">Departure(Please use E.g. 2016-04-05 14:36:00)</label><br />
-        <div>
-            <div class="container" style="width: inherit">
-                <input type='text' class="form-control" ng-model="departureToCreate" name="departureToCreate" id="departureToCreate" required/>
-            </div><br/>
+        <label for="">Departure Date</label><br />
+        <datetimepicker
+                hour-step="hourStep"
+                minute-step="minuteStep" ng-model="departure" show-meridian="showMeridian"
+                date-format="{{format}}" date-options="dateOptions"
+                date-disabled="disabled(date, mode)"
+                datepicker-append-to-body="false"
+                readonly-date="false"
+                hidden-time="false"
+                hidden-date="false"
+                name="datetimepicker"
+                show-spinners="true"
+                readonly-time="false"
+                >
+            <!-- Use date-ng-click="open($event, opened)" to override date ng-click -->
+        </datetimepicker>
 
-        <label for="">Arriving(Please use E.g. 2016-04-05 14:36:00)</label><br/>
-            <div class="container" style="width: inherit">
-                <input  type='text' class="form-control" ng-model="arrivingToCreate" name="arrivingToCreate" id="arrivingToCreate" required/>
-            </div><br/><br/>
+
+        <label for="">Arriving Date</label><br/>
+        <datetimepicker
+                hour-step="hourStep"
+                minute-step="minuteStep" ng-model="arriving" show-meridian="showMeridian"
+                date-format="{{format}}" date-options="dateOptions"
+                date-disabled="disabled(date, mode)"
+                datepicker-append-to-body="false"
+                readonly-date="false"
+                hidden-time="false"
+                hidden-date="false"
+                name="datetimepicker"
+                show-spinners="true"
+                readonly-time="false"
+                >
+            <!-- Use date-ng-click="open($event, opened)" to override date ng-click -->
+        </datetimepicker>
         <br />
 
         <label for="">Race</label><br />
@@ -61,17 +75,43 @@
         <tbody>
             <tr ng-repeat="raceStation in raceStations">
                 <td>
-                    <input maxlength="8"  data-provide="datepicker" type="text" name="id" ng-model="raceStation.id" required>
+                    <input maxlength="8"  type="text" name="id" ng-model="raceStation.id" required>
                 </td>
                 <td>
-                    <div class="container" style="width: inherit">
-                         <input  type='text' class="form-control" ng-model="raceStation.depature"/>
-                    </div>
+                    <datetimepicker
+                            hour-step="hourStep"
+                            minute-step="minuteStep" ng-model="raceStation.depature" show-meridian="showMeridian"
+                            date-format="{{format}}" date-options="dateOptions"
+                            date-disabled="disabled(date, mode)"
+                            datepicker-append-to-body="false"
+                            readonly-date="false"
+                            hidden-time="false"
+                            hidden-date="false"
+                            name="datetimepicker"
+                            show-spinners="true"
+                            readonly-time="false"
+                            date-opened="raceStation.dateOpened"
+                            >
+                        <!-- Use date-ng-click="open($event, opened)" to override date ng-click -->
+                    </datetimepicker>
                 </td>
                 <td>
-                    <div class="container" style="width: inherit">
-                         <input type='text' class="form-control" ng-model="raceStation.arriving"/>
-                    </div>
+                    <datetimepicker
+                            hour-step="hourStep"
+                            minute-step="minuteStep" ng-model="raceStation.arriving" show-meridian="showMeridian"
+                            date-format="{{format}}" date-options="dateOptions"
+                            date-disabled="disabled(date, mode)"
+                            datepicker-append-to-body="false"
+                            readonly-date="false"
+                            hidden-time="false"
+                            hidden-date="false"
+                            name="datetimepicker"
+                            show-spinners="true"
+                            readonly-time="false"
+                            date-opened="raceStation.dateOpened"
+                            >
+                        <!-- Use date-ng-click="open($event, opened)" to override date ng-click -->
+                    </datetimepicker>
                 </td>
 
                 <td>
@@ -109,4 +149,5 @@
             </tr>
         </tbody>
     </table>
+</div>
 </div>

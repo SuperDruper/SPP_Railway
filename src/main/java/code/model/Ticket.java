@@ -12,7 +12,6 @@ public class Ticket {
 
     private int id;
     private Timestamp orderDate;
-    private String dOrderDate;
     private int num;
     private int carriageNum;
     private Race race;
@@ -38,21 +37,6 @@ public class Ticket {
 
     public void setStationTo(Station stationTo) {
         this.stationTo = stationTo;
-    }
-
-    @Column(nullable = true, insertable = true, updatable = true)
-    public String getdOrderDate() {
-        return dOrderDate;
-    }
-
-    @Column(name = "t_reduntant_date", nullable = false, insertable = true, updatable = true)
-    public void setdOrderDate(String dOrderDate) {
-        try {
-            if(dOrderDate != null)
-                setOrderDate(Timestamp.valueOf(dOrderDate));
-        } catch (Exception exc) {
-            this.orderDate = null;
-        }
     }
 
     @Id

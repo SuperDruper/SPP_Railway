@@ -1,11 +1,62 @@
 angular.module('app').controller('RaceChoiceController', function ($scope, $location, RaceChoiceService,
                                                  StationService, Service, TicketShare) {
+    $scope.dateTimeNow = function() {
+        $scope.date = new Date();
+    };
+    $scope.dateTimeNow();
 
+    $scope.toggleMinDate = function() {
+        var minDate = new Date();
+        // set to yesterday
+        minDate.setDate(minDate.getDate() - 1);
+        $scope.dateOptions.minDate = $scope.dateOptions.minDate ? null : minDate;
+    };
+
+    $scope.dateOptions = {
+        showWeeks: false,
+        startingDay: 0
+    };
+
+    $scope.toggleMinDate();
+
+    // Disable weekend selection
+    $scope.disabled = function(calendarDate, mode) {
+        return mode === 'day' && ( calendarDate.getDay() === 0 || calendarDate.getDay() === 6 );
+    };
+
+    $scope.open = function($event,opened) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        $scope.dateOpened = true;
+    };
+
+    $scope.dateOpened = false;
+    $scope.hourStep = 1;
+    $scope.format = "yyyy-MMM-dd";
+    $scope.minuteStep = 1;
+
+    $scope.timeOptions = {
+        hourStep: [1, 2, 3],
+        minuteStep: [1, 5, 10, 15, 25, 30]
+    };
+
+    $scope.showMeridian = true;
+    $scope.timeToggleMode = function() {
+        $scope.showMeridian = !$scope.showMeridian;
+    };
+
+    $scope.$watch("date", function(date) {
+        // read date value
+    }, true);
+
+    $scope.resetHours = function() {
+        $scope.date.setHours(1);
+    };
     var departureStationId = 0;
     var arriveStationId = 0;
 
     $scope.find = function() {
-            $scope.errors = [];
+        $scope.errors = [];
 
         var errorOccurs = false;
         if ($scope.departureStationId === $scope.arriveStationId) {
