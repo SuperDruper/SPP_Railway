@@ -21,7 +21,7 @@ public class RaceDetailsAction extends PostAction {
     private int raceId;
     private RaceDetails raceDetails;
 
-    private List<String> errorList = new ArrayList<>();
+    private List<String> errorList = new ArrayList<String>();
 
 
 
@@ -40,11 +40,11 @@ public class RaceDetailsAction extends PostAction {
     private void convertToRaceDetails(Race race) {
         int placesInCarriage = race.getTrain().getTrainType().getPlacesAmount();
         int carriageAmount = race.getTrain().getCarriageAmount();
-        List<Ticket> tickets = new ArrayList<>(race.getTickets());
+        List<Ticket> tickets = new ArrayList(race.getTickets());
 
-        List<Carriage> carriages = new ArrayList<>();
+        List<Carriage> carriages = new ArrayList();
         for (int i = 1; i <= carriageAmount; i++) {
-            List<Place> places = new ArrayList<>();
+            List<Place> places = new ArrayList();
 
             for (int j = 1; j <= placesInCarriage; j++) {
                 boolean ticketFound = false;

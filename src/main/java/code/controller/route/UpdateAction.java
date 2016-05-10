@@ -70,7 +70,7 @@ public class UpdateAction extends PostAction {
     }
 
     void deleteActionExecute() {
-        errorList =  new ArrayList<>();
+        errorList =  new ArrayList<String>();
         try {
             new RouteService().deleteByPK(route.getId());
         } catch (Exception exc) {

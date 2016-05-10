@@ -33,9 +33,11 @@ public class RegisterAction extends PostAction {
 
         if (validate(user)) {
             try {
+                user.setLogin(user.getLogin().toLowerCase());
+                user.setPassword(user.getPassword().toLowerCase());
                 new UserService().persist(user);
             } catch (Exception e) {
-                errorList = new ArrayList<>();
+                errorList = new ArrayList();
                 errorList.add("Inputted data isn't correct!");
                 e.printStackTrace();
             }

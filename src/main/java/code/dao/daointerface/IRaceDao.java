@@ -41,4 +41,6 @@ public interface IRaceDao extends IDao<Race, Integer> {
     Race findRaceUseInnerJOINWithTrainAndTrainTypes(int raceID);
 
     Race findByPKWithDetails(int pk);
+
+    List<Race> findRacesWithDetailsByRouteId(int routeId);
 }

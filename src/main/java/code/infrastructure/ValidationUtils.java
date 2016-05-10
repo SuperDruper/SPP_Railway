@@ -26,7 +26,7 @@ public class ValidationUtils {
     public static <T> List<String> fromConstraintViolationSetToMessageList(Set<ConstraintViolation<T>> set) {
         if (set == null) return null;
 
-        List<String> messages = new ArrayList<>();
+        List<String> messages = new ArrayList();
 
         for (ConstraintViolation violation : set) {
             messages.add(violation.getMessage());
@@ -46,8 +46,9 @@ public class ValidationUtils {
             return Validation.buildDefaultValidatorFactory();
         } catch (Throwable e) {
             e.printStackTrace();
-            throw e;
+           // throw ;
         }
+        return null;
     }
 
 }

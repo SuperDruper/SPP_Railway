@@ -56,7 +56,7 @@ public class UpdateAction extends PostAction {
     }
 
     void deleteActionExecute() {
-        errorList =  new ArrayList<>();
+        errorList =  new ArrayList();
         try {
             new GenericService<Station, Integer>(Station.class).delete(station);
         } catch (Exception exc) {

@@ -17,8 +17,8 @@ public class DeleteUserTicketAction extends PostAction {
 
     @Override
     public String create() {
-        errorList = new ArrayList<>();
-        GenericService<Ticket, Integer> service = new GenericService<>(Ticket.class);
+        errorList = new ArrayList<String>();
+        GenericService<Ticket, Integer> service = new GenericService<Ticket, Integer>(Ticket.class);
         Ticket ticket = service.findByPK(ticketId);
 
         if (ticket == null) {

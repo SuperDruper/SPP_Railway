@@ -37,7 +37,7 @@ public class TicketService extends GenericService<Ticket, Integer> {
     }
 
     public static List<String> validate(Ticket ticket, boolean isNeedToCreate) {
-        List<String> errorList = new ArrayList<>();
+        List<String> errorList = new ArrayList();
 
         Validator validator = ValidationUtils.getValidationFactory().getValidator();
         Set<ConstraintViolation<Ticket>> set = validator.validate(ticket);
@@ -91,7 +91,7 @@ public class TicketService extends GenericService<Ticket, Integer> {
         getDao().openCurrentSession();
 
         List<Ticket> tickets = getDao().findTicketsWithRaceStationsByUserId(userId);
-        List<TicketDetails> ticketDetailsList = new ArrayList<>();
+        List<TicketDetails> ticketDetailsList = new ArrayList();
 
         getDao().closeCurrentSession();
 
@@ -140,7 +140,7 @@ public class TicketService extends GenericService<Ticket, Integer> {
 
 
     public int orderTicketAndGetTicketNum(TicketDataToOrder ticketDataToOrder, User user) {
-        GenericService<Station, Integer> stationService = new GenericService<>(Station.class);
+        GenericService<Station, Integer> stationService = new GenericService(Station.class);
         RaceService raceService = new RaceService();
 
         Station stationFrom = stationService.getModelByUniqueStringField("name",
