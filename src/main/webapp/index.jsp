@@ -10,10 +10,35 @@
   <base href="<s:property value="ctxUrl"/>">
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.min.css">
+
+  <link rel="stylesheet" type="text/css" media="screen" href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css" />
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+  <link rel="stylesheet" href="bower_components/angular-modal-progress-bar/dist/angular-modal-progress-bar.css">
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+
+  <script type="text/javascript" src="bower_components/angular-modal-progress-bar/dist/angular-modal-progress-bar.js"></script>
+
+  <script type="text/javascript" src="http://momentjs.com/downloads/moment.js"></script>
+  <%--<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"></script>--%>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/src/js/bootstrap-datetimepicker.js"></script>
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+  <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.2.4.js"></script>
+
+  <script src="./bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.js"></script>
+  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.rawgit.com/zhaber/datetimepicker/master/datetimepicker.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>
 
+<div>
 <div class="container-fluid mrg">
   <div class="row pdg">
     <div class="col-xs-12 pdg">
@@ -49,9 +74,10 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <div ng-show="userRole == 'admin'">
+      <div ng-show="roleId == 1">
         <ul class="admin-link">
           <li><a class="btn" href="/user/list">Users</a></li>
+          <li><a class="btn" href="/ticket/crud">Tickets</a></li>
           <li><a class="btn" href="/train/crud">Train CRUD</a></li>
           <li><a class="btn" href="/role/crud">Role CRUD</a></li>
           <li><a class="btn" href="/race/crud">Race CRUD</a></li>
@@ -60,58 +86,12 @@
           <li><a class="btn" href="/station/crud">station CRUD</a></li>
           <li><a class="btn" href="/route/crud">route CRUD</a></li>
           <li><a class="btn" href="/train_type/crud">TrainType CRUD</a></li>
+
         </ul>
       </div>
     </div>
   </div>
 </div>
-
-<div class="modal fade" id="myTickets" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Название модали</h4>
-      </div>
-      <div class="modal-body">
-        <div class="table-responsive">
-          <table class="table table-striped table-bordered text-center">
-            <thead>
-            <tr>
-              <th>Ticets number</th>
-              <th>Route</th>
-              <th>Dispatch st.</th>
-              <th>Destination st.</th>
-              <th>Dispatch date</th>
-              <th>Destination date</th>
-              <th>Car number</th>
-              <th>Place number</th>
-              <th>&nbsp;</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>5</td>
-              <td>Витебск-Брест</td>
-              <td>Витебск</td>
-              <td>Брест</td>
-              <td>29.06.2016Т09:00:00</td>
-              <td>29.06.2016Т14:00:00</td>
-              <td>7</td>
-              <td>14</td>
-              <td><button type="button" class="close">&times;</button></td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 
 <div ng-controller="boostapp">
   <div class="container">
@@ -133,15 +113,51 @@
 </div>
 </footer>
 
+<div>
+  <ul ng-repeat="error in ticketErrors">
+    <li class="validationError">
+      {{error}}
+    </li>
+  </ul>
+
+<div>
+<table class="table table-bordered table-striped">
+  <tr>
+    <td>Ticket</td>
+    <td>Race</td>
+    <td>Route</td>
+    <td>Station from</td>
+    <td>Station to</td>
+    <td>Date from</td>
+    <td>Date to</td>
+    <td>Carriage</td>
+    <td>Place</td>
+  </tr>
+  <tr ng-repeat="ticketDetails in ticketDetailsList">
+    <td>{{ticketDetails.ticketNum}}</td>
+    <td>{{ticketDetails.raceId}}</td>
+    <td>{{ticketDetails.routeName}}</td>
+    <td>{{ticketDetails.departureStationName}}</td>
+    <td>{{ticketDetails.arriveStationName}}</td>
+    <td>{{ticketDetails.departureDate.replace('T', ' ')}}</td>
+    <td>{{ticketDetails.arriveDate.replace('T', ' ')}}</td>
+    <td>{{ticketDetails.carriageNum}}</td>
+    <td>{{ticketDetails.placeNum}}</td>
+    <td><input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(ticketDetails.ticketNum)"/></td>
+  </tr>
+</table>
+</div>
 
 <script src="<s:url value="js/jquery.js" />"></script>
 <script src="<s:url value="js/bootstrap.min.js" />"></script>
+
 <script src="<s:url value="js/lib/angular/angular.min.js" />"></script>
 <script src="<s:url value="js/lib/angular/angular-route.min.js" />"></script>
 
 <script src="<s:url value="modules/app.js" />"></script>
 <script src="<s:url value="shared/service.js" />"></script>
 <script src="<s:url value="shared/user_role_name.service.js" />"></script>
+<script src="<s:url value="shared/datasharing/ticket_share.service.js" />"></script>
 <script src="<s:url value="shared/get_race_stations.service.js" />"></script>
 
 <script src="<s:url value="modules/example/example.controller.js" />"></script>
@@ -184,6 +200,18 @@
 
 <script src="<s:url value="modules/race_station/crud/race_station.controller.js" />"></script>
 <script src="<s:url value="modules/race_station/crud/race_station.service.js" />"></script>
+
+<script src="<s:url value="modules/ticket/crud/ticket.controller.js" />"></script>
+<script src="<s:url value="modules/ticket/crud/ticket.service.js" />"></script>
+
+<script src="<s:url value="modules/ticketorder/racechoice/racechoice.controller.js" />"></script>
+<script src="<s:url value="modules/ticketorder/racechoice/racechoice.service.js" />"></script>
+
+<script src="<s:url value="modules/ticketorder/racedetails/racedetails.controller.js" />"></script>
+<script src="<s:url value="modules/ticketorder/racedetails/racedetails.service.js" />"></script>
+
+<script src="<s:url value="modules/ticketorder/ticketshow/ticketshow.controller.js" />"></script>
+
 
 <script src="<s:url value="modules/ticketorder/racechoice/racechoice.controller.js" />"></script>
 <script src="<s:url value="modules/ticketorder/racechoice/racechoice.service.js" />"></script>

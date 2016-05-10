@@ -1,7 +1,9 @@
 app.controller('TrainController', function ($scope, $window, TrainService) {
+    $scope.errors = [];
 
     $scope.removeRow = function(id){
         var index = -1;
+        $scope.errors = [];
         var comArr = eval( $scope.trains );
         for( var i = 0; i < comArr.length; i++ ) {
             if( comArr[i].id === id ) {
@@ -17,8 +19,13 @@ app.controller('TrainController', function ($scope, $window, TrainService) {
                 id : 2
             };
 
-            TrainService.removeRow({ train: object, action: action });
-            $scope.trains.splice(index, 1);
+            TrainService.removeRow({ train: object, action: action }).then(function(data) {
+                $scope.errors.push.apply($scope.errors, data.errorList);
+
+                if($scope.errors.length == 0) {
+                    $scope.trains.splice(index, 1);
+                }
+            });
         }
 
     };
@@ -45,10 +52,6 @@ app.controller('TrainController', function ($scope, $window, TrainService) {
         var train = $scope.trains[indexTrain];
         var trainType = $scope.trainTypes[indexTrainType];
         train.trainType = trainType;
-
-        //$scope.trains.splice(indexTrain, 1);
-        //$scope.trains.splice(indexTrain, 0, train);
-        //$scope.trains[indexTrain] = train;
     };
 
     $scope.updateRow = function(id){
@@ -68,7 +71,13 @@ app.controller('TrainController', function ($scope, $window, TrainService) {
                 id : 1
             };
 
-            TrainService.updateRow({ train: object, action: action });
+            if(!validate(object.id, object.carriageAmount, object.trainType)) return;
+            TrainService.updateRow({ train: object, action: action })
+                .then(function(data) {
+                    refreshData();
+
+                    $scope.errors.push.apply($scope.errors, data.errorList);
+            });
         }
     };
     $scope.register = function() {
@@ -89,6 +98,8 @@ app.controller('TrainController', function ($scope, $window, TrainService) {
 
         $scope.asyncRequestComplited = false;
 
+        if(!validate($scope.trainId, $scope.trainCarriageAmount, trainType)) return;
+
         var smth = TrainService.register({train:train, action: action})
             .then(function(data) {
                 $scope.errors.push.apply($scope.errors, data.errorList);
@@ -98,26 +109,58 @@ app.controller('TrainController', function ($scope, $window, TrainService) {
             });
         $scope.$watch('asyncRequestComplited',function(newValue, oldValue, scope){
             if(scope.asyncRequestComplited && $scope.errors.length == 0){
-                // $window.location.href = '/';
-                //private int id;
-                //private String name;
-                //private double coefficient;
-                //private int placesAmount;
-                //$scope.trainyTypeId = "";
-                //$scope.trainTypeName = "";
-                //$scope.trainTypeCoefficient = "";
                 $scope.trainTypeToCreate = -1;
                 TrainService.getTrains()
                     .then(function(data) {
+                        $scope.trainId = '';
+                        $scope.trainCarriageAmount = '';
+                        $scope.trainTypeToCreate = '';
+
                         $scope.trains = data.data.trains;
                         $scope.trainTypes = data.data.trainTypes;
-
-                        $score.defaultSelectedTrainType = $scope.trainTypes[0].id;
                     });
             }
         });
 
         return smth;
+    }
+
+    function validate(trainIdentifier, trainCarriageAmount, trainType)
+    {
+        $scope.errors = [];
+        var isValid = true;
+
+        if(trainIdentifier == null || isNaN(parseInt(trainIdentifier)))
+        {
+            $scope.errors.push("Train identifier must be an integer value.");
+            isValid = false;
+        }
+
+        if(trainCarriageAmount == null || isNaN(parseInt(trainCarriageAmount)))
+        {
+            $scope.errors.push("Train carriage amount must be an integer value.");
+            isValid = false;
+        }
+
+        if(trainType == null || (trainType.id <=0 || trainType.id > $scope.trainTypes.length))
+        {
+            $scope.errors.push("Train type must be selected");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+
+    function refreshData()
+    {
+        return TrainService.getTrains()
+            .then(function(data) {
+                $scope.trains = data.data.trains;
+                $scope.trainTypes = data.data.trainTypes;
+
+                $scope.defaultSelectedTrainType = $scope.trainTypes[0].id;
+            });
     }
 
     return TrainService.getTrains()

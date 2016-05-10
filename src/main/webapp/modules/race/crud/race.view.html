@@ -15,6 +15,16 @@
         <button type="submit" class="btn btn-default" ng-click="register()">Create</button>
     </div>
 
+    <div>
+        <p>ERROR list:</p>
+        <ul ng-repeat="error in errors">
+            <li class="validationError">
+                {{error}}
+            </li>
+        </ul>
+    </div>
+
+    <table class="table table-bordered table-striped">
     <div class="table-responsive">
         <table class="table-striped table-bordered text-center">
         <tr>

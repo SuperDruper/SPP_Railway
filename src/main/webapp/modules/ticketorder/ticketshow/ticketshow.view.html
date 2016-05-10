@@ -1,0 +1,22 @@
+<div>
+    <p>
+        You've bought ticket!!!
+    </p><br />
+
+
+    <table>
+        <caption>Ticket data</caption>
+        <tr><td>Ticket number:</td>     <td>{{race.ticketNum}}</td></tr>
+        <tr><td>Route name:</td>        <td>{{race.name}}</td></tr>
+        <tr><td>Departure station:</td> <td>{{race.departureStationName}}</td></tr>
+        <tr><td>Departure data:</td>    <td>{{race.departure.toString().replace('T', ' ')}}</td></tr>
+        <tr><td>Arriving station:</td>  <td>{{race.arriveStationName}}</td></tr>
+        <tr><td>Arriving data:</td>     <td>{{race.arriving.toString().replace('T', ' ')}}</td></tr>
+        <tr><td>Carriage:</td>          <td>{{race.carriageNum}}</td></tr>
+        <tr><td>Place:</td>             <td>{{race.placeNum}}</td></tr>
+        <tr><td>Cost:</td>              <td>{{race.cost}}</td></tr>
+    </table>
+
+
+    <a href="/" class="btn btn-default">Go to start</a>
+</div>

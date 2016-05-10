@@ -42,5 +42,4 @@ public class RoleService extends GenericService<Role, Integer> {
     }
 
 
-
 }

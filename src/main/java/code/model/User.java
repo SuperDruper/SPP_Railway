@@ -20,24 +20,28 @@ public class User {
     private int id;
 
     @Size(min = 1, max = 50, message = "Name must be between {min} and {max} characters long!")
+    @Pattern(regexp = "[a-zA-Z\\d\\-]*",
+            message = "Name may contain only latin characters, digits or hyphen!")
     private String name;
 
     @Size(min = 1, max = 50, message = "Surname must be between {min} and {max} characters long!")
+    @Pattern(regexp = "[a-zA-Z\\d\\-]*",
+            message = "Surname may contain only latin characters, digits or hyphen!")
     private String surname;
 
+    @Size(min = 1, max = 255, message = "Email must be between {min} and {max} characters long!")
+    @NotNull(message = "Email must be set!")
     @Email(message = "Email format is incorrect!")
-    @Size(max = 255, message = "Email must be between {min} and {max} characters long!")
-    //@NotNull(message = "Email can't be null!")
     private String email;
 
     @Size(min = 1, max = 50, message = "Login must be between {min} and {max} characters long!")
-    //@NotNull(message = "Login can't be null!")
+    @Pattern(regexp = "[a-zA-Z\\d_\\-\\.]+",
+            message = "Login may contain only latin characters, digits, points, hyphen or underscore!")
+    @NotNull(message = "Login must be set!")
     private String login;
 
     @Size(min = 8, max = 50, message = "Password must be between {min} and {max} characters long!")
-    @Pattern(regexp = "[a-zA-Z\\d_\\-\\.]+",
-            message = "Password may contain only latin characters, digits, points, hyphen or underscore!")
-    //@NotNull(message = "Password can't be null!")
+    @NotNull(message = "Password must be set!")
     private String password;
 
     private Collection<Ticket> tickets;
@@ -49,6 +53,7 @@ public class User {
 
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "u_id", nullable = false, insertable = true, updatable = true)
     public int getId() {
         return id;

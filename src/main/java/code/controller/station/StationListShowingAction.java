@@ -1,6 +1,7 @@
 package code.controller.station;
 
 import code.controller.GetAction;
+import code.controller.shared.Authorize;
 import code.model.Role;
 import code.model.Station;
 import code.service.GenericService;
@@ -10,6 +11,7 @@ import java.util.List;
 /**
  * Created by dzmitry.antonenka on 26.04.2016.
  */
+
 public class StationListShowingAction extends GetAction {
     public List<Station> getStations() {
         return stations;

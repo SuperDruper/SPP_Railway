@@ -8,6 +8,7 @@ import java.util.Collection;
  */
 @Entity
 public class Race {
+
     private int id;
     private Route route;
     private Train train;
@@ -15,6 +16,7 @@ public class Race {
     private Collection<Ticket> tickets;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "rc_id", nullable = false, insertable = true, updatable = true)
     public int getId() {
         return id;

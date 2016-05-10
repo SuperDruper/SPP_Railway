@@ -2,9 +2,11 @@
  * Created by dzmitry.antonenka on 11.04.2016.
  */
 app.controller('StationController', function ($scope, $window, StationService) {
+    $scope.errors = [];
 
     $scope.removeRow = function(id){
         var index = -1;
+        $scope.errors = [];
         var comArr = eval( $scope.stations );
         for( var i = 0; i < comArr.length; i++ ) {
             if( comArr[i].id === id ) {
@@ -20,8 +22,14 @@ app.controller('StationController', function ($scope, $window, StationService) {
                 id : 2
             };
 
-            StationService.removeRow({ station: object, action: action });
-            $scope.stations.splice(index, 1);
+            StationService.removeRow({ station: object, action: action })
+                .then(function(data) {
+                    $scope.errors.push.apply($scope.errors, data.errorList);
+
+                    if($scope.errors.length == 0) {
+                        $scope.stations.splice(index, 1);
+                    }
+                });
         }
 
     };
@@ -42,7 +50,12 @@ app.controller('StationController', function ($scope, $window, StationService) {
                 id : 1
             };
 
-            StationService.updateRow({ station: object, action: action });
+            if(!validate(object.name)) return;
+            StationService.updateRow({ station: object, action: action })
+                .then(function(data) {
+                    refreshData();
+                    $scope.errors.push.apply($scope.errors, data.errorList);
+                });
         }
     };
     $scope.register = function() {
@@ -50,13 +63,14 @@ app.controller('StationController', function ($scope, $window, StationService) {
         $scope.events = [];
 
         const object = {
-            id: $scope.stationIdToCreate,
             name: $scope.stationNameToCreate
         };
 
         const action = {
             id : 0
         };
+
+        if(!validate($scope.stationNameToCreate)) return;
 
         $scope.asyncRequestComplited = false;
 
@@ -73,14 +87,30 @@ app.controller('StationController', function ($scope, $window, StationService) {
                 $scope.stationIdToCreate = "";
                 $scope.stationNameToCreate = "";
 
-                StationService.getStation()
-                    .then(function(data) {
-                        $scope.stations = data.data.stations;
-                    });
+                refreshData();
             }
         });
 
         return smth;
+    }
+
+    function validate(stationName)
+    {
+        $scope.errors = [];
+
+        if(stationName != null && stationName.trim().length != 0) {
+            return true;
+        } else {
+            $scope.errors.push("Station name cannot be empty !");
+            return false;
+        }
+    }
+
+    function refreshData() {
+        return StationService.getStation()
+            .then(function(data) {
+                $scope.stations = data.data.stations;
+            });
     }
 
     return StationService.getStation()

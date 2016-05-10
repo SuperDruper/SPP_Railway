@@ -4,6 +4,7 @@ target
 *.iml
 out
 *.class
+test_documents
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

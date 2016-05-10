@@ -18,4 +18,6 @@ public interface IRaceStationsDao extends IDao<RaceStation, Integer> {
     public Station getStationForRaceStation(RaceStation raceStation);
     public Race getRaceForRaceStation(RaceStation raceStation);
     public RaceStation getRaceStationByID(Integer id);
+
+    List<RaceStation> findByRaceId(int raceId);
 }

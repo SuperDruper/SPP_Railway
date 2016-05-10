@@ -1,6 +1,7 @@
 package code.controller.route;
 
 import code.controller.GetAction;
+import code.controller.shared.Authorize;
 import code.model.Race;
 import code.model.Route;
 import code.service.GenericService;
@@ -10,6 +11,7 @@ import java.util.List;
 /**
  * Created by dzmitry.antonenka on 24.04.2016.
  */
+//@Authorize("admin")
 public class RouteListShowingAction extends GetAction {
     private List<Route> routes;
     private List<Race> races;

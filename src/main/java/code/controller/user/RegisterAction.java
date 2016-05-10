@@ -1,14 +1,17 @@
 package code.controller.user;
 
 import code.controller.PostAction;
+import code.dao.hibernatedao.GenericHibernateDao;
 import code.model.Role;
 import code.model.User;
+import code.service.GenericService;
 import code.service.RoleService;
 import code.service.UserService;
-import code.validator.ValidationUtils;
+import code.infrastructure.ValidationUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -29,16 +32,22 @@ public class RegisterAction extends PostAction {
         user.setRole(role);
 
         if (validate(user)) {
-            new UserService().persist(user);
+            try {
+                user.setLogin(user.getLogin().toLowerCase());
+                user.setPassword(user.getPassword().toLowerCase());
+                new UserService().persist(user);
+            } catch (Exception e) {
+                errorList = new ArrayList();
+                errorList.add("Inputted data isn't correct!");
+                e.printStackTrace();
+            }
         }
 
         return SUCCESS;
     }
 
     private boolean validate(User user) {
-        Validator validator = ValidationUtils.getValidationFactory().getValidator();
-        Set<ConstraintViolation<User>> set = validator.validate(user);
-        errorList = ValidationUtils.fromConstraintViolationSetToMessageList(set);
+        errorList = ValidationUtils.validate(user);
 
         if (new UserService().getUserByLogin(user.getLogin()) != null) {
             errorList.add("User with such login is already exists!");

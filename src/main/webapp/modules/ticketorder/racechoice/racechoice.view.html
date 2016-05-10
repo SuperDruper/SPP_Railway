@@ -21,16 +21,29 @@
             <option ng-repeat="station in stations" value="{{station.id}}">{{station.name}}</option>
         </select> <br/><br/>
 
-        <label for="">Enter the race date</label>
-        <input class="form-control" type="date" step="1" ng-model="raceDate" placeholder="Race date" value="2016-06-29"> <br/><br/>
+        <label for="">Enter the race date</label>        <datetimepicker
+                hour-step="hourStep"
+                minute-step="minuteStep" ng-model="raceDate" show-meridian="showMeridian"
+                date-format="{{format}}" date-options="dateOptions"
+                date-disabled="disabled(date, mode)"
+                datepicker-append-to-body="false"
+                readonly-date="false"
+                hidden-time="false"
+                hidden-date="false"
+                name="datetimepicker"
+                show-spinners="true"
+                readonly-time="false"
+                >
+            <!-- Use date-ng-click="open($event, opened)" to override date ng-click -->
+        </datetimepicker>
+        <br/>
 
         <button type="submit" class="btn btn-default" ng-click="find()">Find races</button>
     </div>
 
     <br/><br/>
-
-    <div class="table-responsive" ng-show = "raceInfos && !(errors != null && errors.length > 0)">
-        <table class="table table-bordered table-striped text-center">
+        <div ng-show = "raceInfos && !(errors != null && errors.length > 0)">
+        <table class="table table-bordered table-striped">
             <tr>
                 <th>Route name</th>
                 <th>Departure</th>
@@ -40,8 +53,8 @@
             </tr>
             <tr ng-repeat="raceInfo in raceInfos">
                 <td>{{raceInfo.name}}</td>
-                <td>{{raceInfo.departure}}</td>
-                <td>{{raceInfo.arriving}}</td>
+                <td>{{raceInfo.departure.toString().replace('T', ' ')}}</td>
+                <td>{{raceInfo.arriving.toString().replace('T', ' ')}}</td>
                 <td>{{raceInfo.cost}}</td>
                 <td ng-show="userRole">
                     <button type="submit" class="btn btn-default" ng-click="showRaceDetails(raceInfo.id)">

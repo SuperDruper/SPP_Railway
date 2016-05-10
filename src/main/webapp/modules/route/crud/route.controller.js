@@ -2,9 +2,11 @@
  * Created by dzmitry.antonenka on 11.04.2016.
  */
 app.controller('RouteController', function ($scope, $window, RouteService) {
+    $scope.errors = [];
 
     $scope.removeRow = function(id){
         var index = -1;
+        $scope.errors = [];
         var comArr = eval( $scope.routes );
         for( var i = 0; i < comArr.length; i++ ) {
             if( comArr[i].id === id ) {
@@ -20,8 +22,14 @@ app.controller('RouteController', function ($scope, $window, RouteService) {
                 id : 2
             };
 
-            RouteService.removeRow({ route: object, action: action });
-            $scope.routes.splice(index, 1);
+            RouteService.removeRow({ route: object, action: action })
+                .then(function(data) {
+                    $scope.errors.push.apply($scope.errors, data.errorList);
+
+                    if($scope.errors.length == 0) {
+                        $scope.routes.splice(index, 1);
+                    }
+                });
         }
     };
 
@@ -42,7 +50,13 @@ app.controller('RouteController', function ($scope, $window, RouteService) {
                 id : 1
             };
 
-            RouteService.updateRow({ route: object, action: action });
+            if(!validate(object.name)) return;
+
+            RouteService.updateRow({ route: object, action: action })
+                .then(function(data) {
+                    refreshData();
+                    $scope.errors.push.apply($scope.errors, data.errorList);
+                });
         }
     };
     $scope.register = function() {
@@ -50,38 +64,49 @@ app.controller('RouteController', function ($scope, $window, RouteService) {
         $scope.events = [];
 
         const route = {
-            id : $scope.routeIdToCreate,
             name : $scope.routeNameToCreate
         };
         const action = {
             id : 0
         };
 
+        if(!validate($scope.routeNameToCreate)) return;
+
         $scope.asyncRequestComplited = false;
 
         var smth = RouteService.register({route:route, action: action})
             .then(function(data) {
                 $scope.errors.push.apply($scope.errors, data.errorList);
-                $scope.events.push.apply($scope.events, data.eventList);
-
                 $scope.asyncRequestComplited = true;
             });
         $scope.$watch('asyncRequestComplited',function(newValue, oldValue, scope){
             if(scope.asyncRequestComplited && $scope.errors.length == 0){
                 $scope.routeIdToCreate = "";
                 $scope.routeNameToCreate = "";
-
-                RouteService.getRoutes()
-                    .then(function(data) {
-                        $scope.routes = data.data.routes;
-
-                        $scope.defaultSelectedRoute = $scope.routes[0].id;
-                        $scope.defaultSelectedRace = $scope.races[0].id;
-                    });
+                refreshData();
             }
         });
 
         return smth;
+    }
+
+    function refreshData() {
+        return RouteService.getRoutes()
+            .then(function(data) {
+                $scope.routes = data.data.routes;
+            })
+    }
+
+    function validate(routeName)
+    {
+        $scope.errors = [];
+
+        if(routeName != null && routeName.trim().length != 0) {
+            return true;
+        } else {
+            $scope.errors.push("Route name cannot be empty !");
+            return false;
+        }
     }
 
     return RouteService.getRoutes()

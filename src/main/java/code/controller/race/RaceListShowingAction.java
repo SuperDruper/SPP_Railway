@@ -1,6 +1,7 @@
 package code.controller.race;
 
 import code.controller.GetAction;
+import code.controller.shared.Authorize;
 import code.model.Race;
 import code.model.Role;
 import code.model.Route;
@@ -12,6 +13,7 @@ import java.util.List;
 /**
  * Created by dzmitry.antonenka on 23.04.2016.
  */
+//@Authorize("admin")
 public class RaceListShowingAction  extends GetAction {
     public List<Race> getRaces() {
         return races;

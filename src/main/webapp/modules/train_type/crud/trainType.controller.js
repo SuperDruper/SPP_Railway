@@ -2,6 +2,11 @@
  * Created by dzmitry.antonenka on 10.04.2016.
  */
 app.controller('TrainListController', function ($scope, TrainTypeListService) {
+    $scope.errors = [];
+    $scope.trainTypeNameToCreate = '';
+    $scope.trainTypeCoefficientToCreate = '';
+    $scope.trainTypePlacesAmountToCreate = '';
+
     $scope.removeRow = function(id){
         var index = -1;
         var comArr = eval( $scope.trainTypes );
@@ -19,10 +24,15 @@ app.controller('TrainListController', function ($scope, TrainTypeListService) {
                 id : 2
             };
 
-            TrainTypeListService.removeRow({ trainType: object, action: action });
-            $scope.trainTypes.splice(index, 1);
-        }
+            TrainTypeListService.removeRow({ trainType: object, action: action })
+                .then(function(data) {
+                    $scope.errors.push.apply($scope.errors, data.errorList);
 
+                    if($scope.errors.length == 0) {
+                        $scope.trainTypes.splice(index, 1);
+                    }
+                });
+        }
     };
     $scope.updateRow = function(id){
         var index = -1;
@@ -36,21 +46,54 @@ app.controller('TrainListController', function ($scope, TrainTypeListService) {
         if( index === -1 ) {
             alert( "Cannot update row with id" + id);
         } else {
-            const object = comArr[index];
+            const trainType = comArr[index];
             const action = {
                 id : 1
             };
 
-            TrainTypeListService.updateRow({ trainType: object, action: action });
+            if(!validate(trainType.name, trainType.coefficient, trainType.placesAmount)) return;
+
+            TrainTypeListService.updateRow({ trainType: trainType, action: action })
+                .then(function(data) {
+                    refreshData();
+                    $scope.errors.push.apply($scope.errors, data.errorList);
+                });
         }
     };
 
+
+    function validate(trainTypeNameToCreate, trainTypeCoefficientToCreate, trainTypePlacesAmountToCreate) {
+        $scope.errors = [];
+        var isValid = true;
+
+        if(trainTypeNameToCreate == null || trainTypeNameToCreate.trim().length == 0) {
+            $scope.errors.push("Train type name cannot be empty !");
+            isValid = false;
+        }
+
+        if(trainTypeCoefficientToCreate == null || isNaN(parseFloat(trainTypeCoefficientToCreate)) || parseFloat(trainTypeCoefficientToCreate) <= 0)
+        {
+            $scope.errors.push("Train coefficient coefficient must be FLOAT number.");
+            isValid = false;
+        }
+
+        if(trainTypePlacesAmountToCreate == null || isNaN(parseInt(trainTypePlacesAmountToCreate)) || parseInt(trainTypePlacesAmountToCreate) <= 0)
+        {
+            $scope.errors.push("Train places amount must be INT number.");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
     $scope.register = function() {
         $scope.errors = [];
-        $scope.events = [];
 
+        if(!validate($scope.trainTypeNameToCreate, $scope.trainTypeCoefficientToCreate, $scope.trainTypePlacesAmountToCreate)) return;
         const trainType = {
-
+            name : $scope.trainTypeNameToCreate,
+            coefficient : $scope.trainTypeCoefficientToCreate,
+            placesAmount : $scope.trainTypePlacesAmountToCreate
         };
         const action = {
             id : 0
@@ -58,32 +101,26 @@ app.controller('TrainListController', function ($scope, TrainTypeListService) {
 
         $scope.asyncRequestComplited = false;
 
-        var smth = TrainTypeListService.register({train:train, action: action})
+        var smth = TrainTypeListService.register({trainType : trainType, action: action})
             .then(function(data) {
                 $scope.errors.push.apply($scope.errors, data.errorList);
-                $scope.events.push.apply($scope.events, data.eventList);
-
                 $scope.asyncRequestComplited = true;
             });
         $scope.$watch('asyncRequestComplited',function(newValue, oldValue, scope){
             if(scope.asyncRequestComplited && $scope.errors.length == 0){
-                // $window.location.href = '/';
-                $scope.trainId = "";
-                $scope.trainCarriageAmount = "";
-                $scope.trainType = "";
+                 $scope.trainTypeNameToCreate = '';
+                 $scope.trainTypeCoefficientToCreate = '';
+                 $scope.trainTypePlacesAmountToCreate = '';
 
-                TrainService.getTrains()
-                    .then(function(data) {
-                        $scope.trains = data.data.trains;
-                    });
+                 refreshData();
             }
         });
 
         return smth;
     }
 
-    $scope.refreshData = function() {
-        TrainTypeListService.getTrainTypes()
+    function refreshData() {
+       return TrainTypeListService.getTrainTypes()
             .then(function(data) {
                 $scope.trainTypes = data.data.trainTypes;
             });

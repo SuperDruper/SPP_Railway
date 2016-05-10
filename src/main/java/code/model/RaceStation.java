@@ -9,9 +9,11 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "race_station", schema = "", catalog = "railway")
 public class RaceStation {
+
     private int id;
     private Timestamp depature;
     private Timestamp arriving;
+
     private Race race;
     private Station station;
 
@@ -32,7 +34,9 @@ public class RaceStation {
     }
 
     public void setDepature(Timestamp depature) {
-        this.depature = depature;
+        if(depature != null) {
+            this.depature = depature;
+        }
     }
 
     @Basic
@@ -42,7 +46,9 @@ public class RaceStation {
     }
 
     public void setArriving(Timestamp arriving) {
-        this.arriving = arriving;
+        if(arriving != null) {
+            this.arriving = arriving;
+        }
     }
 
     @Override

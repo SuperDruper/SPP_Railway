@@ -9,6 +9,7 @@ import java.util.Collection;
 @Entity
 @Table(name = "train_type", schema = "", catalog = "railway")
 public class TrainType {
+
     private int id;
     private String name;
     private double coefficient;
@@ -16,6 +17,7 @@ public class TrainType {
     private Collection<Train> trains;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "trt_id", nullable = false, insertable = true, updatable = true)
     public int getId() {
         return id;

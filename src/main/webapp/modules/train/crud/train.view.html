@@ -7,6 +7,7 @@
         <label for="">Train carriage count</label>
         <input type="number" ng-model="trainCarriageAmount" class="form-control" placeholder="Carriage amount">  <br/>
         <label for="">Train type</label>
+
         <select name="trainType" id="trainType" ng-model="trainTypeToCreate" ng-init="trainTypes[0]">
             <option ng-repeat="trainType in trainTypes" value="{{trainType.id}}">{{trainType.name}}</option>
         </select>
@@ -14,6 +15,15 @@
         <!--<input type="number" ng-model="trainType" class="form-control" placeholder="Train type id"> <br/><br/>-->
         <button type="submit" class="btn btn-default" ng-click="register()">Create</button>
     </div>
+
+    <p>ERROR list:</p>
+    <ul ng-repeat="error in errors">
+        <li class="validationError">
+            {{error}}
+        </li>
+    </ul>
+
+    <table class="table table-bordered table-striped">
 <div class="table-responsive">
     <table class="table table-bordered table-striped text-center">
         <tr>
@@ -24,6 +34,7 @@
         </tr>
         <tr ng-repeat="train in trains | orderBy:'id'">
             <td>{{train.id}}</td>
+            <!--<td><input type="number" name="Carriage amount" ng-model="train.id" required></td>-->
             <td><input type="number" name="Carriage amount" ng-model="train.carriageAmount" required></td>
             <td>
                 <select ng-model="defaultSelectedTrainType"

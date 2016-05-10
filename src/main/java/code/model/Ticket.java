@@ -1,6 +1,7 @@
 package code.model;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 /**
@@ -8,14 +9,38 @@ import java.sql.Timestamp;
  */
 @Entity
 public class Ticket {
+
     private int id;
     private Timestamp orderDate;
     private int num;
     private int carriageNum;
     private Race race;
     private User user;
+    private Station stationFrom;
+    private Station stationTo;
+
+    @ManyToOne
+    @JoinColumn(name = "st_id_from", referencedColumnName = "st_id", nullable = false)
+    public Station getStationFrom() {
+        return stationFrom;
+    }
+
+    public void setStationFrom(Station stationFrom) {
+        this.stationFrom = stationFrom;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "st_id_to", referencedColumnName = "st_id", nullable = false)
+    public Station getStationTo() {
+        return stationTo;
+    }
+
+    public void setStationTo(Station stationTo) {
+        this.stationTo = stationTo;
+    }
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "t_id", nullable = false, insertable = true, updatable = true)
     public int getId() {
         return id;
@@ -32,7 +57,9 @@ public class Ticket {
     }
 
     public void setOrderDate(Timestamp orderDate) {
-        this.orderDate = orderDate;
+        if(orderDate != null) {
+            this.orderDate = orderDate;
+        }
     }
 
     @Basic
@@ -55,27 +82,30 @@ public class Ticket {
         this.carriageNum = carriageNum;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Ticket)) return false;
 
         Ticket ticket = (Ticket) o;
 
         if (carriageNum != ticket.carriageNum) return false;
-        if (id != ticket.id) return false;
         if (num != ticket.num) return false;
-        if (orderDate != null ? !orderDate.equals(ticket.orderDate) : ticket.orderDate != null) return false;
+        if (!race.equals(ticket.race)) return false;
+        if (!stationFrom.equals(ticket.stationFrom)) return false;
+        if (!stationTo.equals(ticket.stationTo)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (orderDate != null ? orderDate.hashCode() : 0);
-        result = 31 * result + num;
+        int result = num;
         result = 31 * result + carriageNum;
+        result = 31 * result + race.hashCode();
+        result = 31 * result + stationFrom.hashCode();
+        result = 31 * result + stationTo.hashCode();
         return result;
     }
 

@@ -183,7 +183,7 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ticket`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ticket` (
   `t_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -192,9 +192,15 @@ CREATE TABLE `ticket` (
   `t_carriage_num` int(11) NOT NULL,
   `rc_id` int(11) NOT NULL,
   `u_id` int(11) NOT NULL,
+  `st_id_from` int(11) NOT NULL,
+  `st_id_to` int(11) NOT NULL,
   PRIMARY KEY (`t_id`),
   KEY `IXFK_place_user` (`u_id`),
   KEY `I_Place` (`rc_id`,`t_carriage_num`,`t_num`),
+  KEY `FKj2v8leb2cn2eyva3v5h91v11k` (`st_id_from`),
+  KEY `FKp6b6hb5cdhk25pfompslq7g9n` (`st_id_to`),
+  CONSTRAINT `FKj2v8leb2cn2eyva3v5h91v11k` FOREIGN KEY (`st_id_from`) REFERENCES `station` (`st_id`),
+  CONSTRAINT `FKp6b6hb5cdhk25pfompslq7g9n` FOREIGN KEY (`st_id_to`) REFERENCES `station` (`st_id`),
   CONSTRAINT `FKppux5520ca6gc3v2wds7q79s6` FOREIGN KEY (`u_id`) REFERENCES `user` (`u_id`),
   CONSTRAINT `FKr08cwurtyqcdn8v3j54or2jue` FOREIGN KEY (`rc_id`) REFERENCES `race` (`rc_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -311,4 +317,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-09 22:42:36
+-- Dump completed on 2016-05-04 11:39:28

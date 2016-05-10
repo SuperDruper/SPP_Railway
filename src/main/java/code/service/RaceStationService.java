@@ -4,10 +4,13 @@ import code.dao.AbstractDaoFactory;
 import code.dao.daointerface.IRaceStationsDao;
 import code.model.RaceStation;
 
+import java.util.List;
+
 /**
  * Created by dzmitry.antonenka on 20.03.2016.
  */
 public class RaceStationService extends GenericService<RaceStation, Integer> {
+
     private IRaceStationsDao dao;
 
     public RaceStationService() {
@@ -22,4 +25,13 @@ public class RaceStationService extends GenericService<RaceStation, Integer> {
 
         return dao;
     }
+
+    public List<RaceStation> getRaceStationsByRaceId(int raceId) {
+        getDao().openCurrentSession();
+        List<RaceStation> raceStations = getDao().findByRaceId(raceId);
+        getDao().closeCurrentSession();
+        return raceStations;
+    }
+
+
 }

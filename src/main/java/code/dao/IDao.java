@@ -1,6 +1,7 @@
 package code.dao;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.io.Serializable;
 import java.util.List;
@@ -24,6 +25,8 @@ public interface IDao <T, PK extends Serializable> {
 
     public T findByPK(PK pk);
 
+    public T findByFieldWithName(String fieldName, Object value);
+
     public void delete(T entity);
 
     public void deleteByPK(PK pk);
@@ -35,4 +38,9 @@ public interface IDao <T, PK extends Serializable> {
     public List<T> getModelListByStringField(String fieldName, String fieldValue);
 
     public T getModelByUniqueStringField(String fieldName, String fieldValue);
+
+    public Session getCurrentSession();
+    public void setCurrentSession(Session currentSession);
+    public Transaction getCurrentTransaction();
+    public void setCurrentTransaction(Transaction currentTransaction);
 }

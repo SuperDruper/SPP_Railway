@@ -1,0 +1,43 @@
+<div>
+    <label for="">Race choosing</label> <br/><br/>
+    <div ng-show = "errors != null && errors.length > 0">
+        <p>Errors:</p>
+        <ul ng-repeat="error in errors" aria-dropeffect="popup">
+            <li class="validationError">
+                {{error}}
+            </li>
+        </ul>
+    </div>
+
+    <p>
+        Please, choose your carriage num and place below.<br />
+        Note, that you must provide an identity document to enter the train. <br />
+        This document may be password, student card or driver's license. <br />
+        Your documents name and surname must be the same as corresponding registration data. <br />
+        You also may use your ticket num to enter the train. <br />
+    </p><br />
+
+    <table>
+        <caption>Ticket data</caption>
+        <tr><td>Route name:</td>        <td>{{race.name}}</td></tr>
+        <tr><td>Departure station:</td> <td>{{race.departureStationName}}</td></tr>
+        <tr><td>Departure data:</td>    <td>{{race.departure.toString().replace('T', ' ')}}</td></tr>
+        <tr><td>Arriving station:</td>  <td>{{race.arriveStationName}}</td></tr>
+        <tr><td>Arriving data:</td>     <td>{{race.arriving.toString().replace('T', ' ')}}</td></tr>
+        <tr><td>Cost:</td>              <td>{{race.cost}}</td></tr>
+    </table>
+
+    <div class="form-group">
+        <label for="">Carriage number</label>
+        <select name="carriageNum" id="carriageNum" ng-model="carriageNum" ng-init="1">
+            <option ng-repeat="carriage in race.carriages" value="{{carriage.num}}">{{carriage.num}}</option>
+        </select> <br/><br/>
+
+        <label for="">Place number</label>
+        <select name="placeNum" id="placeNum" ng-model="placeNum">
+            <option ng-repeat="place in race.carriages[carriageNum - 1].places" value="{{place.num}}">{{place.num}}</option>
+        </select> <br/><br/>
+
+        <button type="submit" class="btn btn-default" ng-click="buy()">I wish you take my money</button>
+    </div>
+</div>

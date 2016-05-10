@@ -45,7 +45,6 @@
     </dependency>
 
 
-
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
@@ -91,6 +90,26 @@
       <artifactId>hibernate-validator-cdi</artifactId>
       <version>5.2.4.Final</version>
     </dependency>
+
+
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>3.14</version>
+    </dependency>
+
+    <dependency>
+      <groupId>net.sf.opencsv</groupId>
+      <artifactId>opencsv</artifactId>
+      <version>2.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>itextpdf</artifactId>
+      <version>5.0.6</version>
+    </dependency>
+
   </dependencies>
 
   <build>

@@ -3,13 +3,13 @@
  */
 app.factory('UserRoleNameService', ['ProfileService', function(ProfileService) {
     return {
-        roleName: '',
+        roleId: -1,
         uploadRoleName: function() {
             var self = this;
 
             return ProfileService.getProfile().then(function (data) {
                 try {
-                    self.roleName = data.data.user.role.name;
+                    self.roleId = data.data.user.role.id;
                 } catch (err) {}
             });
         }
