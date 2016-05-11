@@ -20,10 +20,10 @@
                 </select>
             </div>
         </div>
-        <input type="button" value="Create" class="btn btn-default" ng-click="register()"/>
+        <input type="button" value="Create" class="btn btn-default btn-pop" ng-click="register()"/>
 
 
-        <div class="hidden">
+        <div class="error_block">
             <p>ERROR list:</p>
             <ul ng-repeat="error in errors">
                 <li class="validationError">
@@ -32,7 +32,7 @@
             </ul>
         </div>
 
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped popup">
             <tr>
                 <td>Login</td>
                 <td>Password</td>
@@ -73,5 +73,22 @@
                 </td>
             </tr>
         </table>
-
+        <script>
+            $(".btn-pop").click(function(){
+                setTimeout(function (){
+                    $('.blackout').fadeIn(600);
+                    var errors = document.querySelectorAll(".error_block ul");
+                    if(errors.length == 0)
+                        $('.popup').fadeIn(600);
+                    else{
+                        $('.error_block').fadeIn(600);
+                    }
+                },1000);
+            });
+            $(".blackout .close").click(function(){
+                $('.blackout').fadeOut(600);
+                $('.popup').fadeOut(600);
+                $('.error_block').fadeOut(600);
+            });
+        </script>
     </div>

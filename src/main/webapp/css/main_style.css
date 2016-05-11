@@ -137,9 +137,7 @@ footer{
     padding: 0 15px;
     box-sizing: border-box;
 }
-.ng-scope ul.ng-scope{
-    display: none;
-}
+
 .datetimepicker-wrapper input,
 .datetimepicker-wrapper button{
     diplay: inline-block;
@@ -199,7 +197,7 @@ p.main{
 .table-striped>tbody>tr:nth-of-type(even),
 .table-striped tr td,
 .table-striped tr{
-    background-color: rgba(255,255,255,0.3) !important;
+    background-color: rgba(255,255,255,0.5) !important;
 }
 .table-striped>tbody>tr:nth-of-type(even) td{
     border: solid 1px #666 !important;
@@ -214,4 +212,43 @@ p.main{
 .table-striped input[type="button"]:hover{
     background: rgba(240,240,240,0.8);
     color: #000;
+}
+.blackout{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background: rgba(0,0,0, 0.7);
+    display: none;
+    top: 0;
+    left: 0;
+}
+.blackout .close{
+    position: absolute;
+    color: #eee;
+    font-weight: 700;
+    font-size: 45px;
+    top: 60px;
+    right: 40px;
+    cursor: pointer;
+}
+.popup{
+    width: 80%;
+    max-width: 1170px;
+    position: absolute;
+    z-index: 200;
+    left: 50%;
+    top: 0px;
+    transform: translate(-50%, 0);
+}
+.error_block{
+    z-index: 200;
+    color: #fff;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    visibility: visible !important;
+    transform: translate(-50%, 0);
+    font-size: 18px;
+    display: none;
 }

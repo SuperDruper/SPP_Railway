@@ -1,10 +1,12 @@
 <div>
     <label class="title_block" for="">Registration</label>
-    <ul ng-repeat="error in errors">
-        <li class="validationError">
-            {{error}}
-        </li>
-    </ul>
+    <div class="error_block">
+        <ul ng-repeat="error in errors">
+            <li class="validationError">
+                {{error}}
+            </li>
+        </ul>
+    </div>
     <div class="form-group registr_block">
         <div class="left">
             <label for="">Login</label>
@@ -22,6 +24,21 @@
             <label for="">Email</label>
             <input type="text" ng-model="email" class="form-control" placeholder="Email" required> <br/>
         </div>
-        <button type="submit" class="btn btn-default" ng-click="register()">Register</button>
+        <button type="submit" class="btn btn-default btn-pop" ng-click="register()">Register</button>
     </div>
+    <script>
+        $(".btn-pop").click(function(){
+            setTimeout(function (){
+                var errors = document.querySelectorAll(".error_block ul");
+                if(errors.length != 0) {
+                    $('.error_block').fadeIn(600);
+                    $('.blackout').fadeIn(600);
+                }
+            },1000);
+        });
+        $(".blackout .close").click(function(){
+            $('.blackout').fadeOut(600);
+            $('.error_block').fadeOut(600);
+        });
+    </script>
 </div>

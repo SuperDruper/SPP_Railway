@@ -1,11 +1,28 @@
 <div class="login_block">
     <label for="">Login</label>
-    <ul ng-repeat="error in errors">
-        <li class="validationError">
-            {{error}}
-        </li>
-    </ul>
+    <div class="error_block">
+        <ul ng-repeat="error in errors">
+            <li class="validationError">
+                {{error}}
+            </li>
+        </ul>
+    </div>
     <input class="form-control" type="text" ng-model="login" placeholder="login" required>
     <input class="form-control" type="password" ng-model="password" placeholder="password" required>
-    <button type="submit" class="btn btn-default" ng-click="doLogin()">Login</button>
+    <button type="submit" class="btn btn-default btn-pop" ng-click="doLogin()">Login</button>
+    <script>
+        $(".btn-pop").click(function(){
+            setTimeout(function (){
+                var errors = document.querySelectorAll(".error_block ul");
+                if(errors.length != 0) {
+                    $('.error_block').fadeIn(600);
+                    $('.blackout').fadeIn(600);
+                }
+            },1000);
+        });
+        $(".blackout .close").click(function(){
+            $('.blackout').fadeOut(600);
+            $('.error_block').fadeOut(600);
+        });
+    </script>
 </div>

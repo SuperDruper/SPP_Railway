@@ -115,8 +115,10 @@
       {{error}}
     </li>
   </ul>
-
-<table class="table table-bordered table-striped">
+<div class="blackout">
+  <div class="close">X</div>
+</div>
+<table class="table table-bordered table-striped hidden">
   <tr>
     <td>Ticket</td>
     <td>Race</td>
@@ -210,5 +212,22 @@
 <script src="<s:url value="modules/ticketorder/racedetails/racedetails.controller.js" />"></script>
 <script src="<s:url value="modules/ticketorder/racedetails/racedetails.service.js" />"></script>
 <script type="text/javascript" src="/js/lib/bootstrap/bootstrap.min.js"></script>
+<script>
+  $(".btn-pop").click(function(){
+    alert(1);
+    $('.blackout').fadeIn(600);
+    var errors = document.querySelectorAll(".error_block ul");
+    if(errors.length == 0)
+      $('.popup').fadeIn(600);
+    else{
+      $('.error_block').fadeIn(600);
+    }
+  });
+  $(".blackout .close").click(function(){
+    $('.blackout').fadeOut(600);
+    $('.popup').fadeOut(600);
+    $('.error_block').fadeOut(600);
+  });
+</script>
 </body>
 </html>
