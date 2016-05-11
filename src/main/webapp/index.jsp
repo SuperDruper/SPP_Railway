@@ -145,7 +145,6 @@
 </div>
 
 
-<script src="<s:url value="js/lib/angular/angular.min.js" />"></script>
 <script src="<s:url value="js/lib/angular/angular-route.min.js" />"></script>
 
 <script src="<s:url value="modules/app.js" />"></script>
