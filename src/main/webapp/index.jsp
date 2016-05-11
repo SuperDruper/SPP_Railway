@@ -60,7 +60,8 @@
                 <a href="#myTable"
                    data-toggle="modelWithTickets"
                    role="button"
-                   ng-show="roleId > 0">
+                   ng-show="roleId > 0"
+                   class="mt">
                   My tickets
                 </a>
               </li>
@@ -102,6 +103,34 @@
     <div class="row">
       <div class="col-xs-12 content">
         <div ng-view></div>
+        <div role="dialog" id="myTable" class="modelWithTickets mytkt" tabindex="-1" aria-hidden="true">
+          <table class="table table-bordered table-striped popup">
+            <tr>
+              <td>Ticket</td>
+              <td>Race</td>
+              <td>Route</td>
+              <td>Station from</td>
+              <td>Station to</td>
+              <td>Date from</td>
+              <td>Date to</td>
+              <td>Carriage</td>
+              <td>Place</td>
+            </tr>
+            <tr ng-repeat="ticketDetails in ticketDetailsList">
+              <td>{{ticketDetails.ticketNum}}</td>
+              <td>{{ticketDetails.raceId}}</td>
+              <td>{{ticketDetails.routeName}}</td>
+              <td>{{ticketDetails.departureStationName}}</td>
+              <td>{{ticketDetails.arriveStationName}}</td>
+              <td>{{ticketDetails.departureDate.replace('T', ' ')}}</td>
+              <td>{{ticketDetails.arriveDate.replace('T', ' ')}}</td>
+              <td>{{ticketDetails.carriageNum}}</td>
+              <td>{{ticketDetails.placeNum}}</td>
+              <td><input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(ticketDetails.ticketNum)"/></td>
+            </tr>
+          </table>
+
+        </div>
       </div>
     </div>
   </div>
@@ -124,34 +153,6 @@
   </ul>
 <div class="blackout">
   <div class="close">X</div>
-</div>
-<div role="dialog" id="myTable" class="modelWithTickets" tabindex="-1" aria-hidden="true">
-  <table class="table table-bordered table-striped hidden">
-    <tr>
-      <td>Ticket</td>
-      <td>Race</td>
-      <td>Route</td>
-      <td>Station from</td>
-      <td>Station to</td>
-      <td>Date from</td>
-      <td>Date to</td>
-      <td>Carriage</td>
-      <td>Place</td>
-    </tr>
-    <tr ng-repeat="ticketDetails in ticketDetailsList">
-      <td>{{ticketDetails.ticketNum}}</td>
-      <td>{{ticketDetails.raceId}}</td>
-      <td>{{ticketDetails.routeName}}</td>
-      <td>{{ticketDetails.departureStationName}}</td>
-      <td>{{ticketDetails.arriveStationName}}</td>
-      <td>{{ticketDetails.departureDate.replace('T', ' ')}}</td>
-      <td>{{ticketDetails.arriveDate.replace('T', ' ')}}</td>
-      <td>{{ticketDetails.carriageNum}}</td>
-      <td>{{ticketDetails.placeNum}}</td>
-      <td><input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(ticketDetails.ticketNum)"/></td>
-    </tr>
-  </table>
-
 </div>
 
 
@@ -222,8 +223,7 @@
 <script src="<s:url value="modules/ticketorder/racedetails/racedetails.service.js" />"></script>
 <script type="text/javascript" src="/js/lib/bootstrap/bootstrap.min.js"></script>
 <script>
-  $(".btn-pop").click(function(){
-    alert(1);
+  $(".btn-pop, .navbar-right li .mt").click(function(){
     $('.blackout').fadeIn(600);
     var errors = document.querySelectorAll(".error_block ul");
     if(errors.length == 0)
