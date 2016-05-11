@@ -23,6 +23,11 @@ public class UpdateAction extends PostAction {
     private List<String> errorList = new ArrayList();
     RaceStationContainer raceStationContainer;
 
+    private List<Race> races;
+    private Set<Station> stations;
+
+    private Race race;
+
     @Override
     public String create() {
         switch (action.getId()) {
@@ -71,6 +76,17 @@ public class UpdateAction extends PostAction {
         }
     }
 
+
+    // GETTERS & SETTERS
+    public void setRace(Race race) {
+        this.race = new RaceService().findRaceUseInnerJOINWithTrainAndTrainTypes(race.getId());
+
+        stations = new HashSet();
+        for (RaceStation raceStation : this.race.getRaceStations()) {
+            stations.add(raceStation.getStation());
+        }
+    }
+
     public List<String> validate(RaceStation raceStation, boolean isNeedToCreate) {
         List<String> errorList = new ArrayList();
 
@@ -86,11 +102,12 @@ public class UpdateAction extends PostAction {
         }
     }
 
-    // HELPERS
+    private final String raceStationNumber = "race_station_numbr";
+
     public List<String> furtherValidationTicketsForRace(List<String> errorList, RaceStation raceStation, boolean isNeedToCreate) {
         boolean approved = true;
 
-        RaceStation storedDuplicate = new RaceStationService().findByPK(raceStation.getId());
+        RaceStation storedDuplicate = new RaceStationService().getModelByUniqueStringField(raceStationNumber, raceStation.getRace_station_numbr());
 
         if(isNeedToCreate && storedDuplicate != null) {
             errorList.add("Attempt to add duplicate");
@@ -112,9 +129,15 @@ public class UpdateAction extends PostAction {
     public List<String> getErrorList() {
         return errorList;
     }
-
     public void setErrorList(List<String> errorList) {
         this.errorList = errorList;
+    }
+
+    public Set<Station> getStations() {
+        return stations;
+    }
+    public void setStations(Set<Station> stations) {
+        this.stations = stations;
     }
 
     public CrudAction getAction() {

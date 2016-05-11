@@ -10,6 +10,8 @@ import java.util.Collection;
 public class Race {
 
     private int id;
+
+    private int race_number;
     private Route route;
     private Train train;
     private Collection<RaceStation> raceStations;
@@ -24,6 +26,16 @@ public class Race {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "race_number", nullable = false, insertable = true, updatable = true)
+    public int getRace_number() {
+        return race_number;
+    }
+
+    public void setRace_number(int race_number) {
+        this.race_number = race_number;
     }
 
     @Override

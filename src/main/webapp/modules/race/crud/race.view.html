@@ -9,7 +9,7 @@
         <!--<input type="number" ng-model="trainCarriageAmount" class="form-control" placeholder="Route">  <br/>-->
         <label for="">Train ID(name)</label>
         <select name="train" id="train" ng-model="trainToCreate" ng-init="trains[0]">
-            <option ng-repeat="train in trains" value="{{train.id}}">{{train.id}}</option>
+            <option ng-repeat="train in trains" value="{{train.id}}">{{train.train_number}}</option>
         </select>
         <!--<input type="number" ng-model="trainType" class="form-control" placeholder="Train ID"> <br/><br/>-->
         <button type="submit" class="btn btn-default" ng-click="register()">Create</button>
@@ -28,15 +28,13 @@
     <div class="table-responsive">
         <table class="table-striped table-bordered text-center">
         <tr>
-            <td>Id</td>
-            <td>Race name</td>
+            <td>Race number</td>
             <td>Route name</td>
-            <td>Train Id</td>
+            <td>Train number</td>
 
         </tr>
         <tr ng-repeat="race in races">
-            <td>{{race.id}}</td>
-            <td><input type="text" name="id" ng-model="race.id" required></td>
+            <td><input type="text" name="id" ng-model="race.race_number" required></td>
             <td>
                 <select ng-model="defaultSelectedRoute"
                         ng-init="defaultSelectedRoute = race.route.id"
@@ -58,7 +56,7 @@
                     <option ng-selected= "{{train.id == defaultSelectedTrain}}"
                             ng-repeat="train in trains"
                             value="{{train.id}}">
-                        {{train.id}}
+                        {{train.train_number}}
                     </option>
                 </select>
                 <!--<input type="number" name="placesAmount" ng-model="race.train.id" required>-->

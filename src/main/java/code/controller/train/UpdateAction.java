@@ -75,11 +75,9 @@ public class UpdateAction extends PostAction {
 
 
     private Boolean objectHasStoredInDBWithId(Train train) {
-        Object object = new GenericService<TrainType, Integer>(TrainType.class).findByPK(train.getId());
+        Object object = new GenericService<Train, Integer>(Train.class).getModelByUniqueStringField("train_number", train.getTrain_number());
         return object != null;
     }
-
-
 
     private boolean validationTrainObject(Train train, boolean isNeedToCreate) {
         errorList = new ArrayList<String>();
@@ -93,15 +91,8 @@ public class UpdateAction extends PostAction {
             return false;
         }
 
-        if (train.getId() <= 0 || train.getTrainType().getId() <= 0) {
-            if(train.getId() <= 0) {
-                errorList.add(generateMesssageAboutInvalidIdForField("train.getId()", train.getId()));
-            } else {
-                errorList.add(generateMesssageAboutInvalidIdForField("train.getTrainType().getId()",train.getTrainType().getId()));
-            }
-        }
-        if(isNeedToCreate && objectHasStoredInDBWithId(train)) {
-            errorList.add("Object train with id = " + train.getId() + "already has stored !");
+        if(objectHasStoredInDBWithId(train)) {
+            errorList.add("Train with number = " + train.getTrain_number() + " already exist");
         }
 
         if (errorList.size() == 0) {
@@ -112,13 +103,17 @@ public class UpdateAction extends PostAction {
         }
     }
 
+
+
+    private final String trainNumber = "train_number";
+
     boolean furtherValidation(Train train) {
         boolean isValid = true;
 
-        Train storedTrain = new TrainService().findByPK(train.getId());
+        Train storedTrain = new TrainService().getModelByUniqueStringField(trainNumber, train.getId());
         if(storedTrain != null) {
             isValid = false;
-            errorList.add("Attempt to create train with existing name.");
+            errorList.add("Attempt to create train with existing number!");
         }
 
         return isValid;

@@ -103,7 +103,7 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
             raceStationCopy.depature = RaceStationService.convertUTCDateToLocalDate(object.depature);
             raceStationCopy.arriving = RaceStationService.convertUTCDateToLocalDate(object.arriving);
 
-            if(!validate(raceStationCopy.id, raceStationCopy.depature, raceStationCopy.arriving, raceStationCopy.race.id, raceStationCopy.station.id)) return;
+            if(!validate(raceStationCopy.race_station_numbr, raceStationCopy.depature, raceStationCopy.arriving, raceStationCopy.race.id, raceStationCopy.station.id)) return;
 
             RaceStationService.updateRow({ raceStationContainer: raceStationCopy, action: action })
                 .then(function(data) {
@@ -118,7 +118,7 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
         $scope.events = [];
 
         const raceStation = {
-            id : $scope.raceStationIdToCreate,
+            race_station_numbr : $scope.raceStationIdToCreate,
             depature : RaceStationService.convertUTCDateToLocalDate($scope.departure),
             arriving : RaceStationService.convertUTCDateToLocalDate($scope.arriving),
             race : { id : $scope.raceIdToCreate },
@@ -265,6 +265,7 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
 
                 $scope.races = data.data.races;
                 $scope.stations = data.data.stations;
+                $scope.stationHashMap = data.data.stationHashMap;
             });
     }
 

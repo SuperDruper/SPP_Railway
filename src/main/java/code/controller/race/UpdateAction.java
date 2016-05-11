@@ -5,6 +5,7 @@ import code.controller.shared.Authorize;
 import code.infrastructure.ValidationUtils;
 import code.model.CrudAction;
 import code.model.Race;
+import code.model.RaceStation;
 import code.model.Role;
 import code.service.GenericService;
 import code.service.RaceService;
@@ -12,6 +13,7 @@ import code.service.RoleService;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -56,7 +58,12 @@ public class UpdateAction extends PostAction {
     }
 
     void deleteActionExecute() {
-        new GenericService<Race, Integer>(Race.class).delete(race);
+        errorList = new ArrayList();
+        try {
+            new GenericService<Race, Integer>(Race.class).delete(race);
+        } catch (Exception exc) {
+            errorList.add("Cannot delete entity 'cause it related with another object");
+        }
     }
 
     private boolean validate(Race race, boolean isNeedToCreate) {
@@ -70,18 +77,20 @@ public class UpdateAction extends PostAction {
             return false;
         }
     }
+
+    private final String raceNumber = "race_number";
+
     private boolean furtherValidation(Race race, boolean isNeedToCreate) {
-       // Race storedRoleWithDuplicatedName = new RaceService().getRoleByName(race.getName());
         boolean isValid = true;
-        Race storedRaceWithEqualId = new RaceService().findByPK(race.getId());
-        if(storedRaceWithEqualId != null && isNeedToCreate) {
+        Race storedRaceWithEqualId = new RaceService().getModelByUniqueStringField(raceNumber, race.getRace_number());
+        if(storedRaceWithEqualId != null) {
             String message = isNeedToCreate ? "Attempt to create existing race with existing ID !" : "Attempt to set race ID with existing one.";
             errorList.add(message);
             isValid = false;
         }
 
         List<Race> racesWithCurrentRouteAndTrain =  new RaceService().findRacesWithRouteAndTrain(race.getRoute(), race.getTrain());
-        if(!racesWithCurrentRouteAndTrain.isEmpty()) {
+        if(!racesWithCurrentRouteAndTrain.isEmpty() && !(racesWithCurrentRouteAndTrain.size() == 1 && racesWithCurrentRouteAndTrain.get(0).getId() == race.getId())) {
             String message = isNeedToCreate ? "Attempt to create race with already assigned train !" : "Attempt to change race with already assigned train. So some race already has it and will overlap it !";
             errorList.add(message);
             isValid = false;

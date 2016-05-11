@@ -90,4 +90,10 @@ public class GenericService <T, PK extends Serializable> {
         return model;
     }
 
+    public T getModelByUniqueStringField(String fieldName, Object fieldValue) {
+        getDao().openCurrentSessionWithTransaction();
+        T model = getDao().getModelByUniqueStringField(fieldName, fieldValue);
+        getDao().closeCurrentSessionWithTransaction();
+        return model;
+    }
 }

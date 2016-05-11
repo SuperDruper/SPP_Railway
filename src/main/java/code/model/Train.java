@@ -9,6 +9,8 @@ import java.util.Collection;
 @Entity
 public class Train {
     private int id;
+
+    private int train_number;
     private int carriageAmount;
     private Collection<Race> races;
     private TrainType trainType;
@@ -22,6 +24,16 @@ public class Train {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "train_number", nullable = false, insertable = true, updatable = true)
+    public int getTrain_number() {
+        return train_number;
+    }
+
+    public void setTrain_number(int train_number) {
+        this.train_number = train_number;
     }
 
     @Basic

@@ -71,7 +71,7 @@ app.controller('TrainController', function ($scope, $window, TrainService) {
                 id : 1
             };
 
-            if(!validate(object.id, object.carriageAmount, object.trainType)) return;
+            if(!validate(object.train_number, object.carriageAmount, object.trainType)) return;
             TrainService.updateRow({ train: object, action: action })
                 .then(function(data) {
                     refreshData();
@@ -88,7 +88,7 @@ app.controller('TrainController', function ($scope, $window, TrainService) {
             id : $scope.trainTypeToCreate
         };
         const train = {
-            id: $scope.trainId,
+            train_number: $scope.trainId,
             carriageAmount: $scope.trainCarriageAmount,
             trainType: trainType
         };

@@ -15,6 +15,8 @@ import java.util.Date;
 public class RaceStationContainer implements Serializable {
     private int id;
 
+    private int race_station_numbr;
+
     private Date depature;
     private Date arriving;
 
@@ -67,7 +69,7 @@ public class RaceStationContainer implements Serializable {
     {
         id = raceStation.getId();
         station = raceStation.getStation();
-
+        race_station_numbr = raceStation.getRace_station_numbr();
         if(raceStation.getDepature() != null)
             depature = new Date(raceStation.getDepature().getTime());
         if(raceStation.getArriving() != null)
@@ -86,10 +88,20 @@ public class RaceStationContainer implements Serializable {
         if(depature != null)
             raceStation.setDepature(new Timestamp(depature.getTime()));
 
+        raceStation.setRace_station_numbr(race_station_numbr);
         raceStation.setRace(race);
         raceStation.setStation(station);
         raceStation.setId(id);
 
         return raceStation;
     }
+
+    public int getRace_station_numbr() {
+        return race_station_numbr;
+    }
+
+    public void setRace_station_numbr(int race_station_numbr) {
+        this.race_station_numbr = race_station_numbr;
+    }
+
 }

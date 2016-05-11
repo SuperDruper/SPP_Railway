@@ -30,9 +30,9 @@ public class UpdateAction extends PostAction {
     private Race race;
 
     private List<Race> races;
-    private HashMap<Integer, List<Station>> stationHashMap;
+    private HashMap<Integer, Set<Station>> stationHashMap;
 
-    private List<Station> stations;
+    private Set<Station> stations;
     private List<String> errorList;
 
     @Override
@@ -98,17 +98,19 @@ public class UpdateAction extends PostAction {
         }
         races = racesWithFullInfo;
 
+
         stationHashMap = new HashMap();
         for (Race race : races) {
             Collection<RaceStation> raceStations = race.getRaceStations();
-            List<Station> stations = new ArrayList();
+            Set<Station> stations = new HashSet();
+
             for (RaceStation raceStation : raceStations) {
                 stations.add(raceStation.getStation());
             }
             stationHashMap.put(race.getId(), stations);
         }
     }
-    public HashMap<Integer, List<Station>> getStationHashMap() {
+    public HashMap<Integer, Set<Station>> getStationHashMap() {
         return stationHashMap;
     }
 
@@ -116,7 +118,7 @@ public class UpdateAction extends PostAction {
     public void setRace(Race race) {
         this.race = new RaceService().findRaceUseInnerJOINWithTrainAndTrainTypes(race.getId());
 
-        stations = new ArrayList<Station>();
+        stations = new HashSet();
         for (RaceStation raceStation : this.race.getRaceStations()) {
             stations.add(raceStation.getStation());
         }
@@ -135,10 +137,10 @@ public class UpdateAction extends PostAction {
         this.ticketContainer = ticketContainer;
     }
 
-    public List<Station> getStations() {
+    public Set<Station> getStations() {
         return stations;
     }
-    public void setStations(List<Station> stations) {
+    public void setStations(Set<Station> stations) {
         this.stations = stations;
     }
 

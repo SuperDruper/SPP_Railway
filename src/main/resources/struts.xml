@@ -299,7 +299,7 @@
         <action name="race_station/update" class="code.controller.race_station.UpdateAction">
             <result type="json">
                 <param name="excludeProperties" >
-
+                    ^.+?raceStations(?![_\w\d])
                 </param>
                 <param name="noCache">true</param>
             </result>

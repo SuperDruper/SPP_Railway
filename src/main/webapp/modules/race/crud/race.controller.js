@@ -23,8 +23,14 @@ app.controller('RaceListController', function ($scope, RaceListService) {
                 id : 2
             };
 
-            RaceListService.removeRow({ race: object, action: action });
-            $scope.races.splice(index, 1);
+            RaceListService.removeRow({ race: object, action: action })
+                .then(function (data) {
+                    $scope.errors.push.apply($scope.errors, data.errorList);
+
+                    if($scope.errors.length == 0) {
+                        $scope.races.splice(index, 1);
+                    }
+                });
         }
 
     };
@@ -45,7 +51,7 @@ app.controller('RaceListController', function ($scope, RaceListService) {
                 id : 1
             };
 
-            if(!validate(object.id, object.route, object.train)) return;
+            if(!validate(object.race_number, object.route, object.train)) return;
 
             RaceListService.updateRow({ race: object, action: action })
                 .then(function (data) {
@@ -60,7 +66,7 @@ app.controller('RaceListController', function ($scope, RaceListService) {
         $scope.events = [];
 
         const race = {
-            id : $scope.raceIdToCreate,
+            race_number : $scope.raceIdToCreate,
             route : { id : $scope.routeToCreate },
             train : { id : $scope.trainToCreate }
         };
