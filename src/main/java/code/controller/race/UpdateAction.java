@@ -84,14 +84,14 @@ public class UpdateAction extends PostAction {
         boolean isValid = true;
         Race storedRaceWithEqualId = new RaceService().getModelByUniqueStringField(raceNumber, race.getRace_number());
         if(storedRaceWithEqualId != null) {
-            String message = isNeedToCreate ? "Attempt to create existing race with existing ID !" : "Attempt to set race ID with existing one.";
+            String message = isNeedToCreate ? "Cannot create race, 'case race with such number already exist!" : "Cannot update race number, 'cause it's already set!";
             errorList.add(message);
             isValid = false;
         }
 
         List<Race> racesWithCurrentRouteAndTrain =  new RaceService().findRacesWithRouteAndTrain(race.getRoute(), race.getTrain());
         if(!racesWithCurrentRouteAndTrain.isEmpty() && !(racesWithCurrentRouteAndTrain.size() == 1 && racesWithCurrentRouteAndTrain.get(0).getId() == race.getId())) {
-            String message = isNeedToCreate ? "Attempt to create race with already assigned train !" : "Attempt to change race with already assigned train. So some race already has it and will overlap it !";
+            String message = isNeedToCreate ? "Cannot create race with already assigned train !" : "Cannot update race with already assigned train. So some race already has it and will overlap it !";
             errorList.add(message);
             isValid = false;
         }

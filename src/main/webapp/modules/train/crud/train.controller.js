@@ -84,6 +84,8 @@ app.controller('TrainController', function ($scope, $window, TrainService) {
         $scope.errors = [];
         $scope.events = [];
 
+        if(!validate($scope.trainId, $scope.trainCarriageAmount, trainType)) return;
+
         const trainType = {
             id : $scope.trainTypeToCreate
         };
@@ -97,8 +99,6 @@ app.controller('TrainController', function ($scope, $window, TrainService) {
         };
 
         $scope.asyncRequestComplited = false;
-
-        if(!validate($scope.trainId, $scope.trainCarriageAmount, trainType)) return;
 
         var smth = TrainService.register({train:train, action: action})
             .then(function(data) {
@@ -132,19 +132,19 @@ app.controller('TrainController', function ($scope, $window, TrainService) {
 
         if(trainIdentifier == null || isNaN(parseInt(trainIdentifier)))
         {
-            $scope.errors.push("Train identifier must be an integer value.");
+            $scope.errors.push("Please enter valid train number(must be greater then 0)!");
             isValid = false;
         }
 
         if(trainCarriageAmount == null || isNaN(parseInt(trainCarriageAmount)))
         {
-            $scope.errors.push("Train carriage amount must be an integer value.");
+            $scope.errors.push("Please enter valid train carriage number(must be greater then 0)!");
             isValid = false;
         }
 
         if(trainType == null || (trainType.id <=0 || trainType.id > $scope.trainTypes.length))
         {
-            $scope.errors.push("Train type must be selected");
+            $scope.errors.push("Please select train type!");
             isValid = false;
         }
 

@@ -110,7 +110,7 @@ public class UpdateAction extends PostAction {
         RaceStation storedDuplicate = new RaceStationService().getModelByUniqueStringField(raceStationNumber, raceStation.getRace_station_numbr());
 
         if(isNeedToCreate && storedDuplicate != null) {
-            errorList.add("Attempt to add duplicate");
+            errorList.add("Cannot create race station, 'cause it's already exist!");
         }
 
         return errorList;

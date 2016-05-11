@@ -79,7 +79,7 @@ public class UpdateAction extends PostAction {
         Station storedRoleWithDuplicatedName =
                         new GenericService<Station, Integer>(Station.class).getModelByUniqueStringField("name", station.getName());
         if (storedRoleWithDuplicatedName != null) {
-            String message = isNeedToCreate ? "Attempt to create station with existing name !" : "Attempt to change name for station with existing one.";
+            String message = isNeedToCreate ? "Cannot create station with existing name !" : "Cannot change station name, because it's already set!";
             errorList.add(message);
             return false;
         } else {

@@ -63,14 +63,14 @@ app.controller('RouteController', function ($scope, $window, RouteService) {
         $scope.errors = [];
         $scope.events = [];
 
+        if(!validate($scope.routeNameToCreate)) return;
+
         const route = {
             name : $scope.routeNameToCreate
         };
         const action = {
             id : 0
         };
-
-        if(!validate($scope.routeNameToCreate)) return;
 
         $scope.asyncRequestComplited = false;
 
@@ -104,7 +104,7 @@ app.controller('RouteController', function ($scope, $window, RouteService) {
         if(routeName != null && routeName.trim().length != 0) {
             return true;
         } else {
-            $scope.errors.push("Route name cannot be empty !");
+            $scope.errors.push("Please enter valid route name!");
             return false;
         }
     }

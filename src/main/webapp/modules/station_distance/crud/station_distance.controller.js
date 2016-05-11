@@ -95,6 +95,8 @@ app.controller('StationDistanceController', function ($scope, $window, StationDi
         $scope.errors = [];
         $scope.events = [];
 
+        if(!validate($scope.stationFrom, $scope.stationTo, $scope.distance)) return;
+
         const object = {
             stIdFrom: $scope.stationFrom,
             stIdTo: $scope.stationTo,
@@ -104,9 +106,6 @@ app.controller('StationDistanceController', function ($scope, $window, StationDi
         const action = {
             id : 0
         };
-
-
-        if(!validate($scope.stationFrom, $scope.stationTo, $scope.distance)) return;
 
         $scope.asyncRequestComplited = false;
 
@@ -141,17 +140,17 @@ app.controller('StationDistanceController', function ($scope, $window, StationDi
         var isValid = true;
 
         if(stationFrom == '') {
-            $scope.errors.push("Station \'From\' not set !");
+            $scope.errors.push("Start station is not set !");
             isValid = false;
         }
 
         if(stationTo == '') {
-            $scope.errors.push("Station \'To\' not set !");
+            $scope.errors.push("End station is not set !");
             isValid = false;
         }
 
         if(distance == '' || isNaN(parseInt(distance))) {
-            $scope.errors.push("Eneterd invalid distance(needs to be in meters) !");
+            $scope.errors.push("Please enter valid distance(needs to be in meters. E.g \'12500\')!");
             isValid = false;
         }
 

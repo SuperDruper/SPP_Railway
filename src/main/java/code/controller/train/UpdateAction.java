@@ -83,7 +83,7 @@ public class UpdateAction extends PostAction {
         errorList = new ArrayList<String>();
 
         if(train == null) {
-            errorList.add("Unknown error occur when create object !");
+            errorList.add("Unknown server error. Please try again!");
             return false;
         }
         if(train.getTrainType() == null) {
@@ -92,7 +92,7 @@ public class UpdateAction extends PostAction {
         }
 
         if(objectHasStoredInDBWithId(train)) {
-            errorList.add("Train with number = " + train.getTrain_number() + " already exist");
+            errorList.add("Cannot create train with such number, 'cause it's already exist");
         }
 
         if (errorList.size() == 0) {

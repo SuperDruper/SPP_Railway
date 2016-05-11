@@ -67,19 +67,19 @@ app.controller('TrainListController', function ($scope, TrainTypeListService) {
         var isValid = true;
 
         if(trainTypeNameToCreate == null || trainTypeNameToCreate.trim().length == 0) {
-            $scope.errors.push("Train type name cannot be empty !");
+            $scope.errors.push("Please enter valid name for train type!");
             isValid = false;
         }
 
         if(trainTypeCoefficientToCreate == null || isNaN(parseFloat(trainTypeCoefficientToCreate)) || parseFloat(trainTypeCoefficientToCreate) <= 0)
         {
-            $scope.errors.push("Train coefficient coefficient must be FLOAT number.");
+            $scope.errors.push("Please enter valid multiply coefficient. E.g \'0.55\'");
             isValid = false;
         }
 
         if(trainTypePlacesAmountToCreate == null || isNaN(parseInt(trainTypePlacesAmountToCreate)) || parseInt(trainTypePlacesAmountToCreate) <= 0)
         {
-            $scope.errors.push("Train places amount must be INT number.");
+            $scope.errors.push("Please enter valid value for amount of places. E.g \'60\'");
             isValid = false;
         }
 

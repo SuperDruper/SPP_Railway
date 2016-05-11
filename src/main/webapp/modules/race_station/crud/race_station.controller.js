@@ -1,5 +1,6 @@
 
 app.controller('RaceStationController', function ($scope, RaceStationService) {
+        $scope.date = new Date();
         $scope.dateTimeNow = function() {
             $scope.date = new Date();
         };
@@ -44,10 +45,6 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
         $scope.timeToggleMode = function() {
             $scope.showMeridian = !$scope.showMeridian;
         };
-
-        $scope.$watch("date", function(date) {
-            // read date value
-        }, true);
 
         $scope.resetHours = function() {
             $scope.date.setHours(1);
@@ -117,6 +114,9 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
         $scope.errors = [];
         $scope.events = [];
 
+
+        if(!validate($scope.raceStationIdToCreate, $scope.departure, $scope.arriving, $scope.raceIdToCreate, $scope.stationIdToCreate)) return;
+
         const raceStation = {
             race_station_numbr : $scope.raceStationIdToCreate,
             depature : RaceStationService.convertUTCDateToLocalDate($scope.departure),
@@ -127,8 +127,6 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
         const action = {
             id : 0
         };
-
-        if(!validate($scope.raceStationIdToCreate, $scope.departure, $scope.arriving, $scope.raceIdToCreate, $scope.stationIdToCreate)) return;
 
         $scope.asyncRequestComplited = false;
 
@@ -217,36 +215,36 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
         $scope.errors = [];
 
         if(raceStationId == "" || isNaN(parseInt(raceStationId)) || parseInt(raceStationId) <=0 ) {
-            $scope.errors.push("RaceStation identifier is incorrect(must be greater then 0)");
+            $scope.errors.push("Please enter race station number(must be greater then 0)");
             isValid = false;
         }
 
         var timestampForDeparture=Date.parse(departureDate)
         if (isNaN(timestampForDeparture))
         {
-            $scope.errors.push("Departure date is incorrect !");
+            $scope.errors.push("Please enter correct departure date!");
             isValid = false;
         }
 
         var timestampForArriving=Date.parse(arrivingDate)
         if (isNaN(timestampForArriving))
         {
-            $scope.errors.push("Arriving date is incorrect !");
+            $scope.errors.push("Please enter correct arriving date!");
             isValid = false;
         }
 
         if(raceId <= 0) {
-            $scope.errors.push("Station \'From\' NOT selected");
+            $scope.errors.push("Please select race from drop-down list!");
             isValid = false;
         }
         if(stationId <= 0) {
-            $scope.errors.push("Station \'To\' NOT selected");
+            $scope.errors.push("Please select station from drop-down list!");
             isValid = false;
         }
 
         if(timestampForArriving <= timestampForDeparture)
         {
-            $scope.errors.push("Arriving and Departure date overlap each other !");
+            $scope.errors.push("Please enter correct date arriving and departure dates. Currently they arriving earlier then departure!");
             isValid = false;
         }
 

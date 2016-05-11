@@ -204,33 +204,33 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
         $scope.errors = [];
 
         if(carriageNumber == null || carriageNumber == "" || isNaN(parseInt(carriageNumber)) || carriageNumber <= 0) {
-            $scope.errors.push("Entered Carriage number number is not allowed !");
+            $scope.errors.push("Please enter correct carriage number!");
             isValid = false;
         }
         if(placeNumber == null || placeNumber == "" || isNaN(parseInt(placeNumber)) || carriageNumber <= 0) {
-            $scope.errors.push("Entered place number is not allowed !");
+            $scope.errors.push("Please enter correct place number!");
             isValid = false;
         }
 
         var timestamp=Date.parse(orderDate)
         if (isNaN(timestamp))
         {
-            $scope.errors.push("Entered order date is not allowed !");
+            $scope.errors.push("Please enter correct order date!");
             isValid = false;
         }
 
         if(stationFrom <= 0) {
-            $scope.errors.push("Station \'From\' NOT selected");
+            $scope.errors.push("Please select \'start\' station");
             isValid = false;
         }
         if(stationTo <= 0) {
-            $scope.errors.push("Station \'To\' NOT selected");
+            $scope.errors.push("Please select \'end\' station");
             isValid = false;
         }
 
         if(stationFrom == stationTo && $scope.errors.length == 0)
         {
-            $scope.errors.push("Station \'From\' equal with Station \'To\' !");
+            $scope.errors.push("Station \'start\' equal with Station \'end\'! Please use different stations!");
             isValid = false;
         }
 

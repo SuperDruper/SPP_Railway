@@ -101,7 +101,7 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
         if(roleName != null && roleName.trim().length != 0) {
             return true;
         } else {
-            $scope.errors.push("Role name cannot be empty !");
+            $scope.errors.push("Please enter correct role name!");
             return false;
         }
     }
