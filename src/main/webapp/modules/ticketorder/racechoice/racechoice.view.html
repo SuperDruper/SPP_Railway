@@ -1,6 +1,6 @@
 <div>
     <label for="">Race choosing</label> <br/><br/>
-    <div ng-show = "errors != null && errors.length > 0">
+    <div ng-show = "errors != null && errors.length > 0" class="error_block">
         <p>Errors:</p>
         <ul ng-repeat="error in errors" aria-dropeffect="popup">
             <li class="validationError">
@@ -38,7 +38,7 @@
         </datetimepicker>
         <br/>
 
-        <button type="submit" class="btn btn-default" ng-click="find()">Find races</button>
+        <button type="submit" class="btn btn-default btn-pop" ng-click="find()">Find races</button>
     </div>
 
     <br/><br/>
@@ -74,7 +74,23 @@
                 </td>
             </tr>
         </table>
-    </div><br/>
+    </div>
+    <script>
+        $(".btn-pop").click(function(){
+            setTimeout(function (){
+                var errors = document.querySelectorAll(".error_block ul");
+                if(errors.length != 0) {
+                    $('.error_block').fadeIn(600);
+                    $('.blackout').fadeIn(600);
+                }
+            },1000);
+        });
+        $(".blackout .close").click(function(){
+            $('.blackout').fadeOut(600);
+            $('.error_block').fadeOut(600);
+        });
+    </script>
+    <br/>
 
     <a href="/doc/raceinfo?from={{departureStationId}}&to={{arriveStationId}}&timestamp={{raceDate.getTime()}}&format=PDF" class="btn btn-default">Pdf</a>
     <a href="/doc/raceinfo?from={{departureStationId}}&to={{arriveStationId}}&timestamp={{raceDate.getTime()}}&format=XLS" class="btn btn-default">Xls</a>

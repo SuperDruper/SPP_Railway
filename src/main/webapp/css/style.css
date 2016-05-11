@@ -44,7 +44,7 @@ select, select:focus{height: 30px;
   min-width: 150px;
   color:#080b09;
 }
-input[type='button'], input[type='button']:focus, button,button:focus, .btn, .btn:focus, .btn:hover{outline:none;box-shadow: none; border:none; margin:20px 0; background-color: #a4cdff;color:#080b09; }
+input[type='button'], input[type='button']:focus, button,button:focus, .btn, .btn:focus, .btn:hover{outline:none;box-shadow: none; border:none; background-color: #a4cdff;color:#080b09; }
 h1,h2,h3,h4,h5{font-family: "ArialBold", ArialBold, sans-serif;color:#a4cdff;}
 
 .validationError {
@@ -98,7 +98,6 @@ p.main
   text-align:center;
   font-size:30px;
   margin-top:60px;
-  text-shadow:  1px 1px 1px black, 1px 1px 1em black;
 }
 label
 {

@@ -84,7 +84,7 @@ app.controller('boostapp', function ($rootScope, $window, UserRoleNameService, S
     });
 
     $rootScope.logout = function() {
-        $rootScope.userRole = '';
+        $rootScope.roleId = 0;
         Service.request('/api/user/logout', 'GET');
         $window.location.href = '/';
     };
