@@ -2,6 +2,7 @@ package code.controller.document;
 
 import code.controller.GetAction;
 import code.infrastructure.DocumentFormat;
+import code.service.RaceService;
 import code.service.document.DocumentService;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
@@ -56,7 +57,8 @@ public class RouteDocumentsController extends GetAction implements ServletRespon
                 break;
         }
 
-        makeResponse(DocumentService.generateRouteFilling(id, format), contentType, fileName);
+        int routeId = new RaceService().findByPK(id).getRoute().getId();
+        makeResponse(DocumentService.generateRouteFilling(routeId, format), contentType, fileName);
         return NONE;
     }
 
