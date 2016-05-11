@@ -27,9 +27,7 @@ app.controller('UserListController', function ($scope, UserListService, Service)
                     }
                 });
         }
-
-    }
-        ;
+    };
 
     $scope.updateRoleForUser = function(user, roleId) {
         var comTrainTypesArr = eval( $scope.roles );
@@ -144,7 +142,7 @@ app.controller('UserListController', function ($scope, UserListService, Service)
             isValid = false;
         }
         if(roleToCreate == null || roleToCreate == '') {
-            $scope.errors.push("Role not SELECTED !");
+            $scope.errors.push("Please select role for user!");
             isValid = false;
         }
 

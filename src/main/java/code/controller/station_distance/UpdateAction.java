@@ -64,7 +64,7 @@ public class UpdateAction extends PostAction {
         errorList = ValidationUtils.fromConstraintViolationSetToMessageList(set);
 
         if(stationDistance.getStIdFrom() == stationDistance.getStIdTo()) {
-            errorList.add("Attempt to create station distance with equal \'Station from\' and \'Station to\'");
+            errorList.add("Cannot create station distance with equal \'start\' and \'end\' stations");
         }
 
         if (errorList.size() == 0) {
@@ -82,7 +82,7 @@ public class UpdateAction extends PostAction {
         } catch (Exception exc) {    exc.printStackTrace();  }
 
         if(storedDistanceWithEqualPK != null && isNeedToCreate) {
-            errorList.add("Attempt to store existing Station Distance !");
+            errorList.add("Cannot create station distance, 'cause it's already exist!");
             isValid = false;
         }
 

@@ -5,11 +5,67 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
     $scope.errors = [];
     $scope.events = [];
 
+    $scope.stations = [];
     $scope.carriageNumber = '';
     $scope.placeNumber = '';
     $scope.orderDate = '';
     $scope.stationFrom = '';
     $scope.stationTo = '';
+
+    $scope.dateTimeNow = function() {
+        $scope.date = new Date();
+    };
+    $scope.dateTimeNow();
+
+    $scope.toggleMinDate = function() {
+        var minDate = new Date();
+        // set to yesterday
+        minDate.setDate(minDate.getDate() - 1);
+        $scope.dateOptions.minDate = $scope.dateOptions.minDate ? null : minDate;
+    };
+
+    $scope.dateOptions = {
+        showWeeks: false,
+        startingDay: 0
+    };
+
+    $scope.toggleMinDate();
+
+    // Disable weekend selection
+    $scope.disabled = function(calendarDate, mode) {
+        return mode === 'day' && ( calendarDate.getDay() === 0 || calendarDate.getDay() === 6 );
+    };
+
+    $scope.open = function($event,opened) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        $scope.dateOpened = true;
+    };
+
+    $scope.dateOpened = false;
+    $scope.hourStep = 1;
+    $scope.format = "yyyy-MMM-dd";
+    $scope.minuteStep = 1;
+
+    $scope.timeOptions = {
+        hourStep: [1, 2, 3],
+        minuteStep: [1, 5, 10, 15, 25, 30]
+    };
+
+    $scope.showMeridian = true;
+    $scope.timeToggleMode = function() {
+        $scope.showMeridian = !$scope.showMeridian;
+    };
+
+    $scope.$watch("date", function(date) {
+        // read date value
+    }, true);
+
+    $scope.resetHours = function() {
+        $scope.date.setHours(1);
+    };
+
+
 
     $scope.removeRow = function(id){
         var index = -1;
@@ -76,6 +132,7 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
 
         TicketService.getStationsForRace({race : race, action : action})
             .then(function(data) {
+                $scope.stations = [];
                 $scope.stations = data.stations;
             });
     }
@@ -124,10 +181,9 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
             };
 
             if(!validate(ticket.carriageNum, ticket.num, ticket.orderDate.toString(), ticket.stationFrom.id, ticket.stationTo.id)) return;
-            ticket.dOrderDate = ticket.orderDate.toString();
-            ticket.orderDate = null;
+            ticket.orderDate = TicketService.convertUTCDateToLocalDate(ticket.orderDate);
 
-            TicketService.updateRow({ ticket: ticket, action: action })
+            TicketService.updateRow({ ticketContainer: ticket, action: action })
                 .then(function(data) {
                     refreshData();
                     $scope.errors.push.apply($scope.errors, data.errorList);
@@ -148,35 +204,33 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
         $scope.errors = [];
 
         if(carriageNumber == null || carriageNumber == "" || isNaN(parseInt(carriageNumber)) || carriageNumber <= 0) {
-            $scope.errors.push("Entered Carriage number number is not allowed !");
+            $scope.errors.push("Please enter correct carriage number!");
             isValid = false;
         }
         if(placeNumber == null || placeNumber == "" || isNaN(parseInt(placeNumber)) || carriageNumber <= 0) {
-            $scope.errors.push("Entered place number is not allowed !");
+            $scope.errors.push("Please enter correct place number!");
             isValid = false;
         }
 
-        var dateComponents = orderDate.split(' ');
-
-        var timestamp=Date.parse(dateComponents[0] + "T" + dateComponents[1])
+        var timestamp=Date.parse(orderDate)
         if (isNaN(timestamp))
         {
-            $scope.errors.push("Entered order date is not allowed !");
+            $scope.errors.push("Please enter correct order date!");
             isValid = false;
         }
 
         if(stationFrom <= 0) {
-            $scope.errors.push("Station \'From\' NOT selected");
+            $scope.errors.push("Please select \'start\' station");
             isValid = false;
         }
         if(stationTo <= 0) {
-            $scope.errors.push("Station \'To\' NOT selected");
+            $scope.errors.push("Please select \'end\' station");
             isValid = false;
         }
 
         if(stationFrom == stationTo && $scope.errors.length == 0)
         {
-            $scope.errors.push("Station \'From\' equal with Station \'To\' !");
+            $scope.errors.push("Station \'start\' equal with Station \'end\'! Please use different stations!");
             isValid = false;
         }
 
@@ -195,7 +249,7 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
             id : $scope.race
         }
         const ticket = {
-            dOrderDate : $scope.orderDate,
+            orderDate : TicketService.convertUTCDateToLocalDate($scope.orderDate),
             num : $scope.placeNumber,
             carriageNum : $scope.carriageNumber,
             race : race,
@@ -207,7 +261,7 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
         };
 
         $scope.asyncRequestComplited = false;
-        var smth = TicketService.register({ticket:ticket, action: action})
+        var smth = TicketService.register({ticketContainers:ticket, action: action})
             .then(function(data) {
                 $scope.errors.push.apply($scope.errors, data.errorList);
                 $scope.events.push.apply($scope.events, data.eventList);
@@ -223,30 +277,30 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
                 $scope.stationFrom = '';
                 $scope.stationTo = '';
 
-                return TicketService.getTickets()
-                    .then(function(data) {
-                        $scope.races = data.data.races;
-                        $scope.tickets = data.data.tickets;
-
-                        $scope.errors = data.data.errors;
-                    });
+                refreshData();
             }
         });
 
         return smth;
     }
 
-    return TicketService.getTickets()
-        .then(function(data) {
-            $scope.races = data.data.races;
-            $scope.tickets = data.data.tickets;
+    function refreshData() {
+        return TicketService.getTickets()
+            .then(function(data) {
+                $scope.races = data.data.races;
+                $scope.tickets = data.data.ticketContainers;
 
-            $scope.errors.push.apply($scope.errors, data.errorList);
-            $scope.events.push.apply($scope.events, data.eventList);
+                for(var i = 0; i <  $scope.tickets.length; i++) {
+                    $scope.tickets[i].orderDate = new Date($scope.tickets[i].orderDate);
+                }
+                $scope.errors.push.apply($scope.errors, data.errorList);
 
-            return TicketService.getStationsForRace({races : data.data.races, action : { id : 10 }})
-                .then(function(data) {
-                    $scope.stationsHashMap = data.stationHashMap;
-                });
-        });
+                return TicketService.getStationsForRace({races : data.data.races, action : { id : 10 }})
+                    .then(function(data) {
+                        $scope.stationHashMap = data.stationHashMap;
+                    });
+            });
+    }
+
+    return refreshData();
 });

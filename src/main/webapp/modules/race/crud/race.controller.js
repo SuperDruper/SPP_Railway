@@ -23,8 +23,14 @@ app.controller('RaceListController', function ($scope, RaceListService) {
                 id : 2
             };
 
-            RaceListService.removeRow({ race: object, action: action });
-            $scope.races.splice(index, 1);
+            RaceListService.removeRow({ race: object, action: action })
+                .then(function (data) {
+                    $scope.errors.push.apply($scope.errors, data.errorList);
+
+                    if($scope.errors.length == 0) {
+                        $scope.races.splice(index, 1);
+                    }
+                });
         }
 
     };
@@ -45,7 +51,7 @@ app.controller('RaceListController', function ($scope, RaceListService) {
                 id : 1
             };
 
-            if(!validate(object.id, object.route, object.train)) return;
+            if(!validate(object.race_number, object.route, object.train)) return;
 
             RaceListService.updateRow({ race: object, action: action })
                 .then(function (data) {
@@ -59,16 +65,16 @@ app.controller('RaceListController', function ($scope, RaceListService) {
         $scope.errors = [];
         $scope.events = [];
 
+        if(!validate($scope.raceIdToCreate, $scope.routeToCreate, $scope.trainToCreate)) return;
+
         const race = {
-            id : $scope.raceIdToCreate,
+            race_number : $scope.raceIdToCreate,
             route : { id : $scope.routeToCreate },
             train : { id : $scope.trainToCreate }
         };
         const action = {
             id : 0
         };
-
-        if(!validate($scope.raceIdToCreate, $scope.routeToCreate, $scope.trainToCreate)) return;
 
         $scope.asyncRequestComplited = false;
 
@@ -100,16 +106,16 @@ app.controller('RaceListController', function ($scope, RaceListService) {
         var isValid = true;
         $scope.errors = [];
 
-        if(raceIdToCreate == '' || isNaN(parseInt(raceIdToCreate))) {
-            $scope.errors.push("Race id is incorrect !(must be an integer)");
+        if(raceIdToCreate == '' || isNaN(parseInt(raceIdToCreate)) || parseInt(raceIdToCreate) <=0 ) {
+            $scope.errors.push("Please enter valid race number!(must be greater then 0)");
             isValid = false;
         }
         if(routeToCreate == null) {
-            $scope.errors.push("Route NOT selected !");
+            $scope.errors.push("Please select route!");
             isValid = false;
         }
         if(trainToCreate == null) {
-            $scope.errors.push("Train NOT selected !");
+            $scope.errors.push("Please select train!");
             isValid = false;
         }
 

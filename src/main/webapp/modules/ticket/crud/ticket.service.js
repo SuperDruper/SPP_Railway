@@ -19,6 +19,13 @@ app.factory('TicketService', ['Service', function(Service) {
         },
         removeRow: function(object) {
             return Service.request('/api/ticket/update', 'POST', object);
+        },
+        convertUTCDateToLocalDate: function (date) {
+            var localOffset = date.getTimezoneOffset() * 60000;
+            var localTime = date.getTime();
+            date = localTime - localOffset;
+            date = new Date(date);
+            return date;
         }
     }
 }]);

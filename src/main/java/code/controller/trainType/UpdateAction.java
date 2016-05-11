@@ -53,7 +53,7 @@ public class UpdateAction extends PostAction {
                 List<TrainType> trainTypes = new GenericService<TrainType, Integer>(TrainType.class).getModelListByStringField("name", trainType.getName());
                 if(!(trainTypes == null || trainTypes.isEmpty()))
                 {
-                    errorList.add("Attempt to add train type with existing name !");
+                    errorList.add("Cannot add train type with such name, because it's already exist !");
                 } else {
                     return true;
                 }

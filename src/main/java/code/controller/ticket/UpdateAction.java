@@ -1,5 +1,6 @@
 package code.controller.ticket;
 
+import code.controller.ticket.model.TicketContainer;
 import code.infrastructure.ValidationUtils;
 import code.model.*;
 import code.service.GenericService;
@@ -24,11 +25,14 @@ public class UpdateAction extends PostAction {
     private CrudAction action;
     private Ticket ticket;
 
-    private Race race;
-    private List<Race> races;
-    private HashMap<Integer, List<Station>> stationHashMap;
+    private TicketContainer ticketContainer;
 
-    private List<Station> stations;
+    private Race race;
+
+    private List<Race> races;
+    private HashMap<Integer, Set<Station>> stationHashMap;
+
+    private Set<Station> stations;
     private List<String> errorList;
 
     @Override
@@ -94,17 +98,19 @@ public class UpdateAction extends PostAction {
         }
         races = racesWithFullInfo;
 
+
         stationHashMap = new HashMap();
         for (Race race : races) {
             Collection<RaceStation> raceStations = race.getRaceStations();
-            List<Station> stations = new ArrayList();
+            Set<Station> stations = new HashSet();
+
             for (RaceStation raceStation : raceStations) {
                 stations.add(raceStation.getStation());
             }
             stationHashMap.put(race.getId(), stations);
         }
     }
-    public HashMap<Integer, List<Station>> getStationHashMap() {
+    public HashMap<Integer, Set<Station>> getStationHashMap() {
         return stationHashMap;
     }
 
@@ -112,20 +118,31 @@ public class UpdateAction extends PostAction {
     public void setRace(Race race) {
         this.race = new RaceService().findRaceUseInnerJOINWithTrainAndTrainTypes(race.getId());
 
-        stations = new ArrayList<Station>();
+        stations = new HashSet();
         for (RaceStation raceStation : this.race.getRaceStations()) {
             stations.add(raceStation.getStation());
         }
     }
-    public List<Station> getStations() {
-        return stations;
-    }
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
-    }
 
     public void setAction(CrudAction action) { this.action = action; }
     public CrudAction getAction() { return this.action; }
+
+
+    public TicketContainer getTicketContainer() {
+        return ticketContainer;
+    }
+
+    public void setTicketContainer(TicketContainer ticketContainer) {
+        ticket = TicketContainer.getTicketFromTicketContainer(ticketContainer);
+        this.ticketContainer = ticketContainer;
+    }
+
+    public Set<Station> getStations() {
+        return stations;
+    }
+    public void setStations(Set<Station> stations) {
+        this.stations = stations;
+    }
 
     public List<String> getErrorList() {
         return errorList;

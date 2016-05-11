@@ -120,6 +120,11 @@ public class GenericHibernateDao<T, PK extends Serializable> implements IDao<T, 
                 .add(Restrictions.eq(fieldName, fieldValue)).uniqueResult();
     }
 
+    @Override
+    public T getModelByUniqueStringField(String fieldName, Object fieldValue) {
+        return (T) getCurrentSession().createCriteria(entityClass)
+                .add(Restrictions.eq(fieldName, fieldValue)).uniqueResult();
+    }
 
     // GETTERS AND SETTERS
     public Session getCurrentSession() {

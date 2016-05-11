@@ -48,7 +48,7 @@ public class RouteService extends GenericService<Route, Integer> {
         String fieldValue = StringHelper.getUTF8EncodedStringFromString(route.getName());
         Route storedRouteWithDuplicatedName = new RouteService().getRouteByName(fieldValue);
         if(storedRouteWithDuplicatedName != null) {
-            String message = isNeedToCreate ? "Attempt to create role with existing name !" : "Attempt to change name for role with existing one.";
+            String message = isNeedToCreate ? "Cannot create create route with such name, because it's already exist!" : "Cannot update name for route because it's already set!";
             errorList.add(message);
         }
 

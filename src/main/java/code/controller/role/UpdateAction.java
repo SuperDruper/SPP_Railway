@@ -79,7 +79,7 @@ public class UpdateAction extends PostAction {
     private boolean furtherValidation(Role role, boolean isNeedToCreate) {
         Role storedRoleWithDuplicatedName = new RoleService().getRoleByName(role.getName());
         if(storedRoleWithDuplicatedName != null) {
-            String message = isNeedToCreate ? "Attempt to create role with existing name !" : "Attempt to change name for role with existing one.";
+            String message = isNeedToCreate ? "Cannot create role with such name, 'cause it's already exist!" : "Cannot change name for role, 'cause it's already existing!";
             errorList.add(message);
             return false;
         } else {

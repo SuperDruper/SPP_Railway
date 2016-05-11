@@ -299,7 +299,7 @@
         <action name="race_station/update" class="code.controller.race_station.UpdateAction">
             <result type="json">
                 <param name="excludeProperties" >
-
+                    ^.+?raceStations(?![_\w\d])
                 </param>
                 <param name="noCache">true</param>
             </result>
@@ -309,7 +309,7 @@
         <action name="ticket/crud" class="code.controller.ticket.TicketListShowingAction">
             <result type="json">
                 <param name="excludeProperties" >
-                    ^tickets\[\d+\]\.user,
+                    ^ticketContainers\[\d+\]\.user,
                     ^.+?raceStations(?![_\w\d]),
                     ^.+?races(?![_\w\d]),
                     ^.+?tickets(?![_\w\d]),

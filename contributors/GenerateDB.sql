@@ -1,4 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `railway` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE IF NOT EXISTS `railway` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `railway`;
 -- MySQL dump 10.13  Distrib 5.6.23, for Win64 (x86_64)
 --

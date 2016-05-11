@@ -24,15 +24,16 @@
     </ul>
 
     <table class="table table-bordered table-striped">
+<div class="table-responsive">
+    <table class="table table-bordered table-striped text-center">
         <tr>
-            <td>Id(Name)</td>
+            <td>Id(Number)</td>
             <td>Carriage amount</td>
             <td>Type</td>
             <td>Actions</td>
         </tr>
         <tr ng-repeat="train in trains | orderBy:'id'">
-            <td>{{train.id}}</td>
-            <!--<td><input type="number" name="Carriage amount" ng-model="train.id" required></td>-->
+            <td><input type="number" name="Train number" ng-model="train.train_number" required></td>
             <td><input type="number" name="Carriage amount" ng-model="train.carriageAmount" required></td>
             <td>
                 <select ng-model="defaultSelectedTrainType"
@@ -55,4 +56,5 @@
             </td>
         </tr>
     </table>
+</div>
 </div>

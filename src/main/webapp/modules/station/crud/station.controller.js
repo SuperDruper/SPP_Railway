@@ -101,7 +101,7 @@ app.controller('StationController', function ($scope, $window, StationService) {
         if(stationName != null && stationName.trim().length != 0) {
             return true;
         } else {
-            $scope.errors.push("Station name cannot be empty !");
+            $scope.errors.push("Please enter valid station name!");
             return false;
         }
     }

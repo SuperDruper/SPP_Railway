@@ -38,6 +38,7 @@ public interface IDao <T, PK extends Serializable> {
     public List<T> getModelListByStringField(String fieldName, String fieldValue);
 
     public T getModelByUniqueStringField(String fieldName, String fieldValue);
+    public T getModelByUniqueStringField(String fieldName, Object fieldValue);
 
     public Session getCurrentSession();
     public void setCurrentSession(Session currentSession);

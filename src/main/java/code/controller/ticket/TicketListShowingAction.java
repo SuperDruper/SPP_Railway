@@ -2,6 +2,7 @@ package code.controller.ticket;
 
 import code.controller.GetAction;
 import code.controller.shared.Authorize;
+import code.controller.ticket.model.TicketContainer;
 import code.infrastructure.Constants;
 import code.model.Race;
 import code.model.Role;
@@ -19,6 +20,8 @@ import java.util.List;
 @Authorize("admin")
 public class TicketListShowingAction extends GetAction {
     private List<Ticket> tickets;
+    private List<TicketContainer> ticketContainers = new ArrayList();
+
     private List<Race> races;
 
     private List<String> errorList;
@@ -29,7 +32,7 @@ public class TicketListShowingAction extends GetAction {
 
         User user = getUserFromSession();
         if(user != null) {
-            tickets = new TicketService().findAll();
+            setTickets(new TicketService().findAll());
         } else {
             //    throw new Exception("Cannot see tickets for user == null");
             errorList = new ArrayList<String>();
@@ -46,11 +49,21 @@ public class TicketListShowingAction extends GetAction {
     public void setErrorList(List<String> errorList) {
         this.errorList = errorList;
     }
-    public List<Ticket> getTickets() {
-        return tickets;
-    }
+
+
     public void setTickets(List<Ticket> tickets) {
+        for (Ticket ticket : tickets) {
+            ticketContainers.add(new TicketContainer(ticket));
+        }
+
         this.tickets = tickets;
+    }
+
+    public List<TicketContainer> getTicketContainers() {
+        return ticketContainers;
+    }
+    public void setTicketContainers(List<TicketContainer> ticketContainers) {
+        this.ticketContainers = ticketContainers;
     }
     public List<Race> getRaces() {
         return races;

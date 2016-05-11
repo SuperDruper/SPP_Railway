@@ -118,8 +118,12 @@ public class TicketService extends GenericService<Ticket, Integer> {
         RaceStation arriveRaceStation = getRaceStationFromListById(
                 ticket.getRace().getRaceStations(), ticket.getStationTo().getId());
 
-        Date departure = departureRaceStation.getDepature();
-        Date arriving =  arriveRaceStation.getArriving();
+        Date departure = null;
+        Date arriving = null;
+        if(departureRaceStation != null)
+            departure = departureRaceStation.getDepature();
+        if(arriveRaceStation != null)
+             arriving =  arriveRaceStation.getArriving();
 
         return new TicketDetails(
                 ticket.getId(),

@@ -14,12 +14,13 @@ import java.util.Date;
  */
 public class RaceStationContainer implements Serializable {
     private int id;
-    private String depature;
-    private String arriving;
 
-    public Timestamp depatureTimestamp;
-    public Timestamp arrivingTimestamp;
+    private int race_station_numbr;
 
+    private Date depature;
+    private Date arriving;
+
+    private Station station;
     private Race race;
 
     public int getId() {
@@ -30,23 +31,6 @@ public class RaceStationContainer implements Serializable {
         this.id = id;
     }
 
-    public String getDepature() {
-        return depature;
-    }
-
-    public void setDepature(String depature) {
-        depatureTimestamp = Timestamp.valueOf(depature);
-        this.depature = depature;
-    }
-
-    public String getArriving() {
-        return arriving;
-    }
-
-    public void setArriving(String arriving) {
-        arrivingTimestamp = Timestamp.valueOf(arriving);
-        this.arriving = arriving;
-    }
 
     public Race getRace() {
         return race;
@@ -64,19 +48,60 @@ public class RaceStationContainer implements Serializable {
         this.station = station;
     }
 
-    private Station station;
+    public Date getDepature() {
+        return depature;
+    }
+
+    public void setDepature(Date depature) {
+        this.depature = depature;
+    }
+
+    public Date getArriving() {
+        return arriving;
+    }
+
+    public void setArriving(Date arriving) {
+        this.arriving = arriving;
+    }
+
+    public RaceStationContainer() {}
+    public RaceStationContainer(RaceStation raceStation)
+    {
+        id = raceStation.getId();
+        station = raceStation.getStation();
+        race_station_numbr = raceStation.getRace_station_numbr();
+        if(raceStation.getDepature() != null)
+            depature = new Date(raceStation.getDepature().getTime());
+        if(raceStation.getArriving() != null)
+            arriving = new Date(raceStation.getArriving().getTime());
+
+        race = raceStation.getRace();
+    }
 
     public RaceStation getRaceStationObjectFromCurrentContainer()
     {
         RaceStation raceStation = new RaceStation();
 
-        raceStation.setArriving(arrivingTimestamp);
-        raceStation.setDepature(depatureTimestamp);
+        if(arriving != null)
+            raceStation.setArriving(new Timestamp(arriving.getTime()));
 
+        if(depature != null)
+            raceStation.setDepature(new Timestamp(depature.getTime()));
+
+        raceStation.setRace_station_numbr(race_station_numbr);
         raceStation.setRace(race);
         raceStation.setStation(station);
         raceStation.setId(id);
 
         return raceStation;
     }
+
+    public int getRace_station_numbr() {
+        return race_station_numbr;
+    }
+
+    public void setRace_station_numbr(int race_station_numbr) {
+        this.race_station_numbr = race_station_numbr;
+    }
+
 }
