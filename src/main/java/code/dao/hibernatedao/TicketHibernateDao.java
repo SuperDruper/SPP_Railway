@@ -8,7 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -61,12 +60,12 @@ public class TicketHibernateDao extends GenericHibernateDao<Ticket, Integer> imp
 
 
 
-    private static final String FIND_TICKETS_WITH_RACE_STATIONS_HQL =
+    private static final String FIND_TICKETS_WITH_RACE_STATIONS_BY_USER_ID_HQL =
                     "SELECT t FROM Ticket t LEFT OUTER JOIN FETCH t.race r " +
                     "LEFT OUTER JOIN FETCH r.raceStations WHERE t.user.id = ?";
     @Override
     public List<Ticket> findTicketsWithRaceStationsByUserId(int userId) {
-        Query query = getCurrentSession().createQuery(FIND_TICKETS_WITH_RACE_STATIONS_HQL);
+        Query query = getCurrentSession().createQuery(FIND_TICKETS_WITH_RACE_STATIONS_BY_USER_ID_HQL);
         query.setInteger(0, userId);
         List list =  query.list();
         Set setItems = new LinkedHashSet(list);
@@ -84,6 +83,20 @@ public class TicketHibernateDao extends GenericHibernateDao<Ticket, Integer> imp
         query.setInteger(1, carriageNum);
         query.setInteger(2, placeNum);
         return (Ticket) query.uniqueResult();
+    }
+
+    private static final String FIND_TICKET_WITH_RACE_STATIONS_HQL =
+            "SELECT t FROM Ticket t LEFT OUTER JOIN FETCH t.race r " +
+                    "LEFT OUTER JOIN FETCH r.raceStations WHERE t.id = ?";
+    @Override
+    public Ticket findTicketWithRaceStationsByPK(int pk) {
+        Query query = getCurrentSession().createQuery(FIND_TICKETS_WITH_RACE_STATIONS_BY_USER_ID_HQL);
+        query.setInteger(0, pk);
+        List<Ticket> list =  query.list();
+        Set<Ticket> setItems = new LinkedHashSet<Ticket>(list);
+        list.clear();
+        list.addAll(setItems);
+        return list.get(0);
     }
 
 }

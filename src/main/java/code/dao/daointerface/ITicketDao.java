@@ -27,4 +27,6 @@ public interface ITicketDao extends IDao<Ticket, Integer> {
     List<Ticket> findTicketsWithRaceStationsByUserId(int userId);
 
     Ticket findByAlternativeKey(int carriageNum, int placeNum, int raceId);
+
+    Ticket findTicketWithRaceStationsByPK(int pk);
 }

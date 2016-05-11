@@ -103,6 +103,14 @@ public class TicketService extends GenericService<Ticket, Integer> {
         return ticketDetailsList;
     }
 
+    public TicketDetails findTicketDetailsByPK(int pk) {
+        getDao().openCurrentSession();
+        Ticket ticket = getDao().findTicketWithRaceStationsByPK(pk);
+        getDao().closeCurrentSession();
+
+        return convertToTicketDetails(ticket);
+    }
+
 
     private TicketDetails convertToTicketDetails(Ticket ticket) {
         RaceStation departureRaceStation = getRaceStationFromListById(

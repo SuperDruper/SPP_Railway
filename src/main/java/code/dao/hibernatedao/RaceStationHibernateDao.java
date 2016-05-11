@@ -43,4 +43,22 @@ public class RaceStationHibernateDao extends GenericHibernateDao<RaceStation, In
         query.setInteger(0, raceId);
         return query.list();
     }
+
+    private static final String FIND_START_RACE_STATION_BY_RACE_ID_HQL =
+            "SELECT rs FROM RaceStation rs WHERE rs.race.id = ? AND rs.arriving = null";
+    @Override
+    public RaceStation getDepartureRaceStationByRacePK(int racePK) {
+        Query query = getCurrentSession().createQuery(FIND_START_RACE_STATION_BY_RACE_ID_HQL);
+        query.setInteger(0, racePK);
+        return (RaceStation) query.uniqueResult();
+    }
+
+    private static final String FIND_FINISH_RACE_STATION_BY_RACE_ID_HQL =
+            "SELECT rs FROM RaceStation rs WHERE rs.race.id = ? AND rs.depature = null";
+    @Override
+    public RaceStation getArriveRaceStationByRacePK(int racePK) {
+        Query query = getCurrentSession().createQuery(FIND_FINISH_RACE_STATION_BY_RACE_ID_HQL);
+        query.setInteger(0, racePK);
+        return (RaceStation) query.uniqueResult();
+    }
 }

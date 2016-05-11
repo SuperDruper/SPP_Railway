@@ -4,13 +4,12 @@ import code.infrastructure.DateUtils;
 import code.model.Race;
 import code.model.RaceStation;
 import code.model.Train;
-import code.model.TrainType;
 import code.model.race.RaceFullData;
 import code.model.race.RaceInfo;
 import code.model.ticket.TicketDetails;
-import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.poi.hssf.usermodel.*;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +17,7 @@ import java.util.List;
 /**
  * Created by PC-Alyaksei on 08.05.2016.
  */
-public class XlsDocumentsGeneratorService {
-
+public class XlsDocumentsGenerationService {
 
     public static ByteArrayOutputStream generateRaceInfoList(List<RaceInfo> raceInfos) throws IOException {
         String sheetName = "races";
@@ -275,6 +273,7 @@ public class XlsDocumentsGeneratorService {
             cell = row.createCell(cellNum);
             cell.setCellValue(race.getTickets().size() / (double)
                     (train.getCarriageAmount() * train.getTrainType().getPlacesAmount()));
+
         }
 
         setSheetStyle(workbook, sheet, races.size());

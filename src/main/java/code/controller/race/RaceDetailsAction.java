@@ -40,11 +40,11 @@ public class RaceDetailsAction extends PostAction {
     private void convertToRaceDetails(Race race) {
         int placesInCarriage = race.getTrain().getTrainType().getPlacesAmount();
         int carriageAmount = race.getTrain().getCarriageAmount();
-        List<Ticket> tickets = new ArrayList(race.getTickets());
+        List<Ticket> tickets = new ArrayList<Ticket>(race.getTickets());
 
-        List<Carriage> carriages = new ArrayList();
+        List<Carriage> carriages = new ArrayList<Carriage>();
         for (int i = 1; i <= carriageAmount; i++) {
-            List<Place> places = new ArrayList();
+            List<Place> places = new ArrayList<Place>();
 
             for (int j = 1; j <= placesInCarriage; j++) {
                 boolean ticketFound = false;
