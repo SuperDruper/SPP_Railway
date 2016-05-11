@@ -55,8 +55,8 @@
             <ul class="nav navbar-nav navbar-right">
               <li><a href="/ticketorder/racechoice">Races</a></li>
               <li><a href="#" data-toggle="modal" data-target="#myTickets" ng-show="userRole">My tickets</a></li>
-              <li><a href="/user/register" ng-hide="userRole">Registration</a><a href="/user/profile" ng-show="userRole">Profile</a></li>
-              <li> <a href="/user/login" ng-hide="userRole">Login</a><a href="#" ng-click="logout()" ng-show="userRole">Logout</a> </li>
+              <li><a href="/user/register" ng-hide="roleId > 0">Registration</a><a href="/user/profile" ng-show="roleId > 0">Profile</a></li>
+              <li> <a href="/user/login" ng-hide="roleId > 0">Login</a><a href="#" ng-click="logout()" ng-show="roleId > 0">Logout</a> </li>
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -102,7 +102,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <p class="text-center">&copy Name Surname, Name Surname, 2016</p>
+      <p class="text-center">&copy Aleksey Varfolomeey, Dzmitry Antonenka, Nikita Pushnov - 2016</p>
     </div>
   </div>
 </div>
