@@ -33,5 +33,19 @@ public class RaceStationService extends GenericService<RaceStation, Integer> {
         return raceStations;
     }
 
+    public RaceStation getDepartureRaceStationByRacePK(int racePK) {
+        getDao().openCurrentSession();
+        RaceStation result = getDao().getDepartureRaceStationByRacePK(racePK);
+        getDao().closeCurrentSession();
+        return result;
+    }
+
+    public RaceStation getArriveRaceStationByRacePK(int racePK) {
+        getDao().openCurrentSession();
+        RaceStation result = getDao().getArriveRaceStationByRacePK(racePK);
+        getDao().closeCurrentSession();
+        return result;
+    }
+
 
 }

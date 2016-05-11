@@ -39,7 +39,7 @@ public class PdfDocumentsGenerationServiceTest {
     public void testGenerateTicket() throws Exception {
 
         TicketDetails ticket = new TicketDetails(
-                4, 1, "Витебск-Брест", "Витебск", "Брест", new Date(), new Date(), 10, 40);
+                4, 1, "Витебск-Брест", "Витебск", "Брест", new Date(), new Date(), 1, 4);
         ByteArrayOutputStream byteArrayOutputStream = PdfDocumentsGenerationService.generateTicket(ticket);
         try(OutputStream outputStream = new FileOutputStream("./test_documents/Ticket.pdf")) {
             byteArrayOutputStream.writeTo(outputStream);
@@ -49,7 +49,7 @@ public class PdfDocumentsGenerationServiceTest {
     @Test
     public void testGenerateRaceFullData() throws Exception {
         RaceFullData race = new RaceFullData(
-                1, 1, "Витебск-Брест", "Витебск", "Брест", new Date(), new Date(), 10, 140);
+                1, 1, "Витебск-Брест", "Витебск", "Брест", new Date(), new Date(), 4, 140);
         ByteArrayOutputStream byteArrayOutputStream = PdfDocumentsGenerationService.generateRaceFullData(race);
         try(OutputStream outputStream = new FileOutputStream("./test_documents/Race.pdf")) {
             byteArrayOutputStream.writeTo(outputStream);
