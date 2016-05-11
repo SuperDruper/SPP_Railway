@@ -14,4 +14,8 @@ public class DateUtils {
     }
 
 
+    public static String humanReadableDate(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        return dateFormat.format(date);
+    }
 }
