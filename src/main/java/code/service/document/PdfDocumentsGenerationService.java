@@ -1,6 +1,5 @@
 package code.service.document;
 
-import au.com.bytecode.opencsv.CSVWriter;
 import code.infrastructure.DateUtils;
 import code.model.Race;
 import code.model.RaceStation;
@@ -9,16 +8,10 @@ import code.model.race.RaceFullData;
 import code.model.race.RaceInfo;
 import code.model.ticket.TicketDetails;
 import com.itextpdf.text.*;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.pdf.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,14 +24,11 @@ public class PdfDocumentsGenerationService {
     private static final int FONT_SIZE_NORMAL = 14;
     private static final int FONT_SIZE_BIG = 20;
     private static final int VERTICAL_SPACE_TINY = 5;
-    private static final int VERTICAL_SPACE_SMALL = 20;
-    private static final int VERTICAL_SPACE_MEDIUM = 50;
-    private static final int VERTICAL_SPACE_BIG = 80;
     private static final int HEIGHT_SMALL_LINE = FONT_SIZE_SMALL + 1;
     private static final int HEIGHT_NORMAL_LINE = FONT_SIZE_NORMAL + VERTICAL_SPACE_TINY + 2;
     private static final int HEIGHT_BIG_LINE = FONT_SIZE_NORMAL + VERTICAL_SPACE_TINY;
 
-    private static final String FONT_PATH = "/times.ttf";
+    private static final String FONT_PATH = "times.ttf";
 
     private static final Font FONT_FOR_OBJECT_NAME = FontFactory.getFont(
             FONT_PATH, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 20, Font.BOLD);
@@ -46,7 +36,7 @@ public class PdfDocumentsGenerationService {
             FONT_PATH, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 20);
     public static final String RACE_INFORMATION_LIST = "Race information list";
     public static final int TABLE_WIDTH_PERCENTAGE = 100;
-    public static final String LOGO_PNG_PATH = "/logo.png";
+    public static final String LOGO_PNG_PATH = "images/logo.png";
 
 
     public static ByteArrayOutputStream generateRaceInfoList(List<RaceInfo> raceInfos
@@ -327,16 +317,16 @@ public class PdfDocumentsGenerationService {
         PdfContentByte canvas = writer.getDirectContentUnder();
         ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, watermark, x, y, 45);
 
-        Image image;
-        try {
-            image = Image.getInstance(System.class.getResource(LOGO_PNG_PATH));
-            image.setAbsolutePosition(
-                    PageSize.A4.getWidth() - image.getScaledWidth() - 5, 5);
-            //image.scaleAbsolute(600, 250);
-            canvas.addImage(image);
-        } catch (IOException | DocumentException e) {
-            e.printStackTrace();
-        }
+//        Image image;
+//        try {
+//            image = Image.getInstance(System.class.getResource(LOGO_PNG_PATH));
+//            image.setAbsolutePosition(
+//                    PageSize.A4.getWidth() - image.getScaledWidth() - 5, 5);
+//            //image.scaleAbsolute(600, 250);
+//            canvas.addImage(image);
+//        } catch (IOException | DocumentException e) {
+//            e.printStackTrace();
+//        }
     }
 
 

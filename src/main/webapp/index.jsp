@@ -8,12 +8,14 @@
 
   <s:url var="ctxUrl" forceAddSchemeHostAndPort="true" includeContext="true" value="/" namespace="/" />
   <base href="<s:property value="ctxUrl"/>">
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.min.css">
 
   <link rel="stylesheet" type="text/css" media="screen" href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css" />
   <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
   <script type="text/javascript" src="http://momentjs.com/downloads/moment.js"></script>
   <%--<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"></script>--%>
@@ -211,5 +213,6 @@
 <script src="<s:url value="modules/ticketorder/racedetails/racedetails.controller.js" />"></script>
 <script src="<s:url value="modules/ticketorder/racedetails/racedetails.service.js" />"></script>
 
-
+</div>
+</body>
 </html>

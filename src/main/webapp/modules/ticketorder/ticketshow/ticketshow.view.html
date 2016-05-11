@@ -17,6 +17,12 @@
         <tr><td>Cost:</td>              <td>{{race.cost}}</td></tr>
     </table>
 
+    <br/>
+    <label>Download ticket</label>
+    <a href="/doc/ticket?id={{race.ticketNum}}&format=PDF" class="btn btn-default">Pdf</a>
+    <a href="/doc/ticket?id={{race.ticketNum}}&format=XLS" class="btn btn-default">Xls</a>
+    <a href="/doc/ticket?id={{race.ticketNum}}&format=CSV" class="btn btn-default">Csv</a>
 
+    <br/><br/>
     <a href="/" class="btn btn-default">Go to start</a>
 </div>

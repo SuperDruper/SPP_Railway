@@ -5,6 +5,7 @@ package code.controller;
  *
  */
 public abstract class PostAction extends MyActionSupport implements IPostAction {
+    @Override
     public String execute() throws Exception{
         return create();
     }

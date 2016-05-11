@@ -49,6 +49,8 @@
                 <th>Departure</th>
                 <th>Arriving</th>
                 <th>Cost</th>
+                <th>Race info</th>
+                <th>Route info</th>
                 <th ng-show="userRole"></th>
             </tr>
             <tr ng-repeat="raceInfo in raceInfos">
@@ -56,6 +58,15 @@
                 <td>{{raceInfo.departure.toString().replace('T', ' ')}}</td>
                 <td>{{raceInfo.arriving.toString().replace('T', ' ')}}</td>
                 <td>{{raceInfo.cost}}</td>
+                <td>
+                    <a href="/doc/race?id={{raceInfo.id}}&format=PDF" class="btn btn-default">Pdf</a>
+                    <a href="/doc/race?id={{raceInfo.id}}&format=XLS" class="btn btn-default">Xls</a>
+                    <a href="/doc/race?id={{raceInfo.id}}&format=CSV" class="btn btn-default">Csv</a>
+                <td>
+                    <a href="/doc/route?id={{raceInfo.id}}&format=PDF" class="btn btn-default">Pdf</a>
+                    <a href="/doc/route?id={{raceInfo.id}}&format=XLS" class="btn btn-default">Xls</a>
+                    <a href="/doc/route?id={{raceInfo.id}}&format=CSV" class="btn btn-default">Csv</a>
+                </td>
                 <td ng-show="userRole">
                     <button type="submit" class="btn btn-default" ng-click="showRaceDetails(raceInfo.id)">
                         Order ticket
@@ -63,5 +74,9 @@
                 </td>
             </tr>
         </table>
-    </div>
+    </div><br/>
+
+    <a href="/doc/raceinfo?from={{departureStationId}}&to={{arriveStationId}}&timestamp={{raceDate.getTime()}}&format=PDF" class="btn btn-default">Pdf</a>
+    <a href="/doc/raceinfo?from={{departureStationId}}&to={{arriveStationId}}&timestamp={{raceDate.getTime()}}&format=XLS" class="btn btn-default">Xls</a>
+    <a href="/doc/raceinfo?from={{departureStationId}}&to={{arriveStationId}}&timestamp={{raceDate.getTime()}}&format=CSV" class="btn btn-default">Csv</a>
 </div>

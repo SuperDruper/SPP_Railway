@@ -90,7 +90,7 @@ public class TicketHibernateDao extends GenericHibernateDao<Ticket, Integer> imp
                     "LEFT OUTER JOIN FETCH r.raceStations WHERE t.id = ?";
     @Override
     public Ticket findTicketWithRaceStationsByPK(int pk) {
-        Query query = getCurrentSession().createQuery(FIND_TICKETS_WITH_RACE_STATIONS_BY_USER_ID_HQL);
+        Query query = getCurrentSession().createQuery(FIND_TICKET_WITH_RACE_STATIONS_HQL);
         query.setInteger(0, pk);
         List<Ticket> list =  query.list();
         Set<Ticket> setItems = new LinkedHashSet<Ticket>(list);

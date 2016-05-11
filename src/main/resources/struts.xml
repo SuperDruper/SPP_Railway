@@ -38,6 +38,22 @@
     </package>
 
 
+    <package name="api" extends="def" namespace="/doc">
+        <interceptors>
+            <interceptor-stack name="myDocDefaultStack">
+                <interceptor-ref name="myDefaultStack" />
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="myDocDefaultStack" />
+
+        <action name="ticket" class="code.controller.document.TicketDocumentsController" method="view" />
+        <action name="race" class="code.controller.document.RaceDocumentsController" method="view" />
+        <action name="raceinfo" class="code.controller.document.RaceInfoDocumentsController" method="view" />
+        <action name="station" class="code.controller.document.StationDocumentsController" method="view" />
+        <action name="route" class="code.controller.document.RouteDocumentsController" method="view" />
+    </package>
+
 
     <package name="api" extends="def" namespace="/api">
 
