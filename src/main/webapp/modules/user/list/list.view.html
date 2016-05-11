@@ -1,24 +1,29 @@
     <div>
         <h3>USER CRUD</h3>
+        <div class="user_crud_block">
+            <div class="left">
+                <label for="">Login</label>
+                <input type="text" ng-model="login" placeholder="Login">  <br/><br/>
+                <label for="">Password</label>
+                <input type="password" ng-model="password" placeholder="Password">  <br/><br/>
+                <label for="">Name</label>
+                <input type="text" ng-model="name" placeholder="Name"> <br/><br/>
+            </div>
+            <div class="right">
+                <label for="">Surname</label>
+                <input type="text" ng-model="surname" placeholder="Surname"> <br/><br/>
+                <label for="">Email</label>
+                <input type="text" ng-model="email" placeholder="Email"> <br/><br/>
+                <label for="">Role name</label>
+                <select name="role" id="role" ng-model="roleToCreate" ng-init="roles[0]">
+                    <option ng-repeat="role in roles" value="{{role.id}}">{{role.name}}</option>
+                </select>
+            </div>
+        </div>
+        <input type="button" value="Create" class="btn btn-default" ng-click="register()"/>
 
-        <label for="">Login</label>
-        <input type="text" ng-model="login" placeholder="Login">  <br/><br/>
-        <label for="">Password</label>
-        <input type="password" ng-model="password" placeholder="Password">  <br/><br/>
-        <label for="">Name</label>
-        <input type="text" ng-model="name" placeholder="Name"> <br/><br/>
-        <label for="">Surname</label>
-        <input type="text" ng-model="surname" placeholder="Surname"> <br/><br/>
-        <label for="">Email</label>
-        <input type="text" ng-model="email" placeholder="Email"> <br/><br/>
-        <label for="">Role name</label>
-        <select name="role" id="role" ng-model="roleToCreate" ng-init="roles[0]">
-            <option ng-repeat="role in roles" value="{{role.id}}">{{role.name}}</option>
-        </select>
-        <input type="button" value="Create" class="btn btn-primary" ng-click="register()"/>
 
-
-        <div>
+        <div class="hidden">
             <p>ERROR list:</p>
             <ul ng-repeat="error in errors">
                 <li class="validationError">
