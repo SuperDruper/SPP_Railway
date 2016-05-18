@@ -38,7 +38,7 @@
     </package>
 
 
-    <package name="api" extends="def" namespace="/doc">
+    <package name="doc" extends="def" namespace="/doc">
         <interceptors>
             <interceptor-stack name="myDocDefaultStack">
                 <interceptor-ref name="myDefaultStack" />

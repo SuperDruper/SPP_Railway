@@ -42,7 +42,7 @@
     </div>
 
     <br/><br/>
-        <div ng-show = "raceInfos && !(errors != null && errors.length > 0)">
+    <div ng-show = "raceInfos && !(errors != null && errors.length > 0)">
         <table class="table table-bordered table-striped">
             <tr>
                 <th>Route name</th>
@@ -52,7 +52,7 @@
                 <th>Race info</th>
                 <th>Route info</th>
                 <th>Stations info</th>
-                <th ng-show="userRole"></th>
+                <th ng-show="roleId > 0"></th>
             </tr>
             <tr ng-repeat="raceInfo in raceInfos">
                 <td>{{raceInfo.name}}</td>
@@ -74,12 +74,12 @@
                     <a href="/doc/station?id={{raceInfo.id}}&format=XLS" class="btn btn-default">Xls</a>
                     <a href="/doc/station?id={{raceInfo.id}}&format=CSV" class="btn btn-default">Csv</a>
                 </td>
-                <td ng-show="userRole">
+                <td ng-show="roleId > 0">
                     <button type="submit" class="btn btn-default" ng-click="showRaceDetails(raceInfo.id)">
                         Order ticket
                     </button>
                 </td>
-            </tr>
+        </tr>
         </table>
     </div>
     <script>

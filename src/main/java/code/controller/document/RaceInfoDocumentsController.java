@@ -17,14 +17,14 @@ import java.util.Date;
 /**
  * Created by PC-Alyaksei on 11.05.2016.
  */
-public class RaceInfoDocumentsController extends PostAction implements ServletResponseAware {
+public class RaceInfoDocumentsController extends GetAction implements ServletResponseAware {
 
     private HttpServletResponse response;
 
 
     private int from;
     private int to;
-    private int timestamp;
+    private long timestamp;
 
     private RaceSearchData data;
     private DocumentFormat format;
@@ -45,7 +45,7 @@ public class RaceInfoDocumentsController extends PostAction implements ServletRe
 
 
     @Override
-    public String create() throws Exception {
+    public String view() throws Exception {
         String contentType = "";
         String fileName = "";
 
@@ -83,6 +83,51 @@ public class RaceInfoDocumentsController extends PostAction implements ServletRe
         this.response = httpServletResponse;
     }
 
+    public HttpServletResponse getResponse() {
+        return response;
+    }
 
+    public void setResponse(HttpServletResponse response) {
+        this.response = response;
+    }
 
+    public int getFrom() {
+        return from;
+    }
+
+    public void setFrom(int from) {
+        this.from = from;
+    }
+
+    public int getTo() {
+        return to;
+    }
+
+    public void setTo(int to) {
+        this.to = to;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public RaceSearchData getData() {
+        return data;
+    }
+
+    public void setData(RaceSearchData data) {
+        this.data = data;
+    }
+
+    public DocumentFormat getFormat() {
+        return format;
+    }
+
+    public void setFormat(DocumentFormat format) {
+        this.format = format;
+    }
 }
