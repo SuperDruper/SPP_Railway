@@ -19,10 +19,6 @@ angular.module('app').controller('RaceChoiceController', function ($scope, $loca
 
     $scope.toggleMinDate();
 
-    // Disable weekend selection
-    $scope.disabled = function(calendarDate, mode) {
-        return mode === 'day' && ( calendarDate.getDay() === 0 || calendarDate.getDay() === 6 );
-    };
 
     $scope.open = function($event,opened) {
         $event.preventDefault();
@@ -31,12 +27,9 @@ angular.module('app').controller('RaceChoiceController', function ($scope, $loca
     };
 
     $scope.dateOpened = false;
-    $scope.hourStep = 1;
-    $scope.format = "yyyy-MMM-dd";
-    $scope.minuteStep = 1;
+    $scope.format = "yyyy-MMM-dd ";
 
     $scope.timeOptions = {
-        hourStep: [1, 2, 3],
         minuteStep: [1, 5, 10, 15, 25, 30]
     };
 
@@ -52,6 +45,12 @@ angular.module('app').controller('RaceChoiceController', function ($scope, $loca
     $scope.resetHours = function() {
         $scope.date.setHours(1);
     };
+
+
+
+
+
+
     var departureStationId = 0;
     var arriveStationId = 0;
 

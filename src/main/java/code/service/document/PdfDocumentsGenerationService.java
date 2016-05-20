@@ -28,7 +28,7 @@ public class PdfDocumentsGenerationService {
     private static final int HEIGHT_NORMAL_LINE = FONT_SIZE_NORMAL + VERTICAL_SPACE_TINY + 2;
     private static final int HEIGHT_BIG_LINE = FONT_SIZE_NORMAL + VERTICAL_SPACE_TINY;
 
-    private static final String FONT_PATH = "times.ttf";
+    private static final String FONT_PATH = "fonts/times.ttf";
 
     private static final Font FONT_FOR_OBJECT_NAME = FontFactory.getFont(
             FONT_PATH, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 20, Font.BOLD);

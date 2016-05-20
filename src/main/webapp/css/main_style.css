@@ -3,7 +3,7 @@ body{
     overflow-x: hidden;
     position: absolute;
     min-height: 100%;
-    padding-bottom: 150px;
+    padding-bottom: 0;
     background-image: url(../img/bg.jpg);
     background-size: cover;
     background-position: center;
@@ -12,7 +12,6 @@ body{
 .to_white{
     position: absolute;
     width: 100%;
-    height: 100%;
     background-color: rgba(255,255,255,0.6);
 }
 html{
@@ -104,10 +103,10 @@ h3{
         padding: 15px 0;
     }
 }
-footer{
-    position: absolute;
-    bottom: 0;
-    left: 0;
+.not-footer{
+    box-sizing: border-box;
+    min-height: 100vh;
+    padding-bottom: 130px;
 }
 
 
@@ -137,6 +136,10 @@ footer{
     box-sizing: border-box;
 }
 
+datetimepicker[hidden-time="true"] .datetimepicker-wrapper
+{
+    display:block;
+}
 .datetimepicker-wrapper input,
 .datetimepicker-wrapper button{
     diplay: inline-block;
@@ -145,9 +148,6 @@ footer{
     margin: 0 auto !important;
 }
 
-p.main{
-    text-shadow: none;
-}
 .ng-scope button[type="submit"],
 .ng-scope input[type="button"]{
     margin: 30px auto 0;

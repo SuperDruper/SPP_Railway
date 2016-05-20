@@ -21,21 +21,26 @@
             <option ng-repeat="station in stations" value="{{station.id}}">{{station.name}}</option>
         </select> <br/><br/>
 
-        <label for="">Enter the race date</label>        <datetimepicker
-                hour-step="hourStep"
-                minute-step="minuteStep" ng-model="raceDate" show-meridian="showMeridian"
-                date-format="{{format}}" date-options="dateOptions"
-                date-disabled="disabled(date, mode)"
-                datepicker-append-to-body="false"
-                readonly-date="false"
-                hidden-time="false"
-                hidden-date="false"
-                name="datetimepicker"
-                show-spinners="true"
-                readonly-time="false"
-                >
+        <label for="">Enter the race date</label>
+        <div>
+            <datetimepicker
+                    style="display: block; margin: 30px 0 0;"
+                    ng-model="raceDate"
+                    show-meridian="showMeridian"
+                    date-format="{{format}}"
+                    date-options="dateOptions"
+                    datepicker-append-to-body="false"
+                    readonly-date="false"
+                    hidden-time="true"
+                    hidden-date="false"
+                    name="datetimepicker"
+                    show-spinners="true"
+                    readonly-time="false"
+
+                    >
             <!-- Use date-ng-click="open($event, opened)" to override date ng-click -->
-        </datetimepicker>
+            </datetimepicker>
+        </div>
         <br/>
 
         <button type="submit" class="btn btn-default btn-pop" ng-click="find()">Find races</button>

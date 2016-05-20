@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'FontAwesome';
-  src: url('../fonts/fontawesome-webfont.eot?v=4.1.0');
-  src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.1.0') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff?v=4.1.0') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.1.0') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.1.0#fontawesomeregular') format('svg');
+  src: url('../fonts/fontawesome-webfont.eot?v=4.6.3');
+  src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.6.3') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff?v=4.6.3') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.6.3') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.6.3#fontawesomeregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -39,7 +39,7 @@ a, a:hover, a:focus, a:active{cursor:pointer; text-decoration: none; outline:0px
 .mrg,.row {margin-left:0; margin-right:0;}
 .pdg,.container-fluid {padding-right:0; padding-left:0;}
 input, input:focus, textarea,textarea:focus,select, select:focus{outline:none;color:#080b09;}
-input[type='text'], input[type='text']:focus,input[type='search'], input[type='search']:focus, textarea,textarea:focus{margin:20px 0;	font-family: "ArialRegular", ArialRegular, sans-serif; color:#080b09;}
+
 select, select:focus{height: 30px;
   min-width: 150px;
   color:#080b09;
@@ -125,12 +125,18 @@ input[type="date"]
 }
 #foot
 {
-  width: 100%;
   padding-left: 0;
   padding-right: 0;
   background-color:#080b09;
+  width: 100%;
+  margin-top: -100px;
+  height: 100px;
 }
-#foot p {padding:50px 0}
+#foot p
+{
+  padding:45px 0 0;
+  color: #999999;
+}
 .crud-form-control
 {
   display:inline-block;
@@ -140,8 +146,7 @@ input[type="date"]
   font-size: 14px;
   line-height: 1.42857143;
   color: #555;
-  background-color: #fff;
-  background-image: none;
+  background: #fff none;
   border: 1px solid #ccc;
   border-radius: 4px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
@@ -188,101 +193,10 @@ text-align: center;}
 .table-striped>tbody>tr:nth-of-type(even) {
   background-color: #c5ddfb;
 }
-@font-face {
-  font-family: 'FontAwesome';
-  src: url('../fonts/fontawesome-webfont.eot?v=4.1.0');
-  src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.1.0') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff?v=4.1.0') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.1.0') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.1.0#fontawesomeregular') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
 
-@font-face {
-  font-family: 'ArialRegular';
-  src: url('../fonts/arial.ttf');
-  src: url('../fonts/arial.ttf') format('truetype');
-}
-@font-face {
-  font-family: 'ArialBold';
-  src: url('../fonts/arialbd.ttf');
-  src: url('../fonts/arialbd.ttf') format('truetype');
-  font-style: normal;
-  font-weight: normal;
-}
-
-html, body
-{
-  padding:0;
-  margin:0;
-  color:#fdfdfd;
-  font-family: "ArialRegular", ArialRegular, sans-serif;
-  font-size:13px;
-  line-height: 1.3;
-  min-width:320px;
-}
-body{
-  background: #080b09 url(../images/bg.jpg) no-repeat center center;
-  background-size: cover;
-}
-ul { list-style:none; padding:0;}
-img{ max-width:100%;}
-a, a:hover, a:focus, a:active{cursor:pointer; text-decoration: none; outline:0px !important}
-.mrg,.row {margin-left:0; margin-right:0;}
-.pdg,.container-fluid {padding-right:0; padding-left:0;}
-input, input:focus, textarea,textarea:focus,select, select:focus{outline:none;color:#080b09;}
-input[type='text'], input[type='text']:focus,input[type='search'], input[type='search']:focus, textarea,textarea:focus{margin:20px 0;	font-family: "ArialRegular", ArialRegular, sans-serif; color:#080b09;}
-select, select:focus{height: 30px;
-  min-width: 150px;
-  color:#080b09;
-}
-input[type='button'], input[type='button']:focus, button,button:focus, .btn, .btn:focus, .btn:hover{outline:none;box-shadow: none; border:none; margin:20px 0; background-color: #a4cdff;color:#080b09; }
+input[type='button'], input[type='button']:focus, button,button:focus, .btn, .btn:focus, .btn:hover{box-shadow: none; }
 h1,h2,h3,h4,h5{font-family: "ArialBold", ArialBold, sans-serif;color:#a4cdff;}
 
-.validationError {
-  color: #b50909;
-  font-weight: bold;
-}
-.admin-link li{display:inline-block; opacity:0.9;}
-.navbar-default {
-  background-color: #a4cdff;
-  opacity: 0.9;
-  border-color: transparent;
-  border:none;
-  height:50px;
-  margin-bottom:50px;
-}
-.navbar-default .navbar-nav
-{
-  padding-right:30px;
-}
-.navbar>.container .navbar-brand
-{
-  padding-top:10px;
-}
-.navbar-default .navbar-nav>li>a
-{
-  font-size:14px;
-  color:#080b09;
-  text-transform:uppercase;
-  -webkit-transition: all 0.4s ease 0s;
-  -moz-transition: all 0.4s ease 0s;
-  -ms-transition: all 0.4s ease 0s;
-  -o-transition: all 0.4s ease 0s;
-  transition: all 0.4s ease 0s;
-}
-.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus
-{
-  color:#777;
-  -webkit-transition: all 0.4s ease 0s;
-  -moz-transition: all 0.4s ease 0s;
-  -ms-transition: all 0.4s ease 0s;
-  -o-transition: all 0.4s ease 0s;
-  transition: all 0.4s ease 0s;
-}
-.content
-{
-  min-height:450px;
-  height:auto;
-}
 p.main
 {
   text-align:center;
@@ -290,38 +204,13 @@ p.main
   margin-top:60px;
   text-shadow:  1px 1px 1px black, 1px 1px 1em black;
 }
-label
-{
-  font-size:15px;
-  color:#a4cdff;
-  font-weight:normal;
-}
-table
-{
-  background-color:#a4cdff;
-  color:#080b09;
-}
-.table-bordered>thead>tr>th
-{
-  font-size:15px;
-  vertical-align: middle;
-  background-color:#a4cdff;
-  text-align:center;
-}
+
 .table-bordered>thead>tr>td, .table-bordered>thead>tr>th,
 .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th{vertical-align: middle;}
 input[type="date"]
 {
   max-width: 150px;
 }
-#foot
-{
-  width: 100%;
-  padding-left: 0;
-  padding-right: 0;
-  background-color:#080b09;
-}
-#foot p {padding:50px 0}
 .crud-form-control
 {
   display:inline-block;
@@ -353,10 +242,6 @@ input[type="date"]
 {
   background-color: #1c3385;
 }
-.modal-dialog
-{
-  width:80%;
-}
 .modal-content
 {  margin-top:70px;}
 .modal-content h4
@@ -371,10 +256,6 @@ input[type="date"]
 {
   padding:0 15px;
   border-top:none;
-}
-.modal-dialog
-{
-  z-index:2000;
 }
 .table-striped>tbody>tr:nth-of-type(even) {
   background-color: #c5ddfb;
