@@ -10,19 +10,21 @@
             </ul>
         </div>
 
-        <label for="">Login</label>
-        <input type="text" ng-model="login" placeholder="Login">  <br/><br/>
-        <label for="">Password</label>
-        <input type="password" ng-model="password" placeholder="Password">  <br/><br/>
-        <label for="">Repeat password</label>
-        <input type="password" ng-model="repeatPassword" placeholder="Password"> <br/><br/>
-        <label for="">Name</label>
-        <input type="text" ng-model="name" placeholder="Name"> <br/><br/>
-        <label for="">Surname</label>
-        <input type="text" ng-model="surname" placeholder="Surname"> <br/><br/>
-        <label for="">Email</label>
-        <input type="text" ng-model="email" placeholder="Email"> <br/><br/>
-        <label for="">Role</label> is <b>{{roleName}}</b> <br/><br/>
-        <button ng-click="update()">Edit</button>
+        <form>
+            <label for="">Login</label>
+            <input type="text" ng-model="login" placeholder="Login">  <br/><br/>
+            <label for="">Password</label>
+            <input type="password" ng-model="password" placeholder="Password">  <br/><br/>
+            <label for="">Repeat password</label>
+            <input type="password" ng-model="repeatPassword" placeholder="Password"> <br/><br/>
+            <label for="">Name</label>
+            <input type="text" ng-model="name" placeholder="Name"> <br/><br/>
+            <label for="">Surname</label>
+            <input type="text" ng-model="surname" placeholder="Surname"> <br/><br/>
+            <label for="">Email</label>
+            <input type="text" ng-model="email" placeholder="Email"> <br/><br/>
+            <label for="">Role is <b>{{roleName}}</b> </label> <br/>
+            <button ng-click="update()" class="btn btn-default btn-pop" type="submit">Edit</button><br/>
+        </form>
 
     </div>

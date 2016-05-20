@@ -1,5 +1,5 @@
 <div>
-    <label for="">Race choosing</label> <br/><br/>
+    <h3>Race choosing</h3>
     <div ng-show = "errors != null && errors.length > 0">
         <p>Errors:</p>
         <ul ng-repeat="error in errors" aria-dropeffect="popup">
@@ -17,7 +17,7 @@
         You also may use your ticket num to enter the train. <br />
     </p><br />
 
-    <table>
+    <table class="data-table">
         <caption>Ticket data</caption>
         <tr><td>Route name:</td>        <td>{{race.name}}</td></tr>
         <tr><td>Departure station:</td> <td>{{race.departureStationName}}</td></tr>

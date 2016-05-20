@@ -1,10 +1,13 @@
 <div>
-    <p>
+    <h3>Last step page</h3>
+    <p class="center">
+        Congratulations!!!
         You've bought ticket!!!
+        We're surprised, too!!!
     </p><br />
 
 
-    <table>
+    <table class="data-table">
         <caption>Ticket data</caption>
         <tr><td>Ticket number:</td>     <td>{{race.ticketNum}}</td></tr>
         <tr><td>Route name:</td>        <td>{{race.name}}</td></tr>
@@ -17,12 +20,18 @@
         <tr><td>Cost:</td>              <td>{{race.cost}}</td></tr>
     </table>
 
-    <br/>
-    <label>Download ticket</label>
-    <a href="/doc/ticket?id={{race.ticketNum}}&format=PDF" class="btn btn-default">Pdf</a>
-    <a href="/doc/ticket?id={{race.ticketNum}}&format=XLS" class="btn btn-default">Xls</a>
-    <a href="/doc/ticket?id={{race.ticketNum}}&format=CSV" class="btn btn-default">Csv</a>
+    <br/><br/>
 
+    <table class="center-table">
+        <caption>Download ticket</caption>
+        <tbody>
+        <tr>
+            <td><a href="/doc/ticket?id={{race.ticketNum}}&format=PDF" class="btn btn-default">Pdf</a></td>
+            <td><a href="/doc/ticket?id={{race.ticketNum}}&format=XLS" class="btn btn-default">Xls</a></td>
+            <td><a href="/doc/ticket?id={{race.ticketNum}}&format=CSV" class="btn btn-default">Csv</a></td>
+        </tr>
+        </tbody>
+    </table>
     <br/><br/>
     <a href="/" class="btn btn-default">Go to start</a>
 </div>

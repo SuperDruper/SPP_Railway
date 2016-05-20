@@ -1,4 +1,5 @@
-body{
+body
+{
     width: 100%;
     overflow-x: hidden;
     position: absolute;
@@ -9,41 +10,50 @@ body{
     background-position: center;
     background-attachment: fixed;
 }
-.to_white{
+.to_white
+{
     position: absolute;
     width: 100%;
     background-color: rgba(255,255,255,0.6);
 }
-html{
+html
+{
     min-height: 100%;
 }
 .container-fluid,
-.container{
+.container
+{
 	padding: 0 !important;
 }
 
-.admin-link{
+.admin-link
+{
 	overflow: hidden;
 }
-.admin-link li{
+.admin-link li
+{
 	display: block;
 	float: left;
 	width: 228px;
 }
-@media screen and (max-width: 767px){
-    .admin-link li{
+@media screen and (max-width: 767px)
+{
+    .admin-link li
+    {
         float: left;
         width: 50%;
         max-width: 228px;
         margin: 0 auto;
     }
-    .admin-link li a{
+    .admin-link li a
+    {
         max-width: 205px;
         margin: 0 auto 15px;
         width: 95%;
     }
 }
-.admin-link li a{
+.admin-link li a
+{
 	display: block;
     width: 205px;
     margin: 0 auto 15px;
@@ -59,23 +69,28 @@ html{
     transition: 0.1s;
 }
 .admin-link li a:hover,
-.admin-link li a:active{
+.admin-link li a:active
+{
 	background-color: #666;
 	color: #fff;
 }
 
-.navbar {
+.navbar
+{
     margin-bottom: 50px;
     min-height: 50px;
     background-color: #080b09;
     color: #e7e7e7;
 }
-h3{
+h3
+{
     text-align: center;
     font-size: 28px;
-    margin: 25px 0;
+    margin: 25px 0 40px;
+    color:#080b09;
 }
-.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+.navbar-default .navbar-collapse, .navbar-default .navbar-form
+{
     border-color: #e7e7e7;
     background-color: #080b09;
     text-align: center;
@@ -85,32 +100,36 @@ h3{
 }
 
 .navbar-toggle:focus,
-.navbar-toggle{
+.navbar-toggle
+{
     margin-top: 8px;
     margin-right: 30px;
     margin-bottom: 8px;
     background-color: #080b09;
     border: 1px solid #ddd;
 }
-.navbar-default .navbar-nav {
+.navbar-default .navbar-nav
+{
     margin: 0;
     padding: 0;
 }
-.table{
-}
+
 @media screen and (max-width: 767px) {
-    .navbar-default .navbar-nav {
+    .navbar-default .navbar-nav
+{
         padding: 15px 0;
     }
 }
-.not-footer{
+.not-footer
+{
     box-sizing: border-box;
     min-height: 100vh;
     padding-bottom: 130px;
 }
 
 
-.ng-scope label{
+.ng-scope label
+{
     display: block;
     max-width: 100%;
     margin-bottom: 5px;
@@ -118,7 +137,7 @@ h3{
     font-weight: 700;
     text-align: center;
     text-transform: uppercase;
-    color: #000;
+    color: #080b09;
 }
 .ng-scope input[type="text"],
 .ng-scope input[type="password"],
@@ -135,13 +154,19 @@ h3{
     padding: 0 15px;
     box-sizing: border-box;
 }
-
+.center
+{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
 datetimepicker[hidden-time="true"] .datetimepicker-wrapper
 {
     display:block;
 }
 .datetimepicker-wrapper input,
-.datetimepicker-wrapper button{
+.datetimepicker-wrapper button
+{
     diplay: inline-block;
     text-align: center;
     vertical-align: middle;
@@ -152,53 +177,63 @@ datetimepicker[hidden-time="true"] .datetimepicker-wrapper
 .ng-scope input[type="button"]{
     margin: 30px auto 0;
     display: block;
-    width: 100px;
+    min-width: 200px;
     height: 45px;
     border: solid 1px #999;
     outline: none;
 }
-.login_block{
-    margin-top: 80px;
+.login_block
+{
+    margin-top: 0;
 }
 .registr_block,
-.user_crud_block{
+.user_crud_block
+{
     overflow: hidden;
 }
 .left,
-.right{
+.right
+{
     width: 50%;
     float: left;
 }
 @media screen and (max-width: 767px){
     .left,
-    .right{
+    .right
+{
         width: 100%;
         float: left;
     }
 }
-.title_block{
+.title_block
+{
     font-size: 28px;
 }
 
-.table-striped{
+.table-striped
+{
     border-collapse:collapse;
     width: 100%;
 }
 .table-striped select,
-.table-striped input{
+.table-striped input
+{
     min-width: 60px !important;
     width: 90% !important;
     margin: 20px auto !important;
 }
-.table-striped tr td{
+.table-striped tr td
+{
     border: solid 1px #666 !important;
 }
 .table-striped>tbody>tr:nth-of-type(even),
 .table-striped tr td,
-.table-striped tr{
+.table-striped tr
+{
     background-color: rgba(255,255,255,0.5) !important;
 }
-.table-striped>tbody>tr:nth-of-type(even) td{
+.table-striped>tbody>tr:nth-of-type(even) td
+{
     border: solid 1px #666 !important;
     vertical-align: middle;
 }
@@ -208,11 +243,21 @@ datetimepicker[hidden-time="true"] .datetimepicker-wrapper
     background-color: #fff;
     max-width: 100px;
 }
-.table-striped input[type="button"]:hover{
+.table-striped input[type="button"]:hover
+{
     background: rgba(240,240,240,0.8);
-    color: #000;
+    color: #080b09;
 }
-.blackout{
+caption
+{
+    font-size: 20px;
+    text-align: center;
+    color: inherit;
+    padding-bottom: 20px
+}
+
+.blackout
+{
     position: absolute;
     width: 100%;
     height: 100%;
@@ -222,7 +267,8 @@ datetimepicker[hidden-time="true"] .datetimepicker-wrapper
     top: 0;
     left: 0;
 }
-.blackout .close{
+.blackout .close
+{
     position: absolute;
     color: #eee;
     font-weight: 700;
@@ -231,7 +277,8 @@ datetimepicker[hidden-time="true"] .datetimepicker-wrapper
     right: 40px;
     cursor: pointer;
 }
-.popup{
+.popup
+{
     width: 80%;
     max-width: 1170px;
     position: absolute;
@@ -240,7 +287,8 @@ datetimepicker[hidden-time="true"] .datetimepicker-wrapper
     top: 0px;
     transform: translate(-50%, 0);
 }
-.error_block{
+.error_block
+{
     z-index: 200;
     color: #fff;
     position: absolute;

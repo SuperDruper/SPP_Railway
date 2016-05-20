@@ -1,5 +1,6 @@
 <div>
     <label class="title_block" for="">Registration</label>
+
     <div class="error_block">
         <ul ng-repeat="error in errors">
             <li class="validationError">
@@ -7,25 +8,28 @@
             </li>
         </ul>
     </div>
-    <div class="form-group registr_block">
-        <div class="left">
-            <label for="">Login</label>
-            <input type="text" ng-model="login" class="form-control" placeholder="Login" required>  <br/>
-            <label for="">Password</label>
-            <input type="password" ng-model="password" class="form-control" placeholder="Password" required>  <br/>
-            <label for="">Repeat password</label>
-            <input type="password" ng-model="repeatPassword" class="form-control" placeholder="Password" required>  <br/>
+
+    <form>
+        <div class="form-group registr_block">
+            <div class="left">
+                <label for="">Login</label>
+                <input type="text" ng-model="login" class="form-control" placeholder="Login" required>  <br/>
+                <label for="">Password</label>
+                <input type="password" ng-model="password" class="form-control" placeholder="Password" required>  <br/>
+                <label for="">Repeat password</label>
+                <input type="password" ng-model="repeatPassword" class="form-control" placeholder="Password" required>  <br/>
+            </div>
+            <div class="right">
+                <label for="">Name</label>
+                <input type="text" ng-model="name" class="form-control" placeholder="Name" required> <br/>
+                <label for="">Surname</label>
+                <input type="text" ng-model="surname" class="form-control" placeholder="Surname" required> <br/>
+                <label for="">Email</label>
+                <input type="text" ng-model="email" class="form-control" placeholder="Email" required> <br/>
+            </div>
+            <button type="submit" class="btn btn-default btn-pop" ng-click="register()">Register</button>
         </div>
-        <div class="right">
-            <label for="">Name</label>
-            <input type="text" ng-model="name" class="form-control" placeholder="Name" required> <br/>
-            <label for="">Surname</label>
-            <input type="text" ng-model="surname" class="form-control" placeholder="Surname" required> <br/>
-            <label for="">Email</label>
-            <input type="text" ng-model="email" class="form-control" placeholder="Email" required> <br/>
-        </div>
-        <button type="submit" class="btn btn-default btn-pop" ng-click="register()">Register</button>
-    </div>
+    </form>
     <script>
         $(".btn-pop").click(function(){
             setTimeout(function (){
