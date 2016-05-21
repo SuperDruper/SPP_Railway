@@ -13,22 +13,23 @@
 
     <div class="form-group">
         <label for="">Order date</label>
-        <datetimepicker
-                hour-step="hourStep"
-                minute-step="minuteStep" ng-model="orderDate" show-meridian="showMeridian"
-                date-format="{{format}}" date-options="dateOptions"
-                date-disabled="disabled(date, mode)"
-                datepicker-append-to-body="false"
-                readonly-date="false"
-                hidden-time="false"
-                hidden-date="false"
-                name="datetimepicker"
-                show-spinners="true"
-                readonly-time="false"
-                required
-                >
-            <!-- Use date-ng-click="open($event, opened)" to override date ng-click -->
-        </datetimepicker>
+        <div style="width: 5%">
+                    <datetimepicker
+                            hour-step="hourStep"
+                            minute-step="minuteStep" ng-model="orderDate" show-meridian="showMeridian"
+                            date-format="{{format}}" date-options="dateOptions"
+                            date-disabled="disabled(date, mode)"
+                            datepicker-append-to-body="false"
+                            readonly-date="false"
+                            hidden-time="false"
+                            hidden-date="false"
+                            name="datetimepicker"
+                            show-spinners="true"
+                            readonly-time="false"
+                            required
+                            >
+                    </datetimepicker>
+        </div>
 
         <label for="">Place number</label>
         <input type="number" ng-model="placeNumber" class="form-control" placeholder="Place number" required>
@@ -150,11 +151,12 @@
     <script>
         $(".btn-pop").click(function(){
             setTimeout(function (){
-                $('.blackout').fadeIn(600);
+
                 var errors = document.querySelectorAll(".error_block ul");
                 if(errors.length == 0)
                     $('.popup').fadeIn(600);
-                else{
+                else {
+                    $('.blackout').fadeIn(600);
                     $('.error_block').fadeIn(600);
                 }
             },1000);

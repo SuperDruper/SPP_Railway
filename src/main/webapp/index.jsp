@@ -84,16 +84,16 @@
         <div class="col-xs-12">
           <div ng-show="roleId == 1">
             <ul class="admin-link">
-              <li><a class="main_btn" href="/user/list">Users</a></li>
-              <li><a class="main_btn" href="/ticket/crud">Tickets</a></li>
-              <li><a class="main_btn" href="/train/crud">Train CRUD</a></li>
-              <li><a class="main_btn" href="/role/crud">Role CRUD</a></li>
-              <li><a class="main_btn" href="/race/crud">Race CRUD</a></li>
-              <li><a class="main_btn" href="/race_station/crud">RaceStation CRUD</a></li>
-              <li><a class="main_btn" href="/station_distance/crud">station_distance CRUD</a></li>
-              <li><a class="main_btn" href="/station/crud">station CRUD</a></li>
-              <li><a class="main_btn" href="/route/crud">route CRUD</a></li>
-              <li><a class="main_btn" href="/train_type/crud">TrainType CRUD</a></li>
+              <li><a class="main_btn" href="/user/list">Users management</a></li>
+              <li><a class="main_btn" href="/ticket/crud">Tickets management</a></li>
+              <li><a class="main_btn" href="/train/crud">Train management</a></li>
+              <li><a class="main_btn" href="/role/crud">Role management</a></li>
+              <li><a class="main_btn" href="/race/crud">Race management</a></li>
+              <li><a class="main_btn" href="/race_station/crud">RaceStation management</a></li>
+              <li><a class="main_btn" href="/station_distance/crud">Station Distance management</a></li>
+              <li><a class="main_btn" href="/station/crud">Station management</a></li>
+              <li><a class="main_btn" href="/route/crud">Route management</a></li>
+              <li><a class="main_btn" href="/train_type/crud">Train Type management</a></li>
 
             </ul>
           </div>
@@ -246,6 +246,7 @@
     if(errors.length == 0)
       $('.popup').fadeIn(600);
     else{
+      $('.blackout').fadeIn(600);
       $('.error_block').fadeIn(600);
     }
   });

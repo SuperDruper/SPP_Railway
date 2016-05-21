@@ -77,11 +77,11 @@
             $('.popup').css({"display":"none"});
             $(".btn-pop").click(function(){
                 setTimeout(function (){
-                    $('.blackout').fadeIn(600);
                     var errors = document.querySelectorAll(".error_block ul");
                     if(errors.length == 0)
                         $('.popup').fadeIn(600);
                     else{
+                        $('.blackout').fadeIn(600);
                         $('.error_block').fadeIn(600);
                     }
                 },1000);
