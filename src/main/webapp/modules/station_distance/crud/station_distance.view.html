@@ -31,12 +31,15 @@
 
     <div>
         <table class="table table-bordered table-striped">
+            <thead>
             <tr>
                 <th>Station from</th>
                 <th>Station to</th>
                 <th>Distance</th>
                 <th colspan="2">Actions</th>
             </tr>
+            </thead>
+            <tbody>
             <tr ng-repeat="stationDistance in stationDistances">
                     <td>
                         <select ng-model="defaultSelectedStationFrom"
@@ -77,6 +80,7 @@
                     <input type="button" value="Remove" class="btn btn-primary" ng-click="tryToRemoveRow(stationDistance)"/>
                 </td>
             </tr>
+            </tbody>
         </table>
     </div>
             <script>
