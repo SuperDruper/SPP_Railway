@@ -4,7 +4,6 @@
         "http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-
     <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
     <constant name="struts.devMode" value="true"/>
     
@@ -13,8 +12,6 @@
     <constant name="struts.enable.SlashesInActionNames" value="true" />
     <constant name="struts.mapper.alwaysSelectFullNamespace" value="false" />
 
-
-    
     <package name="def" extends="struts-default, json-default">
         <interceptors>
             <interceptor name="authorize" class="code.interceptors.AuthorizeInterceptor" />

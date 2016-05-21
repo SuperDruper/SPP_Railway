@@ -10,6 +10,14 @@
 
     <div class="table-responsive">
         <div class="table-striped table-bordered text-center">
+    <div class="error_block">
+        <p>ERROR list:</p>
+        <ul ng-repeat="error in errors">
+            <li class="validationError">
+                {{error}}
+            </li>
+        </ul>
+    </div>
 
             <div class="error_block">
                 <p>ERROR list:</p>

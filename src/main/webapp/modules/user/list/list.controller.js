@@ -1,9 +1,8 @@
 app.controller('UserListController', function ($scope, UserListService, Service) {
     $scope.errors = [];
 
-    $scope.removeRow = function(id){
+    $scope.tryToRemoveRow = function(id) {
         var index = -1;
-        $scope.errors = [];
         var comArr = eval( $scope.users );
         for( var i = 0; i < comArr.length; i++ ) {
             if( comArr[i].id === id ) {
@@ -11,10 +10,27 @@ app.controller('UserListController', function ($scope, UserListService, Service)
                 break;
             }
         }
+
         if( index === -1 ) {
-            alert( "Cannot find element in list" );
+            alert( "Something gone wrong" );
         } else {
-            const object = comArr[index];
+            const Message = "Are you sure you want to delete user \'" + comArr[index].name + "\' ?";
+            $scope.objectForDeleteOpearion = comArr[index];
+            $scope.indexOFObjectForDeleteOpearion = index;
+
+            bootbox.confirm({
+                    message: Message ,
+                    callback: function(result) {
+                        if(result == true) {
+                            removeRow($scope.objectForDeleteOpearion, $scope.indexOFObjectForDeleteOpearion);
+                        }
+                    },
+                    title: "Delete confirmation"}
+            );
+        }
+    };
+
+    function removeRow(object, index){
             const action = {
                 id : 2
             };
@@ -26,7 +42,6 @@ app.controller('UserListController', function ($scope, UserListService, Service)
                         $scope.users.splice(index, 1);
                     }
                 });
-        }
     };
 
     $scope.updateRoleForUser = function(user, roleId) {

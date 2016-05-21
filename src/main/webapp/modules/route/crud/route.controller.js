@@ -4,9 +4,8 @@
 app.controller('RouteController', function ($scope, $window, RouteService) {
     $scope.errors = [];
 
-    $scope.removeRow = function(id){
+    $scope.tryToRemoveRow = function(id) {
         var index = -1;
-        $scope.errors = [];
         var comArr = eval( $scope.routes );
         for( var i = 0; i < comArr.length; i++ ) {
             if( comArr[i].id === id ) {
@@ -14,10 +13,27 @@ app.controller('RouteController', function ($scope, $window, RouteService) {
                 break;
             }
         }
+
         if( index === -1 ) {
             alert( "Something gone wrong" );
         } else {
-            const object = comArr[index];
+            const Message = "Are you sure you want to delete route \'" + comArr[index].name + "\' ?";
+            $scope.objectForDeleteOpearion = comArr[index];
+            $scope.indexOFObjectForDeleteOpearion = index;
+
+            bootbox.confirm({
+                    message: Message ,
+                    callback: function(result) {
+                        if(result == true) {
+                            removeRow($scope.objectForDeleteOpearion, $scope.indexOFObjectForDeleteOpearion);
+                        }
+                    },
+                    title: "Delete confirmation"}
+            );
+        }
+    };
+
+    function removeRow(object, index){
             const action = {
                 id : 2
             };
@@ -30,7 +46,6 @@ app.controller('RouteController', function ($scope, $window, RouteService) {
                         $scope.routes.splice(index, 1);
                     }
                 });
-        }
     };
 
     $scope.updateRow = function(id){

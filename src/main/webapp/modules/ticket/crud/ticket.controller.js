@@ -65,22 +65,36 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
         $scope.date.setHours(1);
     };
 
-
-
-    $scope.removeRow = function(id){
+    $scope.tryToRemoveRow = function(id) {
         var index = -1;
-        $scope.errors = [];
         var comArr = eval( $scope.tickets );
         for( var i = 0; i < comArr.length; i++ ) {
-            if( comArr[i].id === id ) {
+            if( comArr[i] == id ) {
                 index = i;
                 break;
             }
         }
+
         if( index === -1 ) {
             alert( "Something gone wrong" );
         } else {
-            const object = comArr[index];
+            const Message = "Are you sure you want to delete this ticket ?";
+            $scope.objectForDeleteOpearion = comArr[index];
+            $scope.indexOFObjectForDeleteOpearion = index;
+
+            bootbox.confirm({
+                    message: Message ,
+                    callback: function(result) {
+                        if(result == true) {
+                            removeRow($scope.objectForDeleteOpearion, $scope.indexOFObjectForDeleteOpearion);
+                        }
+                    },
+                    title: "Delete confirmation"}
+            );
+        }
+    };
+
+    function removeRow(object, index){
             const action = {
                 id : 2
             };
@@ -93,8 +107,6 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
                         $scope.tickets.splice(index, 1);
                     }
                 });
-        }
-
     };
     $scope.updateRaceForTicket = function(ticket, raceId) {
         var comTrainTypesArr = eval( $scope.races );

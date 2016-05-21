@@ -171,6 +171,9 @@
 
 <script src="<s:url value="js/lib/angular/angular-route.min.js" />"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="<s:url value="js/lib/bootstrap/bootbox.min.js" />"></script>
+
 <script src="<s:url value="modules/app.js" />"></script>
 <script src="<s:url value="shared/service.js" />"></script>
 <script src="<s:url value="shared/user_role_name.service.js" />"></script>
