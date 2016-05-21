@@ -90,7 +90,7 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
 
         var smth = RoleService.register({role:object, action: action})
             .then(function(data) {
-                if(data.errorList.length > 0) {}
+                if(data.errorList.length )
                 $scope.errors.push.apply($scope.errors, data.errorList);
 
                 $scope.asyncRequestComplited = true;

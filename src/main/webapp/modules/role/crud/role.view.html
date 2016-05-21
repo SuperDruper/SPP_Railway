@@ -36,8 +36,10 @@
             </tbody>
         </table>
     </div>
+
+
             <script>
-                $(".btn-pop").click(function(){
+                $(".btn-pop").click(function() {
                     setTimeout(function (){
 
                         var errors = document.querySelectorAll(".error_block ul");
@@ -45,7 +47,9 @@
                             $('.popup').fadeIn(600);
                         else{
                             $('.blackout').fadeIn(600);
-                            $('.error_block').fadeIn(600);
+                            $('.error_block').fadeIn(600, function() {
+
+                            });
                         }
                     },1000);
                 });

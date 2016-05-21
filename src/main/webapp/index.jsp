@@ -84,16 +84,16 @@
         <div class="col-xs-12">
           <div ng-show="roleId == 1">
             <ul class="admin-link">
-              <li><a class="main_btn" href="/user/list">Users management</a></li>
-              <li><a class="main_btn" href="/ticket/crud">Tickets management</a></li>
-              <li><a class="main_btn" href="/train/crud">Train management</a></li>
-              <li><a class="main_btn" href="/role/crud">Role management</a></li>
-              <li><a class="main_btn" href="/race/crud">Race management</a></li>
-              <li><a class="main_btn" href="/race_station/crud">RaceStation management</a></li>
-              <li><a class="main_btn" href="/station_distance/crud">Station Distance management</a></li>
-              <li><a class="main_btn" href="/station/crud">Station management</a></li>
-              <li><a class="main_btn" href="/route/crud">Route management</a></li>
-              <li><a class="main_btn" href="/train_type/crud">Train Type management</a></li>
+              <li><a class="main_btn" href="/user/list">Users m-t</a></li>
+              <li><a class="main_btn" href="/ticket/crud">Tickets m-t</a></li>
+              <li><a class="main_btn" href="/train/crud">Train m-t</a></li>
+              <li><a class="main_btn" href="/role/crud">Role m-t</a></li>
+              <li><a class="main_btn" href="/race/crud">Race m-t</a></li>
+              <li><a class="main_btn" href="/race_station/crud">RaceStation m-t</a></li>
+              <li><a class="main_btn" href="/station_distance/crud">Station Distance m-t</a></li>
+              <li><a class="main_btn" href="/station/crud">Station m-t</a></li>
+              <li><a class="main_btn" href="/route/crud">Route m-t</a></li>
+              <li><a class="main_btn" href="/train_type/crud">Train Type m-t</a></li>
 
             </ul>
           </div>

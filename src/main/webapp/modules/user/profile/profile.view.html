@@ -1,9 +1,9 @@
     <div>
         <h3>Your profile</h3>
 
-        <div ng-show = "errors">
-            <p>Errors:</p>
-            <ul ng-repeat="error in errors" aria-dropeffect="popup">
+        <div  class="error_block">
+            <p>ERROR list:</p>
+            <ul ng-repeat="error in errors">
                 <li class="validationError">
                     {{error}}
                 </li>
@@ -24,7 +24,26 @@
             <label for="">Email</label>
             <input type="text" ng-model="email" placeholder="Email" required> <br/><br/>
             <label for="">Role is <b>{{roleName}}</b> </label> <br/>
-            <button ng-click="update()" class="btn btn-default btn-pop" type="submit">Edit</button><br/>
+            <button ng-click="update()" class="btn btn-pop" type="submit">Edit</button><br/>
         </form>
 
+        <script>
+            $(".btn-pop").click(function(){
+                setTimeout(function (){
+
+                    var errors = document.querySelectorAll(".error_block ul");
+                    if(errors.length == 0)
+                        $('.popup').fadeIn(600);
+                    else {
+                        $('.blackout').fadeIn(600);
+                        $('.error_block').fadeIn(600);
+                    }
+                },1000);
+            });
+            $(".blackout .close").click(function(){
+                $('.blackout').fadeOut(600);
+                $('.popup').fadeOut(600);
+                $('.error_block').fadeOut(600);
+            });
+        </script>
     </div>
