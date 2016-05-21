@@ -4,9 +4,8 @@
 app.controller('RoleController', function ($scope, $window, RoleService) {
     $scope.errors = [];
 
-    $scope.removeRow = function(id){
+    $scope.tryToRemoveRow = function(id) {
         var index = -1;
-        $scope.errors = [];
         var comArr = eval( $scope.roles );
         for( var i = 0; i < comArr.length; i++ ) {
             if( comArr[i].id === id ) {
@@ -14,10 +13,27 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
                 break;
             }
         }
+
         if( index === -1 ) {
             alert( "Something gone wrong" );
         } else {
-            const object = comArr[index];
+            const Message = "Are you sure you want to delete role \'" + comArr[index].name + "\' ?";
+            $scope.objectForDeleteOpearion = comArr[index];
+            $scope.indexOFObjectForDeleteOpearion = index;
+
+            bootbox.confirm({
+                    message: Message ,
+                    callback: function(result) {
+                        if(result == true) {
+                            removeRow($scope.objectForDeleteOpearion, $scope.indexOFObjectForDeleteOpearion);
+                        }
+                    },
+                    title: "Delete confirmation"}
+            );
+        }
+    };
+
+    function removeRow(object, index){
             const action = {
                 id : 2
             };
@@ -30,8 +46,6 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
                         $scope.roles.splice(index, 1);
                     }
                 });
-        }
-
     };
     $scope.updateRow = function(id){
         var index = -1;

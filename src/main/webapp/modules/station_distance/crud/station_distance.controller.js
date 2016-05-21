@@ -7,20 +7,37 @@ app.controller('StationDistanceController', function ($scope, $window, StationDi
     $scope.stationTo = '';
     $scope.distance = '';
 
-    $scope.removeRow = function(stationDistance){
+    $scope.tryToRemoveRow = function(id) {
         var index = -1;
-        $scope.errors = [];
         var comArr = eval( $scope.stationDistances );
         for( var i = 0; i < comArr.length; i++ ) {
-            if( comArr[i] == stationDistance ) {
+            if( comArr[i] == id ) {
                 index = i;
                 break;
             }
         }
+
         if( index === -1 ) {
             alert( "Something gone wrong" );
         } else {
-            const object = comArr[index];
+            const Message = "Are you sure you want to delete station distance from station number \'" + comArr[index].stIdFrom + "\' to \'" +  comArr[index].stIdTo  + "\' ?";
+            $scope.objectForDeleteOpearion = comArr[index];
+            $scope.indexOFObjectForDeleteOpearion = index;
+
+            bootbox.confirm({
+                    message: Message ,
+                    callback: function(result) {
+                        if(result == true) {
+                            removeRow($scope.objectForDeleteOpearion, $scope.indexOFObjectForDeleteOpearion);
+                        }
+                    },
+                    title: "Delete confirmation"}
+            );
+        }
+    };
+
+
+    function removeRow(object, index){
             const action = {
                 id : 2
             };
@@ -33,8 +50,6 @@ app.controller('StationDistanceController', function ($scope, $window, StationDi
                         $scope.stationDistances.splice(index, 1);
                     }
                 });
-        }
-
     };
     $scope.updateRow = function(stationDistance){
         var index = -1;

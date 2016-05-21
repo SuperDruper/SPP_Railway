@@ -53,7 +53,7 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
 
     $scope.errors = [];
 
-    $scope.removeRow = function(id){
+    $scope.tryToRemoveRow = function(id) {
         var index = -1;
         var comArr = eval( $scope.raceStations );
         for( var i = 0; i < comArr.length; i++ ) {
@@ -62,10 +62,27 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
                 break;
             }
         }
+
         if( index === -1 ) {
             alert( "Something gone wrong" );
         } else {
-            const object = comArr[index];
+            const Message = "Are you sure you want to delete race station \'" + comArr[index].race_station_numbr + "\' ?";
+            $scope.objectForDeleteOpearion = comArr[index];
+            $scope.indexOFObjectForDeleteOpearion = index;
+
+            bootbox.confirm({
+                    message: Message ,
+                    callback: function(result) {
+                        if(result == true) {
+                            removeRow($scope.objectForDeleteOpearion, $scope.indexOFObjectForDeleteOpearion);
+                        }
+                    },
+                    title: "Delete confirmation"}
+            );
+        }
+    };
+
+    function removeRow(object, index){
             const action = {
                 id : 2
             };
@@ -77,7 +94,6 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
                         $scope.raceStations.splice(index, 1);
                     }
                 });
-        }
     };
     $scope.updateRow = function(id){
         var index = -1;
