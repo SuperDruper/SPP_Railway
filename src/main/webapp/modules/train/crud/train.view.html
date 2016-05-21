@@ -29,31 +29,28 @@
 
     <table class="table table-bordered table-striped">
 <div class="table-responsive">
-    <table class="table table-bordered table-striped text-center popup">
-        <thead>
-            <tr>
-                <th>Number</th>
-                <th>Carriage amount</th>
-                <th>Type</th>
-                <th colspan="2">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="train in trains | orderBy:'id'">
-                <td><input type="number" name="Train number" ng-model="train.train_number"></td>
-                <td><input type="number" name="Carriage amount" ng-model="train.carriageAmount" required></td>
-                <td>
-                    <select ng-model="defaultSelectedTrainType"
-                            ng-init="defaultSelectedTrainType = train.trainType.id"
-                            ng-change="updateTrainTypeForTrain(train, defaultSelectedTrainType)" required>
-                        <!--<option value="">--- Select an option ---</option>-->
-                        <option ng-selected= "{{trainType.id == defaultSelectedTrainType}}"
-                                ng-repeat="trainType in trainTypes"
-                                value="{{trainType.id}}">
-                                {{trainType.name}}
-                        </option>
-                    </select>
-                </td>
+    <table class="table table-bordered table-striped text-center">
+        <tr>
+            <td>Id(Number)</td>
+            <td>Carriage amount</td>
+            <td>Type</td>
+            <th colspan="2">Actions</th>
+        </tr>
+        <tr ng-repeat="train in trains | orderBy:'id'">
+            <td><input type="number" name="Train number" ng-model="train.train_number" required></td>
+            <td><input type="number" name="Carriage amount" ng-model="train.carriageAmount" required></td>
+            <td>
+                <select ng-model="defaultSelectedTrainType"
+                        ng-init="defaultSelectedTrainType = train.trainType.id"
+                        ng-change="updateTrainTypeForTrain(train, defaultSelectedTrainType)">
+                    <!--<option value="">--- Select an option ---</option>-->
+                    <option ng-selected= "{{trainType.id == defaultSelectedTrainType}}"
+                            ng-repeat="trainType in trainTypes"
+                            value="{{trainType.id}}">
+                            {{trainType.name}}
+                    </option>
+                </select>
+            </td>
 
                 <td>
                     <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(train.id)"/>

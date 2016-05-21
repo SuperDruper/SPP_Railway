@@ -9,38 +9,22 @@
     </div>
 
     <div class="table-responsive">
-        <div class="table-striped table-bordered text-center">
-            <div class="error_block">
-                <p>ERROR list:</p>
-                <ul ng-repeat="error in errors">
-                    <li class="validationError">
-                        {{error}}
-                    </li>
-                </ul>
-            </div>
+        <table class="table-striped table-bordered text-center popup">
+        <tr>
+            <td>Name</td>
+            <th colspan="2">Actions</th>
+        </tr>
+        <tr ng-repeat="station in stations | orderBy:'id'">
+            <td><input type="text" name="Name" ng-model="station.name" required></td>
 
-            <table class="table table-bordered table-striped popup">
-                <thead>
-                <tr>
-                    <th>Station name</th>
-                    <th colspan="2">Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="station in stations | orderBy:'id'">
-                    <td><input type="text" name="Name" ng-model="station.name" required></td>
-
-                    <td>
-                        <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(station.id)"/>
-                    </td>
-                    <td>
-                        <input type="button" value="Remove" class="btn btn-primary" ng-click="tryToRemoveRow(station.id)"/>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-
+            <td>
+                <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(station.id)"/>
+            </td>
+            <td>
+                <input type="button" value="Remove" class="btn btn-primary" ng-click="tryToRemoveRow(station.id)"/>
+            </td>
+        </tr>
+    </table>
         <script>
             $(".btn-pop").click(function(){
                 setTimeout(function (){
