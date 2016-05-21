@@ -2,16 +2,19 @@
     <h3>TRAIN CRUD</h3>
 
     <div class="form-group">
-        <label for="">Train ID(name)</label>
+        <label for="">Train number</label>
         <input class="form-control" type="number" ng-model="trainId" placeholder="Identifier">  <br/>
-        <label for="">Train carriage count</label>
-        <input type="number" ng-model="trainCarriageAmount" class="form-control" placeholder="Carriage amount">  <br/>
-        <label for="">Train type</label>
 
-        <select name="trainType" id="trainType" ng-model="trainTypeToCreate" ng-init="trainTypes[0]">
+        <label for="">Train carriage count</label>
+        <input type="number" ng-model="trainCarriageAmount" class="form-control" placeholder="Carriage amount" required>
+        <br/>
+
+        <label for="">Train type</label>
+        <select name="trainType" id="trainType" ng-model="trainTypeToCreate" ng-init="trainTypes[0]" required>
             <option ng-repeat="trainType in trainTypes" value="{{trainType.id}}">{{trainType.name}}</option>
         </select>
         <br/>
+
         <!--<input type="number" ng-model="trainType" class="form-control" placeholder="Train type id"> <br/><br/>-->
         <button type="submit" class="btn btn-default btn-pop" ng-click="register()">Create</button>
     </div>
@@ -27,35 +30,39 @@
     <table class="table table-bordered table-striped">
 <div class="table-responsive">
     <table class="table table-bordered table-striped text-center popup">
-        <tr>
-            <td>Id(Number)</td>
-            <td>Carriage amount</td>
-            <td>Type</td>
-            <td>Actions</td>
-        </tr>
-        <tr ng-repeat="train in trains | orderBy:'id'">
-            <td><input type="number" name="Train number" ng-model="train.train_number" required></td>
-            <td><input type="number" name="Carriage amount" ng-model="train.carriageAmount" required></td>
-            <td>
-                <select ng-model="defaultSelectedTrainType"
-                        ng-init="defaultSelectedTrainType = train.trainType.id"
-                        ng-change="updateTrainTypeForTrain(train, defaultSelectedTrainType)">
-                    <!--<option value="">--- Select an option ---</option>-->
-                    <option ng-selected= "{{trainType.id == defaultSelectedTrainType}}"
-                            ng-repeat="trainType in trainTypes"
-                            value="{{trainType.id}}">
-                            {{trainType.name}}
-                    </option>
-                </select>
-            </td>
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Carriage amount</th>
+                <th>Type</th>
+                <th colspan="2">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="train in trains | orderBy:'id'">
+                <td><input type="number" name="Train number" ng-model="train.train_number"></td>
+                <td><input type="number" name="Carriage amount" ng-model="train.carriageAmount" required></td>
+                <td>
+                    <select ng-model="defaultSelectedTrainType"
+                            ng-init="defaultSelectedTrainType = train.trainType.id"
+                            ng-change="updateTrainTypeForTrain(train, defaultSelectedTrainType)" required>
+                        <!--<option value="">--- Select an option ---</option>-->
+                        <option ng-selected= "{{trainType.id == defaultSelectedTrainType}}"
+                                ng-repeat="trainType in trainTypes"
+                                value="{{trainType.id}}">
+                                {{trainType.name}}
+                        </option>
+                    </select>
+                </td>
 
-            <td>
-                <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(train.id)"/>
-            </td>
-            <td>
-                <input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(train.id)"/>
-            </td>
-        </tr>
+                <td>
+                    <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(train.id)"/>
+                </td>
+                <td>
+                    <input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(train.id)"/>
+                </td>
+            </tr>
+        </tbody>
     </table>
     <script>
         $(".btn-pop").click(function(){

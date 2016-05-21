@@ -210,6 +210,9 @@ datetimepicker[hidden-time="true"] .datetimepicker-wrapper
     font-size: 28px;
 }
 
+
+.table-bordered tr>td, .table-bordered tr>th,
+.table-bordered tr>td, .table-bordered tr>th{vertical-align: middle;}
 .table-striped
 {
     border-collapse:collapse;
@@ -226,13 +229,13 @@ datetimepicker[hidden-time="true"] .datetimepicker-wrapper
 {
     border: solid 1px #666 !important;
 }
-.table-striped>tbody>tr:nth-of-type(even),
+.table-striped tr:nth-of-type(even),
 .table-striped tr td,
 .table-striped tr
 {
     background-color: rgba(255,255,255,0.5) !important;
 }
-.table-striped>tbody>tr:nth-of-type(even) td
+.table-striped tr:nth-of-type(even) td
 {
     border: solid 1px #666 !important;
     vertical-align: middle;

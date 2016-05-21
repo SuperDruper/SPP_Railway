@@ -2,38 +2,45 @@
     <h3>STATION CRUD</h3>
 
     <div class="form-group">
-        <label for="">Station Name</label>
-        <input type="text" ng-model="stationNameToCreate" class="form-control" placeholder="Station name">  <br/>
+        <label for="">Station name</label>
+        <input type="text" ng-model="stationNameToCreate" class="form-control" placeholder="Station name" required>
         <br/>
         <button type="submit" class="btn btn-default btn-pop" ng-click="register()">Create</button>
     </div>
 
-    <div class="error_block">
-        <p>ERROR list:</p>
-        <ul ng-repeat="error in errors">
-            <li class="validationError">
-                {{error}}
-            </li>
-        </ul>
-    </div>
-
-    <table class="table table-bordered table-striped">
     <div class="table-responsive">
-        <table class="table-striped table-bordered text-center popup">
-        <tr>
-            <td>Name</td>
-        </tr>
-        <tr ng-repeat="station in stations | orderBy:'id'">
-            <td><input type="text" name="Name" ng-model="station.name" required></td>
+        <div class="table-striped table-bordered text-center">
+            <div class="error_block">
+                <p>ERROR list:</p>
+                <ul ng-repeat="error in errors">
+                    <li class="validationError">
+                        {{error}}
+                    </li>
+                </ul>
+            </div>
 
-            <td>
-                <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(station.id)"/>
-            </td>
-            <td>
-                <input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(station.id)"/>
-            </td>
-        </tr>
-    </table>
+            <table class="table table-bordered table-striped popup">
+                <thead>
+                <tr>
+                    <th>Station name</th>
+                    <th colspan="2">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="station in stations | orderBy:'id'">
+                    <td><input type="text" name="Name" ng-model="station.name" required></td>
+
+                    <td>
+                        <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(station.id)"/>
+                    </td>
+                    <td>
+                        <input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(station.id)"/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
         <script>
             $(".btn-pop").click(function(){
                 setTimeout(function (){
@@ -52,4 +59,5 @@
                 $('.error_block').fadeOut(600);
             });
         </script>
+    </div>
 </div>

@@ -1,21 +1,19 @@
-<!--private int stIdFrom;-->
-<!--private int stIdTo;-->
-<!--private int distance;-->
-
 <div>
+    <h3>DISTANCE CRUD</h3>
+
     <div class="form-group">
-        <label for="">Station From</label>
-        <select name="stationFrom" id="stationFrom" ng-model="stationFrom" ng-init="stations[0]">
+        <label for="">Station from</label>
+        <select name="stationFrom" id="stationFrom" ng-model="stationFrom" ng-init="stations[0]" required>
             <option ng-repeat="station in stations" value="{{station.id}}">{{station.name}}</option>
         </select> <br/>
 
-        <label for="">Station To</label>
-        <select name="stationTo" id="stationTo" ng-model="stationTo" ng-init="stations[0]">
+        <label for="">Station to</label>
+        <select name="stationTo" id="stationTo" ng-model="stationTo" ng-init="stations[0]" required>
             <option ng-repeat="station in stations" value="{{station.id}}">{{station.name}}</option>
         </select> <br/>
 
-        <label for="">Distance(in kilometer)</label>
-        <input type="text" ng-model="distance" class="form-control" placeholder="Distance(in meter)">  <br/>
+        <label for="">Distance(in kilometers)</label>
+        <input type="text" ng-model="distance" class="form-control" placeholder="Distance (in kilometers)" required>  <br/>
 
         <button type="submit" class="btn btn-default btn-pop" ng-click="register()">Create</button>
     </div>
@@ -34,16 +32,18 @@
     <div>
         <table class="table table-bordered table-striped">
             <tr>
-                <td>Station Id FROM</td>
-                <td>Station Id To</td>
-                <td>Distance</td>
+                <th>Station from</th>
+                <th>Station to</th>
+                <th>Distance</th>
+                <th colspan="2">Actions</th>
             </tr>
             <tr ng-repeat="stationDistance in stationDistances">
                     <td>
                         <select ng-model="defaultSelectedStationFrom"
                                 ng-init="defaultSelectedStationFrom = stationDistance.stIdFrom"
                                 disabled="true"
-                                ng-change="updateStationFromForStationDistance(stationDistance, defaultSelectedStationFrom)">
+                                ng-change="updateStationFromForStationDistance(stationDistance, defaultSelectedStationFrom)"
+                                required>
 
                             <option ng-selected= "{{station.id == defaultSelectedStationFrom}}"
                                     ng-repeat="station in stations"
@@ -58,7 +58,8 @@
                             ng-init="defaultSelectedStationTo = stationDistance.stIdTo"
                             options="station.name for station in stations"
                             disabled="true"
-                            ng-change="updateStationToForStationDistance(stationDistance, defaultSelectedStationTo)">
+                            ng-change="updateStationToForStationDistance(stationDistance, defaultSelectedStationTo)"
+                            required>
 
                         <option ng-selected= "{{station.id == defaultSelectedStationTo}}"
                                 ng-repeat="station in stations"

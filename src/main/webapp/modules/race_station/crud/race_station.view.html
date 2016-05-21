@@ -1,6 +1,10 @@
 <div>
+    <h3>RACESTATION CRUD</h3>
+
     <div class="form-group">
-        <label for="">RaceStation ID(name)</label><br />
+        <!--TODO are you sure id is needed here?-->
+
+        <label for="">RaceStation number</label>
         <input class="form-control" type="number" ng-model="raceStationIdToCreate" placeholder="Identifier">  <br/><br />
 
         <label for="">Departure Date</label><br />
@@ -39,13 +43,13 @@
         </datetimepicker>
         <br />
 
-        <label for="">Race</label><br />
-        <select name="race" id="race" ng-model="raceIdToCreate" ng-init="races[0]">
+        <label for="">Race number</label><br />
+        <select name="race" id="race" ng-model="raceIdToCreate" ng-init="races[0]" required>
             <option ng-repeat="race in races" value="{{race.id}}">{{race.id}}</option>
         </select> <br /><br />
 
         <label for="">Station</label>
-        <select name="station" id="station" ng-model="stationIdToCreate" ng-init="stations[0]">
+        <select name="station" id="station" ng-model="stationIdToCreate" ng-init="stations[0]" required>
             <option ng-repeat="station in stationHashMap[raceIdToCreate]" value="{{station.id}}">{{station.name}}</option>
         </select> <br />
 
@@ -69,6 +73,7 @@
                     <th>Arriving</th>
                     <th>Race</th>
                     <th>Station</th>
+                    <th colspan="2">Actions</th>
                 </tr>
         </thead>
         <tbody>
@@ -116,7 +121,8 @@
                 <td>
                     <select ng-model="defaultSelectedRace"
                             ng-init="defaultSelectedRace = raceStation.race.id"
-                            ng-change="updateRaceForRaceStation(race, defaultSelectedRace)">
+                            ng-change="updateRaceForRaceStation(race, defaultSelectedRace)"
+                            required>
                         <!--<option value="">--- Select an option ---</option>-->
                         <option ng-selected= "{{race.id == defaultSelectedRace}}"
                                 ng-repeat="race in races"
@@ -129,7 +135,8 @@
                 <td>
                     <select ng-model="defaultSelectedStation"
                             ng-init="defaultSelectedStation = raceStation.station.id"
-                            ng-change="updateTrainForRaceStation(race, defaultSelectedStation)">
+                            ng-change="updateTrainForRaceStation(race, defaultSelectedStation)"
+                            required>
                         <!--<option value="">--- Select an option ---</option>-->
                         <option ng-selected= "{{station.id == defaultSelectedStation}}"
                                 ng-repeat="station in stationHashMap[defaultSelectedRace]"

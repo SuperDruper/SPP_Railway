@@ -25,34 +25,37 @@
                 name="datetimepicker"
                 show-spinners="true"
                 readonly-time="false"
+                required
                 >
             <!-- Use date-ng-click="open($event, opened)" to override date ng-click -->
         </datetimepicker>
 
         <label for="">Place number</label>
-        <input type="number" ng-model="placeNumber" class="form-control" placeholder="Place number">  <br/>
+        <input type="number" ng-model="placeNumber" class="form-control" placeholder="Place number" required>
+        <br/>
 
         <label for="">Carriage number</label>
-        <input type="number" ng-model="carriageNumber" class="form-control" placeholder="Carriage number">  <br/>
+        <input type="number" ng-model="carriageNumber" class="form-control" placeholder="Carriage number" required>
+        <br/>
 
         <label for="">Race</label>
         <select name="race"
                 id="race"
                 ng-model="race"
                 ng-init="races[0]"
-                ng-change="updateStationListForRace(race)">
+                ng-change="updateStationListForRace(race)"
+                required>
             <option ng-repeat="race in races" value="{{race.id}}">#{{race.id}} {{race.route.name}}</option>
         </select>
         <br/>
 
         <label for="">Station from</label>
-        <select name="train" id="stationFrom"  ng-model="stationFrom">
+        <select name="train" id="stationFrom" ng-model="stationFrom" required>
             <option ng-repeat="station in stations" value="{{station.id}}">{{station.name}}</option>
         </select><br/>
 
         <label for="">Station to</label>
-        <select name="train" id="stationTo"
-                ng-model="stationTo">
+        <select name="train" id="stationTo" ng-model="stationTo" required>
             <option ng-repeat="station in stations" value="{{station.id}}">{{station.name}}</option>
         </select>
         <!--<input type="number" ng-model="trainType" class="form-control" placeholder="Train type id"> <br/><br/>-->
@@ -60,15 +63,18 @@
     </div>
 
     <table class="table table-bordered table-striped popup">
+        <thead>
         <tr>
-            <td>Order date (yyyy-[m]m-[d]d hh:mm:ss[.f...] E.g. 2016-04-05 14:36:00)</td>
-            <td>Carriage number</td>
-            <td>Place number</td>
-            <td>Race</td>
-            <td>Station From</td>
-            <td>Station To</td>
-            <td>Actions</td>
+            <th>Order date (E.g. 2016-04-05 14:36:00)</th>
+            <th>Carriage number</th>
+            <th>Place number</th>
+            <th>Race</th>
+            <th>Station From</th>
+            <th>Station To</th>
+            <th colspan="2">Actions</th>
         </tr>
+        </thead>
+        <tbody>
         <tr ng-repeat="ticket in tickets | orderBy:'id'">
             <td>
                 <datetimepicker
@@ -83,6 +89,7 @@
                         name="datetimepicker"
                         show-spinners="true"
                         readonly-time="false"
+                        required
                         >
                     <!-- Use date-ng-click="open($event, opened)" to override date ng-click -->
                 </datetimepicker>
@@ -95,7 +102,8 @@
             <td>
                 <select ng-model="defaultSelectedRace"
                         ng-init="defaultSelectedRace = ticket.race.id"
-                        ng-change="updateRaceForTicket(ticket, defaultSelectedRace)">
+                        ng-change="updateRaceForTicket(ticket, defaultSelectedRace)"
+                        required>
 
                     <option ng-selected= "{{race.id == defaultSelectedRace}}"
                             ng-repeat="race in races"
@@ -108,7 +116,8 @@
             <td>
                 <select ng-model="defaultSelectedStationFrom"
                         ng-init="defaultSelectedStationFrom = ticket.stationFrom.id"
-                        ng-change="updateStationFromForTicket(ticket, defaultSelectedStationFrom)">
+                        ng-change="updateStationFromForTicket(ticket, defaultSelectedStationFrom)"
+                        required>
                     <!--<option value="">--- Select an option ---</option>-->
                     <option ng-selected= "{{station.id == defaultSelectedStationFrom}}"
                             ng-repeat="station in stationHashMap[defaultSelectedRace]"
@@ -120,7 +129,8 @@
             <td>
                 <select ng-model="defaultSelectedStationTo"
                         ng-init="defaultSelectedStationTo = ticket.stationTo.id"
-                        ng-change="updateStationToForTicket(ticket, defaultSelectedStationTo)">
+                        ng-change="updateStationToForTicket(ticket, defaultSelectedStationTo)"
+                        required>
                     <option ng-selected= "{{station.id == defaultSelectedStationTo}}"
                             ng-repeat="station in stationHashMap[defaultSelectedRace]"
                             value="{{station.id}}">
@@ -136,6 +146,7 @@
                 <input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(ticket.id)"/>
             </td>
         </tr>
+        </tbody>
     </table>
     <script>
         $(".btn-pop").click(function(){

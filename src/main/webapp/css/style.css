@@ -142,7 +142,7 @@ table
   border-bottom: 1px solid #FFF;
   padding: 8px;
 }
-.table-bordered>thead>tr>th
+.table-bordered tr>th
 {
   font-size:15px;
   vertical-align: middle;
@@ -150,8 +150,8 @@ table
   color:#EEE;
   text-align:center;
 }
-.table-bordered>thead>tr>td, .table-bordered>thead>tr>th,
-.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th{vertical-align: middle;}
+.table-bordered tr>td, .table-bordered tr>th,
+.table-bordered tr>td, .table-bordered tr>th{vertical-align: middle;}
 input[type="date"]
 {
   max-width: 150px;
@@ -223,7 +223,7 @@ text-align: center;}
 {
   z-index:2000;
 }
-.table-striped>tbody>tr:nth-of-type(even) {
+.table-striped tr:nth-of-type(even) {
   background-color: #c5ddfb;
 }
 
@@ -241,8 +241,6 @@ p.main
   text-shadow:  1px 1px 1px black, 1px 1px 1em black;
 }
 
-.table-bordered>thead>tr>td, .table-bordered>thead>tr>th,
-.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th{vertical-align: middle;}
 input[type="date"]
 {
   max-width: 150px;

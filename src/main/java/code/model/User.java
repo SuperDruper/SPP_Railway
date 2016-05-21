@@ -20,12 +20,12 @@ public class User {
     private int id;
 
     @Size(min = 1, max = 50, message = "Name must be between {min} and {max} characters long!")
-    @Pattern(regexp = "[a-zA-Z\\d\\-]*",
+    @Pattern(regexp = "[\\w\\- ]*",
             message = "Name may contain only latin characters, digits or hyphen!")
     private String name;
 
     @Size(min = 1, max = 50, message = "Surname must be between {min} and {max} characters long!")
-    @Pattern(regexp = "[a-zA-Z\\d\\-]*",
+    @Pattern(regexp = "[\\w\\- ]*",
             message = "Surname may contain only latin characters, digits or hyphen!")
     private String surname;
 
