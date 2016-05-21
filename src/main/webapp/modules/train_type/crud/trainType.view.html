@@ -26,14 +26,15 @@
         </ul>
     </div>
 
-    <table class="table table-bordered table-striped  popup">
+    <table class="table table-bordered table-striped">
 <div class="table-responsive">
     <table class="table table-bordered table-striped text-center">
         <thead>
         <tr>
-            <th>Type</th>
-            <th>Coefficient</th>
-            <th>Places amount</th>
+            <td>Id</td>
+            <td>Type</td>
+            <td>Coefficient</td>
+            <td>Places amount</td>
             <th colspan="2">Actions</th>
         </tr>
         </thead>
@@ -55,11 +56,12 @@
         <script>
             $(".btn-pop").click(function(){
                 setTimeout(function (){
-                    $('.blackout').fadeIn(600);
+
                     var errors = document.querySelectorAll(".error_block ul");
                     if(errors.length == 0)
                         $('.popup').fadeIn(600);
-                    else{
+                    else {
+                        $('.blackout').fadeIn(600);
                         $('.error_block').fadeIn(600);
                     }
                 },1000);
