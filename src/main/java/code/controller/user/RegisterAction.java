@@ -21,6 +21,7 @@ import java.util.Set;
 public class RegisterAction extends PostAction {
 
     private static final long serialVersionUID = 1L;
+    public static final int ADMIN_ROLE_ID = 1;
 
     private User user;
     private List<String> errorList;
@@ -29,7 +30,9 @@ public class RegisterAction extends PostAction {
     @Override
     public String create() {
         Role role = RoleService.getUserRole();
-        user.setRole(role);
+        if (getUserFromSession() == null || getUserFromSession().getRole().getId() != ADMIN_ROLE_ID) {
+            user.setRole(role);
+        }
 
         if (validate(user)) {
             try {

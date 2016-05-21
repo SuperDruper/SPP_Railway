@@ -53,7 +53,7 @@ img{ max-width:100%;}
 a, a:hover, a:focus, a:active{cursor:pointer; text-decoration: none; outline:0px !important}
 .mrg,.row {margin-left:0; margin-right:0;}
 .pdg,.container-fluid {padding-right:0; padding-left:0;}
-input, input:focus, textarea,textarea:focus,select, select:focus{outline:none;color:#080b09;}
+input, input:focus, textarea,textarea:focus,select, select:focus{outline:none; color:#080b09; box-shadow: none;}
 
 select, select:focus{height: 30px;
   min-width: 150px;
@@ -146,12 +146,11 @@ table
 {
   font-size:15px;
   vertical-align: middle;
-  background-color:#080b09;
+  background-color:#333;
   color:#EEE;
   text-align:center;
 }
-.table-bordered tr>td, .table-bordered tr>th,
-.table-bordered tr>td, .table-bordered tr>th{vertical-align: middle;}
+
 input[type="date"]
 {
   max-width: 150px;
@@ -228,6 +227,21 @@ text-align: center;}
 }
 
 input[type='button'], input[type='button']:focus, button,button:focus, .btn, .btn:focus, .btn:hover{box-shadow: none; }
+
+input.ng-touched.ng-invalid, select.ng-touched.ng-invalid {
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(233, 0, 0, 0.8);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(233, 0, 0, 0.8);
+  border-color: #ff8888;
+}
+
+.ng-scope input.ng-touched:focus, .ng-scope select.ng-touched:focus,
+.ng-scope input.ng-untouched:focus, .ng-scope select.ng-untouched:focus
+{
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,0.6);
+}
 
 p {
   font-size:18px;
