@@ -19,21 +19,25 @@
 
     <div class="table-responsive">
         <table class="table-striped table-bordered text-center">
-        <tr>
-            <td>Name</td>
-            <th colspan="2">Actions</th>
-        </tr>
-        <tr ng-repeat="station in stations | orderBy:'id'">
-            <td><input type="text" name="Name" ng-model="station.name" required></td>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th colspan="2">Actions</th>
+                </tr>
+            </thead>
+            </tbody>
+            <tr ng-repeat="station in stations | orderBy:'id'">
+                <td><input type="text" name="Name" ng-model="station.name" required></td>
 
-            <td>
-                <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(station.id)"/>
-            </td>
-            <td>
-                <input type="button" value="Remove" class="btn btn-primary" ng-click="tryToRemoveRow(station.id)"/>
-            </td>
-        </tr>
-    </table>
+                <td>
+                    <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(station.id)"/>
+                </td>
+                <td>
+                    <input type="button" value="Remove" class="btn btn-primary" ng-click="tryToRemoveRow(station.id)"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
         <script>
             $(".btn-pop").click(function(){
                 setTimeout(function (){
