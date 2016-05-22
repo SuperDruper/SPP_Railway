@@ -61,8 +61,9 @@
                 <ul class="nav navbar-nav navbar-right">
                   <li><a href="/ticketorder/racechoice">Races</a></li>
                   <li>
-                    <a href="#myTable"
-                       data-toggle="modelWithTickets"
+                    <a href="#myTicketsTable"
+                       id="myTicketsTable"
+                       class="btn-pop"
                        role="button"
                        ng-show="roleId > 0">
                       My tickets
@@ -124,7 +125,7 @@
       <div class="close">X</div>
     </div>
 
-    <div role="dialog" id="myTable" class="modelWithTickets" tabindex="-1" aria-hidden="true">
+    <div role="dialog" class="tickets_block">
       <table class="table table-bordered table-striped hidden">
         <tr>
           <td>Ticket</td>
@@ -150,7 +151,6 @@
           <td><input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(ticketDetails.ticketNum)"/></td>
         </tr>
       </table>
-
     </div>
   </div>
 
@@ -165,9 +165,6 @@
   </footer>
 
 </div>
-
-
-
 
 <script src="<s:url value="js/lib/angular/angular-route.min.js" />"></script>
 
@@ -238,22 +235,31 @@
 <script type="text/javascript" src="/js/lib/bootstrap/bootstrap.min.js"></script>
 <script>
   $(".btn-pop").click(function(){
-    alert(1);
     $('.blackout').fadeIn(600);
     var errors = document.querySelectorAll(".error_block ul");
+    var tickets = document.querySelectorAll(".tickets_block ul");
+
     if(errors.length == 0)
       $('.popup').fadeIn(600);
     else{
       $('.blackout').fadeIn(600);
       $('.error_block').fadeIn(600);
     }
+
+    if(tickets.length != 0)
+    {
+      $('.blackout').fadeIn(600);
+      $('.tickets_block').fadeIn(600);
+    }
   });
   $(".blackout .close").click(function(){
     $('.blackout').fadeOut(600);
     $('.popup').fadeOut(600);
     $('.error_block').fadeOut(600);
+    $('.tickets_block').fadeOut(600);
   });
 </script>
+
 
 
 </body>
