@@ -84,8 +84,7 @@ table.table.table-striped tr.found td {
 {
     margin-bottom: 50px;
     min-height: 50px;
-    background-color: #3d534e;
-    color: #e7e7e7;
+    background-color: #002474;
 }
 h3
 {
@@ -96,8 +95,8 @@ h3
 }
 .navbar-default .navbar-collapse, .navbar-default .navbar-form
 {
-    border-color: #e7e7e7;
-    background-color: #3d534e;
+    background-color: #002474;
+    color: transparent;
     text-align: center;
     border: none;
     position: relative;
@@ -303,6 +302,19 @@ caption
 }
 
 .error_block
+{
+    z-index: 200;
+    color: #fff;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    visibility: visible !important;
+    transform: translate(-50%, 0);
+    font-size: 18px;
+    display: none;
+}
+
+.tickets_block
 {
     z-index: 200;
     color: #fff;

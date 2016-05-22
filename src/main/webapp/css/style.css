@@ -86,7 +86,7 @@ h1,h2,h3,h4,h5{color:#a4cdff;}
 .navbar-default .navbar-nav>li>a
 {
   font-size:14px;
-  color: #1863e9;
+  color: transparent;
   text-transform:uppercase;
   -webkit-transition: all 0.4s ease 0s;
   -moz-transition: all 0.4s ease 0s;
@@ -159,7 +159,7 @@ input[type="date"]
 {
   padding-left: 0;
   padding-right: 0;
-  background-color: #2d3e39;
+  background-color: rgba(0, 36, 116, 0.64);
   width: 100%;
   margin-top: -100px;
   height: 100px;
