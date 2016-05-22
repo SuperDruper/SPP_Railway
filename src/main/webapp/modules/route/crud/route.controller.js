@@ -1,7 +1,7 @@
 /**
  * Created by dzmitry.antonenka on 11.04.2016.
  */
-app.controller('RouteController', function ($scope, $window, RouteService) {
+app.controller('RouteController', function ($scope, $window, RouteService, ModalViewAnimatorService) {
     $scope.errors = [];
 
     $scope.tryToRemoveRow = function(id) {
@@ -33,7 +33,8 @@ app.controller('RouteController', function ($scope, $window, RouteService) {
         }
     };
 
-    function removeRow(object, index){
+    function removeRow(object, index) {
+            $scope.errors = [];
             const action = {
                 id : 2
             };
@@ -41,7 +42,7 @@ app.controller('RouteController', function ($scope, $window, RouteService) {
             RouteService.removeRow({ route: object, action: action })
                 .then(function(data) {
                     $scope.errors.push.apply($scope.errors, data.errorList);
-
+                    ModalViewAnimatorService.showModelViewAnimated($scope);
                     if($scope.errors.length == 0) {
                         $scope.routes.splice(index, 1);
                     }
@@ -65,12 +66,16 @@ app.controller('RouteController', function ($scope, $window, RouteService) {
                 id : 1
             };
 
-            if(!validate(object.name)) return;
+            if(!validate(object.name)) {
+                ModalViewAnimatorService.showModelViewAnimated($scope);
+                return;
+            }
 
             RouteService.updateRow({ route: object, action: action })
                 .then(function(data) {
                     refreshData();
                     $scope.errors.push.apply($scope.errors, data.errorList);
+                    ModalViewAnimatorService.showModelViewAnimated($scope);
                 });
         }
     };
@@ -78,7 +83,10 @@ app.controller('RouteController', function ($scope, $window, RouteService) {
         $scope.errors = [];
         $scope.events = [];
 
-        if(!validate($scope.routeNameToCreate)) return;
+        if(!validate($scope.routeNameToCreate)) {
+            ModalViewAnimatorService.showModelViewAnimated($scope);
+            return;
+        }
 
         const route = {
             name : $scope.routeNameToCreate
@@ -91,6 +99,7 @@ app.controller('RouteController', function ($scope, $window, RouteService) {
 
         var smth = RouteService.register({route:route, action: action})
             .then(function(data) {
+                ModalViewAnimatorService.showModelViewAnimated($scope);
                 $scope.errors.push.apply($scope.errors, data.errorList);
                 $scope.asyncRequestComplited = true;
             });

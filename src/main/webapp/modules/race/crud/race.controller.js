@@ -1,7 +1,7 @@
 /**
  * Created by dzmitry.antonenka on 11.04.2016.
  */
-app.controller('RaceListController', function ($scope, RaceListService) {
+app.controller('RaceListController', function ($scope, RaceListService, ModalViewAnimatorService) {
     $scope.errors = [];
 
     $scope.tryToRemoveRow = function(id) {
@@ -34,6 +34,8 @@ app.controller('RaceListController', function ($scope, RaceListService) {
     };
 
     function removeRow(object, index){
+            $scope.errors = [];
+
             const action = {
                 id : 2
             };
@@ -41,7 +43,7 @@ app.controller('RaceListController', function ($scope, RaceListService) {
             RaceListService.removeRow({ race: object, action: action })
                 .then(function (data) {
                     $scope.errors.push.apply($scope.errors, data.errorList);
-
+                    ModalViewAnimatorService.showModelViewAnimated($scope);
                     if($scope.errors.length == 0) {
                         $scope.races.splice(index, 1);
                     }
@@ -64,11 +66,15 @@ app.controller('RaceListController', function ($scope, RaceListService) {
                 id : 1
             };
 
-            if(!validate(object.race_number, object.route, object.train)) return;
+            if(!validate(object.race_number, object.route, object.train)) {
+                ModalViewAnimatorService.showModelViewAnimated($scope);
+                return;
+            }
 
             RaceListService.updateRow({ race: object, action: action })
                 .then(function (data) {
                     $scope.errors.push.apply($scope.errors, data.errorList);
+                    ModalViewAnimatorService.showModelViewAnimated($scope);
                     refreshData();
                 });
         }
@@ -78,7 +84,10 @@ app.controller('RaceListController', function ($scope, RaceListService) {
         $scope.errors = [];
         $scope.events = [];
 
-        if(!validate($scope.raceIdToCreate, $scope.routeToCreate, $scope.trainToCreate)) return;
+        if(!validate($scope.raceIdToCreate, $scope.routeToCreate, $scope.trainToCreate)) {
+            ModalViewAnimatorService.showModelViewAnimated($scope);
+            return;
+        }
 
         const race = {
             race_number : $scope.raceIdToCreate,
@@ -94,7 +103,7 @@ app.controller('RaceListController', function ($scope, RaceListService) {
         var smth = RaceListService.register({race:race, action: action})
             .then(function(data) {
                 $scope.errors.push.apply($scope.errors, data.errorList);
-
+                ModalViewAnimatorService.showModelViewAnimated($scope);
                 $scope.asyncRequestComplited = true;
             });
         $scope.$watch('asyncRequestComplited',function(newValue, oldValue, scope){

@@ -1,4 +1,4 @@
-app.controller('TrainController', function ($scope, $window, TrainService) {
+app.controller('TrainController', function ($scope, $window, TrainService, ModalViewAnimatorService) {
     $scope.errors = [];
 
     $scope.tryToRemoveRow = function(id) {
@@ -31,12 +31,14 @@ app.controller('TrainController', function ($scope, $window, TrainService) {
     };
 
     function removeRow(object, index){
+            $scope.errors = [];
             const action = {
                 id : 2
             };
 
             TrainService.removeRow({ train: object, action: action }).then(function(data) {
                 $scope.errors.push.apply($scope.errors, data.errorList);
+                ModalViewAnimatorService.showModelViewAnimated($scope);
 
                 if($scope.errors.length == 0) {
                     $scope.trains.splice(index, 1);
@@ -85,12 +87,16 @@ app.controller('TrainController', function ($scope, $window, TrainService) {
                 id : 1
             };
 
-            if(!validate(object.train_number, object.carriageAmount, object.trainType)) return;
+            if(!validate(object.train_number, object.carriageAmount, object.trainType)) {
+                ModalViewAnimatorService.showModelViewAnimated($scope);
+                return;
+            }
             TrainService.updateRow({ train: object, action: action })
                 .then(function(data) {
                     refreshData();
 
                     $scope.errors.push.apply($scope.errors, data.errorList);
+                    ModalViewAnimatorService.showModelViewAnimated($scope);
             });
         }
     };
@@ -98,7 +104,10 @@ app.controller('TrainController', function ($scope, $window, TrainService) {
         $scope.errors = [];
         $scope.events = [];
 
-        if(!validate($scope.trainId, $scope.trainCarriageAmount, trainType)) return;
+        if(!validate($scope.trainId, $scope.trainCarriageAmount, $scope.trainTypeToCreate)) {
+            ModalViewAnimatorService.showModelViewAnimated($scope);
+            return;
+        }
 
         const trainType = {
             id : $scope.trainTypeToCreate
@@ -117,7 +126,7 @@ app.controller('TrainController', function ($scope, $window, TrainService) {
         var smth = TrainService.register({train:train, action: action})
             .then(function(data) {
                 $scope.errors.push.apply($scope.errors, data.errorList);
-                $scope.events.push.apply($scope.events, data.eventList);
+                ModalViewAnimatorService.showModelViewAnimated($scope);
 
                 $scope.asyncRequestComplited = true;
             });

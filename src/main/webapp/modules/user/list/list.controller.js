@@ -1,4 +1,4 @@
-app.controller('UserListController', function ($scope, UserListService, Service) {
+app.controller('UserListController', function ($scope, UserListService, Service, ModalViewAnimatorService) {
     $scope.errors = [];
 
     $scope.tryToRemoveRow = function(id) {
@@ -31,6 +31,7 @@ app.controller('UserListController', function ($scope, UserListService, Service)
     };
 
     function removeRow(object, index){
+        $scope.errors = [];
             const action = {
                 id : 2
             };
@@ -38,6 +39,7 @@ app.controller('UserListController', function ($scope, UserListService, Service)
             UserListService.removeRow({ user: object, action: action })
                 .then(function (data) {
                     $scope.errors.push.apply($scope.errors, data.errorList);
+                    ModalViewAnimatorService.showModelViewAnimated($scope);
                     if($scope.errors.length == 0) {
                         $scope.users.splice(index, 1);
                     }
@@ -86,12 +88,16 @@ app.controller('UserListController', function ($scope, UserListService, Service)
                 id : 1
             };
 
-            if(!validate(object.name, object.surname, object.login, object.email, object.password, object.role)) return;
+            if(!validate(object.name, object.surname, object.login, object.email, object.password, object.role)) {
+                ModalViewAnimatorService.showModelViewAnimated($scope);
+                return;
+            }
 
             UserListService.updateRow({ user: object, action: action })
                 .then(function (data) {
                     refreshData();
                     $scope.errors.push.apply($scope.errors, data.errorList);
+                    ModalViewAnimatorService.showModelViewAnimated($scope);
                 });
         }
     };
@@ -113,11 +119,15 @@ app.controller('UserListController', function ($scope, UserListService, Service)
             role: role
         };
 
-        if(!validate($scope.name, $scope.surname, $scope.login, $scope.email, $scope.password, role)) return;
+        if(!validate($scope.name, $scope.surname, $scope.login, $scope.email, $scope.password, role)) {
+            ModalViewAnimatorService.showModelViewAnimated($scope);
+            return;
+        }
 
         return Service.request('/api/user/register', 'POST', {user: user})
             .then(function (data) {
                 $scope.errors.push.apply($scope.errors, data.errorList);
+                ModalViewAnimatorService.showModelViewAnimated($scope);
                 refreshData();
 
                 if ($scope.errors.length == 0) {

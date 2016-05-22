@@ -1,7 +1,7 @@
 /**
  * Created by dzmitry.antonenka on 11.04.2016.
  */
-app.controller('RoleController', function ($scope, $window, RoleService) {
+app.controller('RoleController', function ($scope, $window, RoleService, ModalViewAnimatorService) {
     $scope.errors = [];
 
     $scope.tryToRemoveRow = function(id) {
@@ -33,16 +33,6 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
         }
     };
 
-    function showViewAnimated()
-    {
-        if($scope.errors.length == 0)
-            $('.popup').fadeIn(600);
-        else{
-            $('.blackout').fadeIn(600);
-            $('.error_block').fadeIn(600);
-        }
-    }
-
     $(".blackout .close").click(function(){
         $('.blackout').fadeOut(600);
         $('.popup').fadeOut(600);
@@ -50,7 +40,7 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
     });
 
     function removeRow(object, index) {
-        $scope.errors = [];
+            $scope.errors = [];
 
             const action = {
                 id : 2
@@ -59,7 +49,7 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
             RoleService.removeRow({ role: object, action: action })
                 .then(function(data) {
                     $scope.errors.push.apply($scope.errors, data.errorList);
-                    showViewAnimated();
+                    ModalViewAnimatorService.showModelViewAnimated($scope);
 
                     if($scope.errors.length == 0) {
                         $scope.roles.splice(index, 1);
@@ -86,7 +76,7 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
             };
 
             if(!validate(object.name)) {
-                showViewAnimated();
+                ModalViewAnimatorService.showModelViewAnimated($scope);
                 return;
             }
 
@@ -95,7 +85,7 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
                     refreshData();
 
                     $scope.errors.push.apply($scope.errors, data.errorList);
-                    showViewAnimated();
+                    ModalViewAnimatorService.showModelViewAnimated($scope);
                 });
         }
     };
@@ -113,13 +103,16 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
 
         $scope.asyncRequestComplited = false;
 
-        if(!validate($scope.roleName)) return;
+        if(!validate($scope.roleName))  {
+            ModalViewAnimatorService.showModelViewAnimated($scope);
+            return;
+        }
 
         var smth = RoleService.register({role:object, action: action})
             .then(function(data) {
                 if(data.errorList.length )
                 $scope.errors.push.apply($scope.errors, data.errorList);
-
+                ModalViewAnimatorService.showModelViewAnimated($scope);
                 $scope.asyncRequestComplited = true;
             });
         $scope.$watch('asyncRequestComplited',function(newValue, oldValue, scope){

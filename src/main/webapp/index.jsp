@@ -4,7 +4,7 @@
 <html lang="en" ng-app="app">
 <head>
   <meta charset="utf-8">
-  <title>My AngularJS Struts2 App</title>
+  <title>BelTrain Inc.</title>
 
   <s:url var="ctxUrl" forceAddSchemeHostAndPort="true" includeContext="true" value="/" namespace="/" />
   <base href="<s:property value="ctxUrl"/>">
@@ -177,10 +177,8 @@
 <script src="<s:url value="modules/app.js" />"></script>
 <script src="<s:url value="shared/service.js" />"></script>
 <script src="<s:url value="shared/user_role_name.service.js" />"></script>
+<script src="<s:url value="shared/view_animtor_service.service.js" />"></script>
 <script src="<s:url value="shared/datasharing/ticket_share.service.js" />"></script>
-
-<script src="<s:url value="modules/example/example.controller.js" />"></script>
-<script src="<s:url value="modules/example/example.service.js" />"></script>
 
 <script src="<s:url value="modules/user/login/login.controller.js" />"></script>
 

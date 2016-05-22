@@ -292,6 +292,10 @@ caption
     top: 0px;
     transform: translate(-50%, 0);
 }
+.time_size{
+    min-width: 50px !important;
+    max-width: 80px !important;
+}
 .error_block
 {
     z-index: 200;

@@ -1,7 +1,7 @@
 /**
  * Created by dzmitry.antonenka on 11.04.2016.
  */
-app.controller('StationController', function ($scope, $window, StationService) {
+app.controller('StationController', function ($scope, $window, StationService, ModalViewAnimatorService) {
     $scope.errors = [];
 
     $scope.tryToRemoveRow = function(id) {
@@ -34,6 +34,7 @@ app.controller('StationController', function ($scope, $window, StationService) {
     };
 
     function removeRow(object, index){
+            $scope.errors = [];
             const action = {
                 id : 2
             };
@@ -41,7 +42,7 @@ app.controller('StationController', function ($scope, $window, StationService) {
             StationService.removeRow({ station: object, action: action })
                 .then(function(data) {
                     $scope.errors.push.apply($scope.errors, data.errorList);
-
+                    ModalViewAnimatorService.showModelViewAnimated($scope);
                     if($scope.errors.length == 0) {
                         $scope.stations.splice(index, 1);
                     }
@@ -64,11 +65,15 @@ app.controller('StationController', function ($scope, $window, StationService) {
                 id : 1
             };
 
-            if(!validate(object.name)) return;
+            if(!validate(object.name)) {
+                ModalViewAnimatorService.showModelViewAnimated($scope);
+                return;
+            }
             StationService.updateRow({ station: object, action: action })
                 .then(function(data) {
                     refreshData();
                     $scope.errors.push.apply($scope.errors, data.errorList);
+                    ModalViewAnimatorService.showModelViewAnimated($scope);
                 });
         }
     };
@@ -84,14 +89,17 @@ app.controller('StationController', function ($scope, $window, StationService) {
             id : 0
         };
 
-        if(!validate($scope.stationNameToCreate)) return;
+        if(!validate($scope.stationNameToCreate)) {
+            ModalViewAnimatorService.showModelViewAnimated($scope);
+            return;
+        }
 
         $scope.asyncRequestComplited = false;
 
         var smth = StationService.register({station:object, action: action})
             .then(function(data) {
                 $scope.errors.push.apply($scope.errors, data.errorList);
-                $scope.events.push.apply($scope.events, data.eventList);
+                ModalViewAnimatorService.showModelViewAnimated($scope);
 
                 $scope.asyncRequestComplited = true;
             });

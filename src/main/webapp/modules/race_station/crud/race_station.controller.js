@@ -1,5 +1,5 @@
 
-app.controller('RaceStationController', function ($scope, RaceStationService) {
+app.controller('RaceStationController', function ($scope, RaceStationService, ModalViewAnimatorService) {
         $scope.date = new Date();
         $scope.dateTimeNow = function() {
             $scope.date = new Date();
@@ -83,6 +83,7 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
     };
 
     function removeRow(object, index){
+        $scope.errors = [];
             const action = {
                 id : 2
             };
@@ -90,6 +91,7 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
             RaceStationService.removeRow({ raceStationContainer : object, action: action })
                 .then(function(data) {
                     $scope.errors.push.apply($scope.errors, data.errorList);
+                    ModalViewAnimatorService.showModelViewAnimated($scope);
                     if($scope.errors.length == 0) {
                         $scope.raceStations.splice(index, 1);
                     }
@@ -116,11 +118,15 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
             raceStationCopy.depature = RaceStationService.convertUTCDateToLocalDate(object.depature);
             raceStationCopy.arriving = RaceStationService.convertUTCDateToLocalDate(object.arriving);
 
-            if(!validate(raceStationCopy.race_station_numbr, raceStationCopy.depature, raceStationCopy.arriving, raceStationCopy.race.id, raceStationCopy.station.id)) return;
+            if(!validate(raceStationCopy.race_station_numbr, raceStationCopy.depature, raceStationCopy.arriving, raceStationCopy.race.id, raceStationCopy.station.id)) {
+                ModalViewAnimatorService.showModelViewAnimated($scope);
+                return;
+            }
 
             RaceStationService.updateRow({ raceStationContainer: raceStationCopy, action: action })
                 .then(function(data) {
                     $scope.errors.push.apply($scope.errors, data.errorList);
+                    ModalViewAnimatorService.showModelViewAnimated($scope);
                     refreshData();
                 });
         }
@@ -131,7 +137,10 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
         $scope.events = [];
 
 
-        if(!validate($scope.raceStationIdToCreate, $scope.departure, $scope.arriving, $scope.raceIdToCreate, $scope.stationIdToCreate)) return;
+        if(!validate($scope.raceStationIdToCreate, $scope.departure, $scope.arriving, $scope.raceIdToCreate, $scope.stationIdToCreate)) {
+            ModalViewAnimatorService.showModelViewAnimated($scope);
+            return;
+        }
 
         const raceStation = {
             race_station_numbr : $scope.raceStationIdToCreate,
@@ -151,6 +160,7 @@ app.controller('RaceStationController', function ($scope, RaceStationService) {
                 refreshData();
 
                 $scope.errors.push.apply($scope.errors, data.errorList);
+                ModalViewAnimatorService.showModelViewAnimated($scope);
                 $scope.asyncRequestComplited = true;
             });
         $scope.$watch('asyncRequestComplited',function(newValue, oldValue, scope){

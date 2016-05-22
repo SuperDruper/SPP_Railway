@@ -1,7 +1,7 @@
 /**
  * Created by dzmitry.antonenka on 11.04.2016.
  */
-app.controller('StationDistanceController', function ($scope, $window, StationDistanceService) {
+app.controller('StationDistanceController', function ($scope, $window, StationDistanceService, ModalViewAnimatorService) {
     $scope.errors = [];
     $scope.stationFrom = '';
     $scope.stationTo = '';
@@ -37,7 +37,8 @@ app.controller('StationDistanceController', function ($scope, $window, StationDi
     };
 
 
-    function removeRow(object, index){
+    function removeRow(object, index) {
+            $scope.errors = [];
             const action = {
                 id : 2
             };
@@ -45,7 +46,7 @@ app.controller('StationDistanceController', function ($scope, $window, StationDi
             StationDistanceService.removeRow({ stationDistance: object, action: action })
                 .then(function (data) {
                     $scope.errors.push.apply($scope.errors, data.errorList);
-
+                    ModalViewAnimatorService.showModelViewAnimated($scope);
                     if($scope.errors.length == 0) {
                         $scope.stationDistances.splice(index, 1);
                     }
@@ -68,12 +69,16 @@ app.controller('StationDistanceController', function ($scope, $window, StationDi
                 id : 1
             };
 
-            if(!validate(object.stIdFrom, object.stIdTo, object.distance)) return;
+            if(!validate(object.stIdFrom, object.stIdTo, object.distance)) {
+                ModalViewAnimatorService.showModelViewAnimated($scope);
+                return;
+            }
 
             StationDistanceService.updateRow({ stationDistance: object, action: action })
                 .then(function(data) {
                     refreshData();
                     $scope.errors.push.apply($scope.errors, data.errorList);
+                    ModalViewAnimatorService.showModelViewAnimated($scope);
                 });
         }
     };
@@ -110,7 +115,10 @@ app.controller('StationDistanceController', function ($scope, $window, StationDi
         $scope.errors = [];
         $scope.events = [];
 
-        if(!validate($scope.stationFrom, $scope.stationTo, $scope.distance)) return;
+        if(!validate($scope.stationFrom, $scope.stationTo, $scope.distance)) {
+            ModalViewAnimatorService.showModelViewAnimated($scope);
+            return;
+        }
 
         const object = {
             stIdFrom: $scope.stationFrom,
@@ -127,7 +135,7 @@ app.controller('StationDistanceController', function ($scope, $window, StationDi
         var smth = StationDistanceService.register({stationDistance:object, action: action})
             .then(function(data) {
                 $scope.errors.push.apply($scope.errors, data.errorList);
-                $scope.events.push.apply($scope.events, data.eventList);
+                ModalViewAnimatorService.showModelViewAnimated($scope);
 
                 $scope.asyncRequestComplited = true;
             });

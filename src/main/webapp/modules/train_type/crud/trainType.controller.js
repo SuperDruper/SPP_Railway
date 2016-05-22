@@ -1,7 +1,7 @@
 /**
  * Created by dzmitry.antonenka on 10.04.2016.
  */
-app.controller('TrainListController', function ($scope, TrainTypeListService) {
+app.controller('TrainListController', function ($scope, TrainTypeListService, ModalViewAnimatorService) {
     $scope.errors = [];
     $scope.trainTypeNameToCreate = '';
     $scope.trainTypeCoefficientToCreate = '';
@@ -39,6 +39,7 @@ app.controller('TrainListController', function ($scope, TrainTypeListService) {
     };
 
     function removeRow(object, index){
+        $scope.errors = [];
             const action = {
                 id : 2
             };
@@ -46,6 +47,7 @@ app.controller('TrainListController', function ($scope, TrainTypeListService) {
             TrainTypeListService.removeRow({ trainType: object, action: action })
                 .then(function(data) {
                     $scope.errors.push.apply($scope.errors, data.errorList);
+                    ModalViewAnimatorService.showModelViewAnimated($scope);
 
                     if($scope.errors.length == 0) {
                         $scope.trainTypes.splice(index, 1);
@@ -69,12 +71,16 @@ app.controller('TrainListController', function ($scope, TrainTypeListService) {
                 id : 1
             };
 
-            if(!validate(trainType.name, trainType.coefficient, trainType.placesAmount)) return;
+            if(!validate(trainType.name, trainType.coefficient, trainType.placesAmount)) {
+                ModalViewAnimatorService.showModelViewAnimated($scope);
+                return;
+            }
 
             TrainTypeListService.updateRow({ trainType: trainType, action: action })
                 .then(function(data) {
                     refreshData();
                     $scope.errors.push.apply($scope.errors, data.errorList);
+                    ModalViewAnimatorService.showModelViewAnimated($scope);
                 });
         }
     };
@@ -107,7 +113,10 @@ app.controller('TrainListController', function ($scope, TrainTypeListService) {
     $scope.register = function() {
         $scope.errors = [];
 
-        if(!validate($scope.trainTypeNameToCreate, $scope.trainTypeCoefficientToCreate, $scope.trainTypePlacesAmountToCreate)) return;
+        if(!validate($scope.trainTypeNameToCreate, $scope.trainTypeCoefficientToCreate, $scope.trainTypePlacesAmountToCreate)) {
+            ModalViewAnimatorService.showModelViewAnimated($scope);
+            return;
+        }
         const trainType = {
             name : $scope.trainTypeNameToCreate,
             coefficient : $scope.trainTypeCoefficientToCreate,
@@ -122,6 +131,7 @@ app.controller('TrainListController', function ($scope, TrainTypeListService) {
         var smth = TrainTypeListService.register({trainType : trainType, action: action})
             .then(function(data) {
                 $scope.errors.push.apply($scope.errors, data.errorList);
+                ModalViewAnimatorService.showModelViewAnimated($scope);
                 $scope.asyncRequestComplited = true;
             });
         $scope.$watch('asyncRequestComplited',function(newValue, oldValue, scope){

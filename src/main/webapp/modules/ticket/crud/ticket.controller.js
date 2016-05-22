@@ -1,7 +1,7 @@
 /**
  * Created by dzmitry.antonenka on 03.05.2016.
  */
-app.controller('TicketController', function ($scope, $window, TicketService) {
+app.controller('TicketController', function ($scope, $window, TicketService, ModalViewAnimatorService) {
     $scope.errors = [];
     $scope.events = [];
 
@@ -95,6 +95,7 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
     };
 
     function removeRow(object, index){
+             $scope.errors = [];
             const action = {
                 id : 2
             };
@@ -102,7 +103,7 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
             TicketService.removeRow({ ticket: object, action: action })
                 .then(function(data) {
                     $scope.errors.push.apply($scope.errors, data.errorList);
-
+                    ModalViewAnimatorService.showModelViewAnimated($scope);
                     if($scope.errors.length == 0) {
                         $scope.tickets.splice(index, 1);
                     }
@@ -192,13 +193,17 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
                 id : 1
             };
 
-            if(!validate(ticket.carriageNum, ticket.num, ticket.orderDate.toString(), ticket.stationFrom.id, ticket.stationTo.id)) return;
+            if(!validate(ticket.carriageNum, ticket.num, ticket.orderDate.toString(), ticket.stationFrom.id, ticket.stationTo.id)) {
+                ModalViewAnimatorService.showModelViewAnimated($scope);
+                return;
+            }
             ticket.orderDate = TicketService.convertUTCDateToLocalDate(ticket.orderDate);
 
             TicketService.updateRow({ ticketContainer: ticket, action: action })
                 .then(function(data) {
                     refreshData();
                     $scope.errors.push.apply($scope.errors, data.errorList);
+                    ModalViewAnimatorService.showModelViewAnimated($scope);
                 });
         }
     };
@@ -253,6 +258,7 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
         $scope.errors = [];
 
         if(!validate($scope.carriageNumber, $scope.placeNumber, $scope.orderDate, $scope.stationFrom, $scope.stationTo)) {
+            ModalViewAnimatorService.showModelViewAnimated($scope);
             return;
         }
 
@@ -276,7 +282,7 @@ app.controller('TicketController', function ($scope, $window, TicketService) {
         var smth = TicketService.register({ticketContainers:ticket, action: action})
             .then(function(data) {
                 $scope.errors.push.apply($scope.errors, data.errorList);
-                $scope.events.push.apply($scope.events, data.eventList);
+                ModalViewAnimatorService.showModelViewAnimated($scope);
 
                 $scope.asyncRequestComplited = true;
             });
