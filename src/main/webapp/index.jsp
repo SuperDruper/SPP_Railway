@@ -84,16 +84,16 @@
         <div class="col-xs-12">
           <div ng-show="roleId == 1">
             <ul class="admin-link">
-              <li><a class="main_btn" href="/user/list">Users m-t</a></li>
-              <li><a class="main_btn" href="/ticket/crud">Tickets m-t</a></li>
-              <li><a class="main_btn" href="/train/crud">Train m-t</a></li>
-              <li><a class="main_btn" href="/role/crud">Role m-t</a></li>
-              <li><a class="main_btn" href="/race/crud">Race m-t</a></li>
-              <li><a class="main_btn" href="/race_station/crud">RaceStation m-t</a></li>
-              <li><a class="main_btn" href="/station_distance/crud">Station Distance m-t</a></li>
-              <li><a class="main_btn" href="/station/crud">Station m-t</a></li>
-              <li><a class="main_btn" href="/route/crud">Route m-t</a></li>
-              <li><a class="main_btn" href="/train_type/crud">Train Type m-t</a></li>
+              <li><a class="btn-primary btn-lg btn-block" href="/user/list">Users m-t</a></li>
+              <li><a class="btn-primary btn-lg btn-block" href="/ticket/crud">Tickets m-t</a></li>
+              <li><a class="btn-primary btn-lg btn-block" href="/train/crud">Train m-t</a></li>
+              <li><a class="btn-primary btn-lg btn-block" href="/role/crud">Role m-t</a></li>
+              <li><a class="btn-primary btn-lg btn-block" href="/race/crud">Race m-t</a></li>
+              <li><a class="btn-primary btn-lg btn-block" href="/race_station/crud">RaceStation m-t</a></li>
+              <li><a class="btn-primary btn-lg btn-block" href="/station_distance/crud">Station Distance m-t</a></li>
+              <li><a class="btn-primary btn-lg btn-block" href="/station/crud">Station m-t</a></li>
+              <li><a class="btn-primary btn-lg btn-block" href="/route/crud">Route m-t</a></li>
+              <li><a class="btn-primary btn-lg btn-block" href="/train_type/crud">Train Type m-t</a></li>
 
             </ul>
           </div>
@@ -154,7 +154,7 @@
     </div>
   </div>
 
-  <footer id="foot">
+  <footer id="foot" class="foot_blue">
   <div class="container">
     <div class="row">
       <div class="col-xs-12">

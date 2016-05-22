@@ -86,7 +86,7 @@ h1,h2,h3,h4,h5{color:#a4cdff;}
 .navbar-default .navbar-nav>li>a
 {
   font-size:14px;
-  color:#080b09;
+  color: #1863e9;
   text-transform:uppercase;
   -webkit-transition: all 0.4s ease 0s;
   -moz-transition: all 0.4s ease 0s;
@@ -96,7 +96,7 @@ h1,h2,h3,h4,h5{color:#a4cdff;}
 }
 .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus
 {
-  color:#777;
+  color: #1d6467;
   -webkit-transition: all 0.4s ease 0s;
   -moz-transition: all 0.4s ease 0s;
   -ms-transition: all 0.4s ease 0s;
@@ -117,7 +117,7 @@ label
 table
 {
   background-color:#a4cdff;
-  color:#080b09;
+  color: #1863e9;
 }
 .center-table
 {
@@ -146,7 +146,7 @@ table
 {
   font-size:15px;
   vertical-align: middle;
-  background-color:#333;
+  background-color: #5695bb;
   color:#EEE;
   text-align:center;
 }
@@ -159,7 +159,7 @@ input[type="date"]
 {
   padding-left: 0;
   padding-right: 0;
-  background-color:#080b09;
+  background-color: #2d3e39;
   width: 100%;
   margin-top: -100px;
   height: 100px;

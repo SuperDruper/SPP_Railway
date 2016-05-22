@@ -21,7 +21,7 @@
                 </select>
             </div>
         </div>
-        <input type="button" value="Create" class="btn btn-default btn-pop" ng-click="register()"/>
+        <input type="button" value="Create" class="btn btn-primary" ng-click="register()"/>
 
 
         <div class="error_block">
@@ -67,12 +67,11 @@
                     </select>
                 </td>
 
-
                 <td>
-                    <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(user.id)"/>
+                    <input type="button" style="background-color: orange" value="Update" class="btn btn-primary" ng-click="updateRow(user.id)"/>
                 </td>
                 <td>
-                    <input type="button" value="Remove" class="btn btn-primary" ng-click="tryToRemoveRow(user.id)"/>
+                    <input type="button" style="background-color: orangered" value="Remove" class="btn btn-primary" ng-click="tryToRemoveRow(user.id)"/>
                 </td>
             </tr>
             </tbody>

@@ -61,7 +61,7 @@
             <option ng-repeat="station in stations" value="{{station.id}}">{{station.name}}</option>
         </select>
         <!--<input type="number" ng-model="trainType" class="form-control" placeholder="Train type id"> <br/><br/>-->
-        <button type="submit" class="btn btn-default btn-pop" ng-click="register()">Create</button>
+        <button type="submit" class="btn btn-primary" ng-click="register()">Create</button>
     </div>
 
     <table class="table table-bordered table-striped">
@@ -73,7 +73,7 @@
             <th>Race</th>
             <th>Station From</th>
             <th>Station To</th>
-            <th colspan="2">Actions</th>
+            <th colspan="2" >Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -142,10 +142,10 @@
             </td>
 
             <td>
-                <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(ticket.id)"/>
+                <input type="button" style="background-color: orange" value="Update" class="btn btn-primary" ng-click="updateRow(ticket.id)"/>
             </td>
             <td>
-                <input type="button" value="Remove" class="btn btn-primary" ng-click="tryToRemoveRow(ticket.id)"/>
+                <input type="button" style="background-color: orangered" value="Remove" class="btn btn-primary" ng-click="tryToRemoveRow(ticket.id)"/>
             </td>
         </tr>
         </tbody>

@@ -14,7 +14,7 @@ body
 {
     position: absolute;
     width: 100%;
-    background-color: rgba(255,255,255,0.6);
+    background-color: rgba(255,255,255,0.35);
 }
 html
 {
@@ -36,6 +36,16 @@ html
 	float: left;
 	width: 228px;
 }
+.admin-link-centered li
+{
+    display: block;
+    float: left;
+    width: 228px;
+}
+table.table.table-striped tr.found td {
+    background-color:#A4A4A4;
+}
+
 @media screen and (max-width: 767px)
 {
     .admin-link li
@@ -58,28 +68,23 @@ html
     width: 205px;
     margin: 0 auto 15px;
     text-align: center;
-    color: #666;
     font-size: 16px;
     text-decoration: none;
     user-select: none;
     padding: .9em 0;
     outline: none;
-    border: 2px solid;
-    border-radius: 1px;
     transition: 0.1s;
 }
 .admin-link li a:hover,
 .admin-link li a:active
 {
-	background-color: #666;
-	color: #fff;
 }
 
 .navbar
 {
     margin-bottom: 50px;
     min-height: 50px;
-    background-color: #080b09;
+    background-color: #3d534e;
     color: #e7e7e7;
 }
 h3
@@ -92,7 +97,7 @@ h3
 .navbar-default .navbar-collapse, .navbar-default .navbar-form
 {
     border-color: #e7e7e7;
-    background-color: #080b09;
+    background-color: #3d534e;
     text-align: center;
     border: none;
     position: relative;
@@ -296,6 +301,7 @@ caption
     min-width: 50px !important;
     max-width: 80px !important;
 }
+
 .error_block
 {
     z-index: 200;
@@ -307,4 +313,17 @@ caption
     transform: translate(-50%, 0);
     font-size: 18px;
     display: none;
+}
+
+
+
+
+.table_header_blue
+{
+    background-color: #0076e9;
+}
+
+.foot_blue
+{
+    background-color: #4b6e85;
 }
