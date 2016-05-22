@@ -265,6 +265,31 @@ caption
     padding-bottom: 20px
 }
 
+#myCarousel {
+    width: 80%;
+}
+#myCarousel h3 {
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+.carousel a.left {
+    width: 10%;
+    float: left;
+    background-image: linear-gradient(to right,rgba(70,130,255,.2) 0,rgba(0,0,0,.0001) 100%)
+}
+.carousel a.right {
+    width: 10%;
+    float: right;
+    background-image: linear-gradient(to left, rgba(70,130,255,.2) 0,rgba(0,0,0,.0001) 100%)
+}
+#myCarousel .item img {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 400px;
+    max-height: 400px;
+}
+
 .blackout
 {
     position: absolute;
