@@ -26,33 +26,34 @@
         </ul>
     </div>
 
-    <table class="table table-bordered table-striped">
-<div class="table-responsive">
-    <table class="table table-bordered table-striped text-center">
-        <thead>
-        <tr>
-            <td>Id</td>
-            <td>Type</td>
-            <td>Coefficient</td>
-            <td>Places amount</td>
-            <th colspan="2">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="trainType in trainTypes">
-            <td><input type="text" name="name" ng-model="trainType.name" required></td>
-            <td><input type="number" name="coefficient" step="0.01" ng-model="trainType.coefficient" required></td>
-            <td><input type="number" name="placesAmount" ng-model="trainType.placesAmount" required></td>
-            <td>
-                <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(trainType.id)"/>
-            </td>
-            <td>
-                <input type="button" value="Remove" class="btn btn-primary" ng-click="tryToRemoveRow(trainType.id)"/>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+    <div class="table table-bordered table-striped">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped text-center">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Type</th>
+                    <th>Coefficient</th>
+                    <th>Places amount</th>
+                    <th colspan="2">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="trainType in trainTypes">
+                    <td><input type="text" name="name" ng-model="trainType.name" required></td>
+                    <td><input type="number" name="coefficient" step="0.01" ng-model="trainType.coefficient" required></td>
+                    <td><input type="number" name="placesAmount" ng-model="trainType.placesAmount" required></td>
+                    <td>
+                        <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(trainType.id)"/>
+                    </td>
+                    <td>
+                        <input type="button" value="Remove" class="btn btn-primary" ng-click="tryToRemoveRow(trainType.id)"/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
         <script>
             $(".btn-pop").click(function(){
                 setTimeout(function (){

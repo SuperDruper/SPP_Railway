@@ -2,9 +2,11 @@
     <h3>ROLE CRUD</h3>
 
     <div class="form-group">
-        <label for="">Role name</label>
-        <input type="text" ng-model="roleName" class="form-control" placeholder="Role name" required>  <br/>
-        <button type="submit" class="btn btn-pop" ng-click="register()">Create</button>
+        <form>
+            <label for="">Role name</label>
+            <input type="text" ng-model="roleName" class="form-control" placeholder="Role name" required>  <br/>
+            <button type="submit" class="btn btn-pop" ng-click="register()">Create</button>
+        </form>
     </div>
 
     <div class="error_block">
@@ -18,8 +20,9 @@
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped text-center">
+            <thead>
             <tr>
-                <td>Name</td>
+                <th>Name</th>
                 <th colspan="2">Actions</th>
             </tr>
             </thead>
