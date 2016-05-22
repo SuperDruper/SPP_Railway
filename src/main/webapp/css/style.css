@@ -32,6 +32,48 @@
   font-weight: normal;
 }
 
+/* font-family: "PlayfairDisplayRegular"; */
+@font-face {
+  font-family: "PlayfairDisplayRegular";
+  src: url("../fonts/PlayfairDisplayRegular.eot");
+  src: url("../fonts/PlayfairDisplayRegular.eot?#iefix")format("embedded-opentype"),
+  url("../fonts/PlayfairDisplayRegular.woff") format("woff"),
+  url("../fonts/PlayfairDisplayRegular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+/* font-family: "PlayfairDisplayBold"; */
+@font-face {
+  font-family: "PlayfairDisplayBold";
+  src: url("../fonts/PlayfairDisplayBold.eot");
+  src: url("../fonts/PlayfairDisplayBold.eot?#iefix")format("embedded-opentype"),
+  url("../fonts/PlayfairDisplayBold.woff") format("woff"),
+  url("../fonts/PlayfairDisplayBold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+/* font-family: "PlayfairDisplayItalic"; */
+@font-face {
+  font-family: "PlayfairDisplayItalic";
+  src: url("../fonts/PlayfairDisplayItalic.eot");
+  src: url("../fonts/PlayfairDisplayItalic.eot?#iefix")format("embedded-opentype"),
+  url("../fonts/PlayfairDisplayItalic.woff") format("woff"),
+  url("../fonts/PlayfairDisplayItalic.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+/* font-family: "PlayfairDisplayBoldItalic"; */
+@font-face {
+  font-family: "PlayfairDisplayBoldItalic";
+  src: url("../fonts/PlayfairDisplayBoldItalic.eot");
+  src: url("../fonts/PlayfairDisplayBoldItalic.eot?#iefix")format("embedded-opentype"),
+  url("../fonts/PlayfairDisplayBoldItalic.woff") format("woff"),
+  url("../fonts/PlayfairDisplayBoldItalic.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+
 
 
 html, body
@@ -39,7 +81,7 @@ html, body
   padding:0;
   margin:0;
   color:#fdfdfd;
-  font-family: "CinzelRegular", CinzelBold, sans-serif !important;
+  font-family: "PlayfairDisplayRegular", PlayfairDisplayBold, sans-serif !important;
   font-size:13px;
   line-height: 1.3;
   min-width:320px;
