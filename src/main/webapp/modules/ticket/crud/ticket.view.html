@@ -13,7 +13,7 @@
 
     <div class="form-group">
         <label for="">Order date</label>
-        <div style="width: 5%">
+        <div class="time_size">
                     <datetimepicker
                             hour-step="hourStep"
                             minute-step="minuteStep" ng-model="orderDate" show-meridian="showMeridian"
@@ -26,6 +26,7 @@
                             name="datetimepicker"
                             show-spinners="true"
                             readonly-time="false"
+                            class="time_size"
                             required
                             >
                     </datetimepicker>
