@@ -280,7 +280,7 @@ caption
 .carousel a.right {
     width: 10%;
     float: right;
-    background-image: linear-gradient(to left,rgba(70,130,255,.2) 0,rgba(0,0,0,.0001) 100%)
+    background-image: linear-gradient(to left, rgba(70,130,255,.2) 0,rgba(0,0,0,.0001) 100%)
 }
 #myCarousel .item img {
     width: 80%;
