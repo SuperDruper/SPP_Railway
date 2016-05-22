@@ -84,16 +84,16 @@
         <div class="col-xs-12">
           <div ng-show="roleId == 1">
             <ul class="admin-link">
-              <li><a class="btn-primary btn-lg btn-block" href="/user/list">Users m-t</a></li>
-              <li><a class="btn-primary btn-lg btn-block" href="/ticket/crud">Tickets m-t</a></li>
-              <li><a class="btn-primary btn-lg btn-block" href="/train/crud">Train m-t</a></li>
-              <li><a class="btn-primary btn-lg btn-block" href="/role/crud">Role m-t</a></li>
-              <li><a class="btn-primary btn-lg btn-block" href="/race/crud">Race m-t</a></li>
-              <li><a class="btn-primary btn-lg btn-block" href="/race_station/crud">RaceStation m-t</a></li>
-              <li><a class="btn-primary btn-lg btn-block" href="/station_distance/crud">Station Distance m-t</a></li>
-              <li><a class="btn-primary btn-lg btn-block" href="/station/crud">Station m-t</a></li>
-              <li><a class="btn-primary btn-lg btn-block" href="/route/crud">Route m-t</a></li>
-              <li><a class="btn-primary btn-lg btn-block" href="/train_type/crud">Train Type m-t</a></li>
+              <li><a class="btn-primary btn-lg btn-block" href="/user/list">Users CRUD</a></li>
+              <li><a class="btn-primary btn-lg btn-block" href="/ticket/crud">Tickets CRUD</a></li>
+              <li><a class="btn-primary btn-lg btn-block" href="/train/crud">Train CRUD</a></li>
+              <li><a class="btn-primary btn-lg btn-block" href="/role/crud">Role CRUD</a></li>
+              <li><a class="btn-primary btn-lg btn-block" href="/race/crud">Race CRUD</a></li>
+              <li><a class="btn-primary btn-lg btn-block" href="/race_station/crud">RaceStation CRUD</a></li>
+              <li><a class="btn-primary btn-lg btn-block" href="/station_distance/crud">Station Distance CRUD</a></li>
+              <li><a class="btn-primary btn-lg btn-block" href="/station/crud">Station CRUD</a></li>
+              <li><a class="btn-primary btn-lg btn-block" href="/route/crud">Route CRUD</a></li>
+              <li><a class="btn-primary btn-lg btn-block" href="/train_type/crud">Train Type CRUD</a></li>
 
             </ul>
           </div>
