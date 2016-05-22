@@ -5,7 +5,7 @@
         <form>
             <label for="">Role name</label>
             <input type="text" ng-model="roleName" class="form-control" placeholder="Role name" required>  <br/>
-            <button type="submit" class="btn btn-pop" ng-click="register()">Create</button>
+            <button type="submit" class="btn btn-primary" ng-click="register()">Create</button>
         </form>
     </div>
 
@@ -20,7 +20,7 @@
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped text-center">
-            <thead>
+            <thead class="table_header_blue">
             <tr>
                 <th>Name</th>
                 <th colspan="2">Actions</th>
@@ -29,11 +29,11 @@
             <tbody>
             <tr ng-repeat="role in roles">
                 <td><input type="text" name="name" ng-model="role.name" required></td>
-                <td>
-                    <input type="button" value="Update" class="btn btn-pop" ng-click="updateRow(role.id)"/>
+                <td class="btn-warning">
+                    <input type="button" style="background-color: orange" value="Update" class="btn btn-warning" ng-click="updateRow(role.id)"/>
                 </td>
-                <td>
-                    <input type="button" value="Remove" class="btn btn-pop" ng-click="tryToRemoveRow(role.id)"/>
+                <td class="btn-danger">
+                    <input type="button" style="background-color: orangered" value="Remove" class="btn btn-danger" ng-click="tryToRemoveRow(role.id)"/>
                 </td>
             </tr>
             </tbody>

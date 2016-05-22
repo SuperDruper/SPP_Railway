@@ -89,6 +89,8 @@ app.controller('boostapp', function ($rootScope, $window, UserRoleNameService, S
         $window.location.href = '/';
     };
 
+    $rootScope.showPopupLoader = true;
+
     $rootScope.removeRow = function(id){
         var index = -1;
         var comArr = eval( $rootScope.ticketDetailsList );
