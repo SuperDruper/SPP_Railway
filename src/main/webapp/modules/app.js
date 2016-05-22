@@ -40,12 +40,12 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
             controller: 'RoleController'
         })
         .when('/race/crud', {
-        templateUrl: 'modules/race/crud/race.view.html',
-        controller: 'RaceListController'
+            templateUrl: 'modules/race/crud/race.view.html',
+            controller: 'RaceListController'
         })
         .when('/route/crud', {
-         templateUrl: 'modules/route/crud/route.view.html',
-         controller: 'RouteController'
+            templateUrl: 'modules/route/crud/route.view.html',
+            controller: 'RouteController'
         })
         .when('/station/crud', {
             templateUrl: 'modules/station/crud/station.view.html',
@@ -91,11 +91,11 @@ app.controller('boostapp', function ($rootScope, $window, UserRoleNameService, S
 
     $rootScope.showPopupLoader = true;
 
-    $rootScope.removeRow = function(id){
+    $rootScope.tryToRemoveRow = function(id) {
         var index = -1;
         var comArr = eval( $rootScope.ticketDetailsList );
         for( var i = 0; i < comArr.length; i++ ) {
-            if( comArr[i].ticketNum === id ) {
+            if( comArr[i].ticketNum === id) {
                 index = i;
                 break;
             }
@@ -104,21 +104,40 @@ app.controller('boostapp', function ($rootScope, $window, UserRoleNameService, S
         if( index === -1 ) {
             alert( "Something gone wrong" );
         } else {
-            const object = comArr[index];
+            const Message = "Are you sure you want to delete this ticket ?";
+            $rootScope.objectForDeleteOpearion = comArr[index];
+            $rootScope.indexOFObjectForDeleteOpearion = index;
 
-            Service.request('/api/ticket/removeticket', 'POST', { ticketId: id })
-                .then(function(data) {
-                    $rootScope.ticketErrors = data.errorList;
-
-                    if($rootScope.ticketErrors.length == 0) {
-                        $rootScope.ticketDetailsList.splice(index, 1);
-                    }
-                });
+            bootbox.confirm({
+                    message: Message ,
+                    callback: function(result) {
+                        if(result == true) {
+                            removeRow($rootScope.objectForDeleteOpearion, $rootScope.indexOFObjectForDeleteOpearion);
+                        }
+                    },
+                    title: "Delete confirmation"}
+            );
         }
+    };
+
+    function removeRow(object, index){
+        Service.request('/api/ticket/removeticket', 'POST', { ticketId: object.ticketNum })
+            .then(function(data) {
+                $rootScope.ticketErrors = data.errorList;
+
+                if($rootScope.ticketErrors.length == 0) {
+                    $rootScope.ticketDetailsList.splice(index, 1);
+                }
+            });
+    };
+
+    $rootScope.uploadData = function() {
+        Service.request('/api/ticket/usertickets').then(function(data) {
+            $rootScope.ticketDetailsList = data.data.ticketDetailsList;
+        });
     };
 
     Service.request('/api/ticket/usertickets').then(function(data) {
         $rootScope.ticketDetailsList = data.data.ticketDetailsList;
     });
-
 });

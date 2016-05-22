@@ -61,9 +61,10 @@
                 <ul class="nav navbar-nav navbar-right">
                   <li><a href="/ticketorder/racechoice">Races</a></li>
                   <li>
-                    <a href="#myTicketsTable"
+                    <a href="/ticket/usertickets"
                        id="myTicketsTable"
                        class="btn-pop"
+                       ng-click="uploadData()"
                        role="button"
                        ng-show="roleId > 0">
                       My tickets
@@ -113,20 +114,20 @@
     </div>
 
 
-
-
-    <ul ng-repeat="error in ticketErrors">
-      <li class="validationError">
-        {{error}}
-      </li>
-    </ul>
+    <div class="error_block">
+      <ul ng-repeat="error in ticketErrors">
+        <li class="validationError">
+          {{error}}
+        </li>
+      </ul>
+    </div>
 
     <div class="blackout">
       <div class="close">X</div>
     </div>
 
-    <div role="dialog" class="tickets_block">
-      <table class="table table-bordered table-striped hidden">
+    <div id="modalViewWithTickets" class="tickets_block">
+      <table class="table table-bordered table-striped">
         <tr>
           <td>Ticket</td>
           <td>Race</td>
@@ -137,6 +138,8 @@
           <td>Date to</td>
           <td>Carriage</td>
           <td>Place</td>
+          <td>Remove Action</td>
+
         </tr>
         <tr ng-repeat="ticketDetails in ticketDetailsList">
           <td>{{ticketDetails.ticketNum}}</td>
@@ -148,10 +151,11 @@
           <td>{{ticketDetails.arriveDate.replace('T', ' ')}}</td>
           <td>{{ticketDetails.carriageNum}}</td>
           <td>{{ticketDetails.placeNum}}</td>
-          <td><input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(ticketDetails.ticketNum)"/></td>
+          <td><input type="button" value="Remove" class="btn btn-primary" ng-click="tryToRemoveRow(ticketDetails.ticketNum)"/></td>
         </tr>
       </table>
     </div>
+
   </div>
 
   <footer id="foot" class="foot_blue">
@@ -237,16 +241,15 @@
   $(".btn-pop").click(function(){
     $('.blackout').fadeIn(600);
     var errors = document.querySelectorAll(".error_block ul");
-    var tickets = document.querySelectorAll(".tickets_block ul");
-
+    var tickets =  document.querySelectorAll(".tickets_block tr");
     if(errors.length == 0)
       $('.popup').fadeIn(600);
-    else{
+    else {
       $('.blackout').fadeIn(600);
       $('.error_block').fadeIn(600);
     }
 
-    if(tickets.length != 0)
+    if(tickets.length > 0)
     {
       $('.blackout').fadeIn(600);
       $('.tickets_block').fadeIn(600);

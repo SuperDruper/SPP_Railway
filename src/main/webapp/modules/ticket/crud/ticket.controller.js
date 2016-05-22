@@ -279,7 +279,7 @@ app.controller('TicketController', function ($scope, $window, TicketService, Mod
         };
 
         $scope.asyncRequestComplited = false;
-        var smth = TicketService.register({ticketContainers:ticket, action: action})
+        var smth = TicketService.register({ticketContainer: ticket, action: action})
             .then(function(data) {
                 $scope.errors.push.apply($scope.errors, data.errorList);
                 ModalViewAnimatorService.showModelViewAnimated($scope);
