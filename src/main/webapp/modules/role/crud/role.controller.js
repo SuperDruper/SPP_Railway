@@ -33,7 +33,25 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
         }
     };
 
-    function removeRow(object, index){
+    function showViewAnimated()
+    {
+        if($scope.errors.length == 0)
+            $('.popup').fadeIn(600);
+        else{
+            $('.blackout').fadeIn(600);
+            $('.error_block').fadeIn(600);
+        }
+    }
+
+    $(".blackout .close").click(function(){
+        $('.blackout').fadeOut(600);
+        $('.popup').fadeOut(600);
+        $('.error_block').fadeOut(600);
+    });
+
+    function removeRow(object, index) {
+        $scope.errors = [];
+
             const action = {
                 id : 2
             };
@@ -41,6 +59,7 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
             RoleService.removeRow({ role: object, action: action })
                 .then(function(data) {
                     $scope.errors.push.apply($scope.errors, data.errorList);
+                    showViewAnimated();
 
                     if($scope.errors.length == 0) {
                         $scope.roles.splice(index, 1);
@@ -48,6 +67,8 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
                 });
     };
     $scope.updateRow = function(id){
+        $scope.errors = [];
+
         var index = -1;
         var comArr = eval( $scope.roles );
         for( var i = 0; i < comArr.length; i++ ) {
@@ -64,11 +85,17 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
                 id : 1
             };
 
-            if(!validate(object.name)) return;
+            if(!validate(object.name)) {
+                showViewAnimated();
+                return;
+            }
+
             RoleService.updateRow({ role: object, action: action })
                 .then(function(data) {
                     refreshData();
+
                     $scope.errors.push.apply($scope.errors, data.errorList);
+                    showViewAnimated();
                 });
         }
     };
@@ -124,13 +151,9 @@ app.controller('RoleController', function ($scope, $window, RoleService) {
     {
        return RoleService.getRoles()
             .then(function(data) {
-                $scope.roles = data.data.roles;
+               $scope.roles = data.data.roles;
             });
     }
 
-    return RoleService.getRoles()
-        .then(function(data) {
-            $scope.roles = data.data.roles;
-        });
-
+    return refreshData();
 });

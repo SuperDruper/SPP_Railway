@@ -17,7 +17,7 @@
     </div>
 
     <div class="table-responsive">
-        <table class="table table-bordered table-striped text-center">
+        <table class="table table-bordered table-striped text-center btn-pop">
             <tr>
                 <td>Name</td>
                 <th colspan="2">Actions</th>
@@ -37,28 +37,6 @@
         </table>
     </div>
 
-
-            <script>
-                $(".btn-pop").click(function() {
-                    setTimeout(function (){
-
-                        var errors = document.querySelectorAll(".error_block ul");
-                        if(errors.length == 0)
-                            $('.popup').fadeIn(600);
-                        else{
-                            $('.blackout').fadeIn(600);
-                            $('.error_block').fadeIn(600, function() {
-
-                            });
-                        }
-                    },1000);
-                });
-                $(".blackout .close").click(function(){
-                    $('.blackout').fadeOut(600);
-                    $('.popup').fadeOut(600);
-                    $('.error_block').fadeOut(600);
-                });
-            </script>
 </div>
 
 
