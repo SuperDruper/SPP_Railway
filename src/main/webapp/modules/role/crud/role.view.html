@@ -30,10 +30,10 @@
             <tr ng-repeat="role in roles">
                 <td><input type="text" name="name" ng-model="role.name" required></td>
                 <td class="btn-warning">
-                    <input type="button" style="background-color: orange" value="Update" class="btn btn-warning" ng-click="updateRow(role.id)"/>
+                    <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(role.id)"/>
                 </td>
                 <td class="btn-danger">
-                    <input type="button" style="background-color: orangered" value="Remove" class="btn btn-danger" ng-click="tryToRemoveRow(role.id)"/>
+                    <input type="button" value="Remove" class="btn btn-danger" ng-click="tryToRemoveRow(role.id)"/>
                 </td>
             </tr>
             </tbody>

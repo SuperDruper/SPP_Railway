@@ -18,7 +18,7 @@
     </div>
 
     <div class="table-responsive">
-        <table class="table-striped table-bordered text-center">
+        <table class="table-striped table table-bordered text-center">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -30,10 +30,10 @@
                 <td><input type="text" name="Name" ng-model="station.name" required></td>
 
                 <td>
-                    <input type="button" style="background-color: orange" value="Update" class="btn btn-primary" ng-click="updateRow(station.id)"/>
+                    <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(station.id)"/>
                 </td>
                 <td>
-                    <input type="button" style="background-color: orangered" value="Remove" class="btn btn-primary" ng-click="tryToRemoveRow(station.id)"/>
+                    <input type="button" value="Remove" class="btn btn-danger" ng-click="tryToRemoveRow(station.id)"/>
                 </td>
             </tr>
             </tbody>

@@ -101,7 +101,7 @@ select, select:focus{height: 30px;
   min-width: 150px;
   color:#080b09;
 }
-input[type='button'], input[type='button']:focus, button,button:focus, .btn, .btn:focus, .btn:hover{outline:none;box-shadow: none; border:none; color:#080b09; }
+/*input[type='button'], input[type='button']:focus, button,button:focus, .btn, .btn:focus, .btn:hover{outline:none;box-shadow: none; border:none; color:#080b09; }*/
 h1,h2,h3,h4,h5{color:#a4cdff;}
 
 .validationError {
@@ -159,7 +159,7 @@ label
 table
 {
   background-color:#a4cdff;
-  color: #1863e9;
+  color: #003;
 }
 .center-table
 {
@@ -184,7 +184,7 @@ table
   border-bottom: 1px solid #FFF;
   padding: 8px;
 }
-.table-bordered tr>th
+.table-bordered>thead>tr>th
 {
   font-size:15px;
   vertical-align: middle;
@@ -201,7 +201,7 @@ input[type="date"]
 {
   padding-left: 0;
   padding-right: 0;
-  background-color: rgba(0, 36, 116, 0.64);
+  background-color: rgba(56, 81, 141, 0.9);
   width: 100%;
   margin-top: -100px;
   height: 100px;
@@ -209,7 +209,7 @@ input[type="date"]
 #foot p
 {
   padding:45px 0 0;
-  color: #999999;
+  color: #ccc;
 }
 .crud-form-control
 {
@@ -294,7 +294,7 @@ p.main
   text-align:center;
   font-size:30px;
   margin-top:60px;
-  text-shadow:  1px 1px 1px black, 1px 1px 1em black;
+  text-shadow:  1px 1px 1px black, 1px 1px 1em #4789C2;
 }
 
 input[type="date"]

@@ -26,14 +26,13 @@
         </ul>
     </div>
 
-    <table class="table table-bordered table-striped">
     <div class="table-responsive">
         <table class="table-striped table-bordered text-center">
             <thead>
             <tr>
-                <td>Race number</td>
-                <td>Route name</td>
-                <td>Train number</td>
+                <th>Race number</th>
+                <th>Route name</th>
+                <th>Train number</th>
                 <th colspan="2">Actions</th>
 
             </tr>
@@ -68,10 +67,10 @@
                         <!--<input type="number" name="placesAmount" ng-model="race.train.id" required>-->
                     </td>
                     <td>
-                        <input type="button" style="background-color: orange" value="Update" class="btn btn-primary" ng-click="updateRow(race.id)"/>
+                        <input type="button" value="Update" class="btn btn-primary" ng-click="updateRow(race.id)"/>
                     </td>
                     <td>
-                        <input type="button" style="background-color: orangered" value="Remove" class="btn btn-primary" ng-click="tryToRemoveRow(race.id)"/>
+                        <input type="button" value="Remove" class="btn btn-danger" ng-click="tryToRemoveRow(race.id)"/>
                     </td>
                 </tr>
             </tbody>

@@ -84,7 +84,7 @@ table.table.table-striped tr.found td {
 {
     margin-bottom: 50px;
     min-height: 50px;
-    background-color: #002474;
+    background-color: #314E90;
 }
 h3
 {
@@ -95,7 +95,7 @@ h3
 }
 .navbar-default .navbar-collapse, .navbar-default .navbar-form
 {
-    background-color: #002474;
+    background-color: #314E90;
     color: transparent;
     text-align: center;
     border: none;
@@ -108,8 +108,9 @@ h3
 {
     margin-top: 8px;
     margin-right: 30px;
+    max-width: 100%;
     margin-bottom: 8px;
-    background-color: #080b09;
+    background-color: #eee;
     border: 1px solid #ddd;
 }
 .navbar-default .navbar-nav
@@ -120,22 +121,23 @@ h3
 
 @media screen and (max-width: 767px) {
     .navbar-default .navbar-nav
-{
+    {
         padding: 15px 0;
     }
 }
-.not-footer
-{
+.not-footer {
     box-sizing: border-box;
     min-height: 100vh;
     padding-bottom: 130px;
 }
 
 
+
+
+
 .ng-scope label
 {
     display: block;
-    max-width: 100%;
     margin-bottom: 5px;
     font-size: 16px;
     font-weight: 700;
@@ -157,6 +159,7 @@ h3
     outline: none;
     padding: 0 15px;
     box-sizing: border-box;
+    color: #080b09;
 }
 .center
 {
@@ -164,6 +167,13 @@ h3
     margin-left: auto;
     margin-right: auto;
 }
+datetimepicker
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 datetimepicker[hidden-time="true"] .datetimepicker-wrapper
 {
     display:block;
@@ -171,7 +181,7 @@ datetimepicker[hidden-time="true"] .datetimepicker-wrapper
 .datetimepicker-wrapper input,
 .datetimepicker-wrapper button
 {
-    diplay: inline-block;
+    display: inline-block;
     text-align: center;
     vertical-align: middle;
     margin: 0 auto !important;
@@ -183,7 +193,7 @@ datetimepicker[hidden-time="true"] .datetimepicker-wrapper
     display: block;
     min-width: 200px;
     height: 45px;
-    border: solid 1px #999;
+    /*border: solid 1px #999;*/
     outline: none;
 }
 .login_block
@@ -214,7 +224,7 @@ datetimepicker[hidden-time="true"] .datetimepicker-wrapper
     font-size: 28px;
 }
 
-.on-top{ position: relative; z-index: 200; }
+.on-top{ position: relative; z-index: 1500; }
 
 .table-bordered>tbody>tr>td, .table-bordered>thead>tr>th,
 .table-bordered>tbody>tr>td, .table-bordered>thead>tr>th{vertical-align: middle;}
@@ -234,6 +244,9 @@ datetimepicker[hidden-time="true"] .datetimepicker-wrapper
 .table-striped tr td
 {
     border: solid 1px #666 !important;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 .table-striped tr:nth-of-type(even),
 .table-striped tr td,
@@ -247,21 +260,21 @@ datetimepicker[hidden-time="true"] .datetimepicker-wrapper
     vertical-align: middle;
 }
 .table-striped input[type="button"]{
-    border: solid 1px #999;
+    /*border: solid 1px #999;
     outline: none;
-    background-color: #fff;
+    background-color: #fff;*/
     max-width: 100px;
 }
-.table-striped input[type="button"]:hover
-{
-    background: rgba(240,240,240,0.8);
-    color: #080b09;
-}
+/*.table-striped input[type="button"]:hover*/
+/*{*/
+    /*background: rgba(240,240,240,0.8);*/
+    /*color: #080b09;*/
+/*}*/
 caption
 {
     font-size: 20px;
     text-align: center;
-    color: inherit;
+    color: #080b09;
     padding-bottom: 20px
 }
 
@@ -290,12 +303,21 @@ caption
     max-height: 400px;
 }
 
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: #fff;
+    background-color: transparent;
+}
+/*.navbar-default .navbar-nav > li > a:hover, */.navbar-default .navbar-nav > li > a {
+    color: #bbb;
+    background-color: transparent;
+}
+
 .blackout
 {
     position: absolute;
     width: 100%;
     height: 100%;
-    z-index: 100;
+    z-index: 2000;
     background: rgba(0,0,0, 0.7);
     display: none;
     top: 0;
@@ -316,7 +338,7 @@ caption
     width: 80%;
     max-width: 1170px;
     position: absolute;
-    z-index: 200;
+    z-index: 3000;
     left: 50%;
     top: 0px;
     transform: translate(-50%, 0);
@@ -328,7 +350,7 @@ caption
 
 .error_block
 {
-    z-index: 200;
+    z-index: 3000;
     color: #fff;
     position: absolute;
     left: 50%;
@@ -341,7 +363,7 @@ caption
 
 .tickets_block
 {
-    z-index: 200;
+    z-index: 3000;
     color: #fff;
     position: absolute;
     left: 50%;

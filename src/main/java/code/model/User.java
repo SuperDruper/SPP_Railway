@@ -19,12 +19,12 @@ public class User {
     @Min(value = 0, message = "Id field can't be negative!")
     private int id;
 
-    @Size(min = 1, max = 50, message = "Name must be between {min} and {max} characters long!")
+    @Size(max = 50, message = "Name must be less then {max} characters!")
     @Pattern(regexp = "[\\w[А-ЯЁ][а-яё]\\- ]*",
             message = "Name may contain only characters, digits or hyphen!")
     private String name;
 
-    @Size(min = 1, max = 50, message = "Surname must be between {min} and {max} characters long!")
+    @Size(max = 50, message = "Surname must be less then {max} characters!")
     @Pattern(regexp = "[\\w[А-ЯЁ][а-яё]\\- ]*",
             message = "Surname may contain only characters, digits or hyphen!")
     private String surname;

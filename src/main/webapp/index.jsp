@@ -61,7 +61,7 @@
                 <ul class="nav navbar-nav navbar-right">
                   <li><a href="/ticketorder/racechoice">Races</a></li>
                   <li>
-                    <a href="/ticket/usertickets"
+                    <a href="#"
                        id="myTicketsTable"
                        class="btn-pop"
                        ng-click="uploadData()"
@@ -128,19 +128,21 @@
 
     <div id="modalViewWithTickets" class="tickets_block">
       <table class="table table-bordered table-striped">
+        <thead>
         <tr>
-          <td>Ticket</td>
-          <td>Race</td>
-          <td>Route</td>
-          <td>Station from</td>
-          <td>Station to</td>
-          <td>Date from</td>
-          <td>Date to</td>
-          <td>Carriage</td>
-          <td>Place</td>
-          <td>Remove Action</td>
-
+          <th>Ticket</th>
+          <th>Race</th>
+          <th>Route</th>
+          <th>Station from</th>
+          <th>Station to</th>
+          <th>Date from</th>
+          <th>Date to</th>
+          <th>Carriage</th>
+          <th>Place</th>
+          <th>Remove Action</th>
         </tr>
+        </thead>
+        <tbody>
         <tr ng-repeat="ticketDetails in ticketDetailsList">
           <td>{{ticketDetails.ticketNum}}</td>
           <td>{{ticketDetails.raceId}}</td>
@@ -151,8 +153,9 @@
           <td>{{ticketDetails.arriveDate.replace('T', ' ')}}</td>
           <td>{{ticketDetails.carriageNum}}</td>
           <td>{{ticketDetails.placeNum}}</td>
-          <td><input type="button" value="Remove" class="btn btn-primary" ng-click="tryToRemoveRow(ticketDetails.ticketNum)"/></td>
+          <td><input type="button" value="Remove" class="btn btn-danger" ng-click="tryToRemoveRow(ticketDetails.ticketNum)"/></td>
         </tr>
+        </tbody>
       </table>
     </div>
 

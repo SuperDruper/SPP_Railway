@@ -146,14 +146,14 @@ app.controller('UserListController', function ($scope, UserListService, Service,
         $scope.errors = [];
 
         var isValid = true;
-        if(name == null || name == '') {
-            $scope.errors.push("Name cannot be empty !");
-            isValid = false;
-        }
-        if(surname == null || surname == '') {
-            $scope.errors.push("Surname cannot be empty !");
-            isValid = false;
-        }
+        //if(name == null || name == '') {
+        //    $scope.errors.push("Name cannot be empty !");
+        //    isValid = false;
+        //}
+        //if(surname == null || surname == '') {
+        //    $scope.errors.push("Surname cannot be empty !");
+        //    isValid = false;
+        //}
         if(login == null || login == '') {
             $scope.errors.push("Login cannot be empty !");
             isValid = false;
