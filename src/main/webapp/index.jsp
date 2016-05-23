@@ -156,6 +156,7 @@
           <td><input type="button" value="Remove" class="btn btn-danger" ng-click="tryToRemoveRow(ticketDetails.ticketNum)"/></td>
         </tr>
         </tbody>
+
       </table>
     </div>
 
@@ -240,6 +241,7 @@
 <script src="<s:url value="modules/ticketorder/racedetails/racedetails.controller.js" />"></script>
 <script src="<s:url value="modules/ticketorder/racedetails/racedetails.service.js" />"></script>
 <script type="text/javascript" src="/js/lib/bootstrap/bootstrap.min.js"></script>
+
 <script>
   $(".btn-pop").click(function(){
     $('.blackout').fadeIn(600);

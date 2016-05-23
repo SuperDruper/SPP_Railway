@@ -1,5 +1,5 @@
 angular.module('app').controller('RaceDetailsController',
-        function ($scope, $location, TicketShare, RaceDetailsService) {
+        function ($scope, $location, TicketShare, RaceDetailsService, ModalViewAnimatorService) {
 
     $scope.buy = function() {
         $scope.errors = [];
@@ -14,11 +14,10 @@ angular.module('app').controller('RaceDetailsController',
         };
 
 
-        return RaceDetailsService.orderTicket( {ticketDataToOrder:ticketDataToOrder} )
+         RaceDetailsService.orderTicket( {ticketDataToOrder:ticketDataToOrder} )
             .then(function(data) {
-                if(data.errorList.length > 0) {
-                    $scope.errors.push.apply($scope.errors, data.errorList);
-                }
+                $scope.errors.push.apply($scope.errors, data.errorList);
+                ModalViewAnimatorService.showModelViewAnimated($scope);
 
                 if($scope.errors.length == 0) {
                     TicketShare.get().carriageNum = $scope.carriageNum;
