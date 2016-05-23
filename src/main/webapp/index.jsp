@@ -59,6 +59,7 @@
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <%--<a class="navbar-brand" href="/home"><img src="images/logo.png" alt="logo"></a>--%>
                 <ul class="nav navbar-nav navbar-right">
+                  <li><a href="/team">Our team</a></li>
                   <li><a href="/ticketorder/racechoice">Races</a></li>
                   <li>
                     <a href="#"
@@ -240,6 +241,9 @@
 
 <script src="<s:url value="modules/ticketorder/racedetails/racedetails.controller.js" />"></script>
 <script src="<s:url value="modules/ticketorder/racedetails/racedetails.service.js" />"></script>
+
+<script src="<s:url value="modules/team/team.controller.js" />"></script>
+
 <script type="text/javascript" src="/js/lib/bootstrap/bootstrap.min.js"></script>
 
 <script>

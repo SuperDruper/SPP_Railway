@@ -74,6 +74,10 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
         .when('/ticketorder/ticketshow', {
             templateUrl: 'modules/ticketorder/ticketshow/ticketshow.view.html',
             controller: 'TicketShowController'
+        })
+        .when('/team', {
+            templateUrl: 'modules/team/team.view.html',
+            controller: 'TicketShowController'
         });
 }]);
 
